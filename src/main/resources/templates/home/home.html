@@ -14,7 +14,9 @@
 
  <div class="container">
   <h2>Hi <span th:utext="${userName}"></span>, this is the home page.</h2>
-  <a th:href="@{/logout}">Sign out</a>
+       
+  <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/signup}">Create an account</a></div>
+
  </div>
  
       <div th:include="fragments/footer :: footer"/></div>

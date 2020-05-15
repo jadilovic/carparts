@@ -73,6 +73,25 @@
                  </div>
              </div>
          </div>
+         
+         <!-- ROLE -->
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="role">Role</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group has-danger">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"></div>
+                    		<select th:field="*{role}">
+    							<option th:value="'GUEST'" th:text="GUEST"></option>
+    							<option th:value="'ADMIN'" th:text="ADMIN"></option>
+							</select>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
          <div class="row">
              <div class="col-md-3 field-label-responsive">
                  <label for="password">Password</label>

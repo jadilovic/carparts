@@ -17,7 +17,7 @@
   <div class="alert alert-danger" role="alert" th:if="${param.error}">
    Unesena lozinka ili email su netačni!
   </div>
-        <form th:action="@{/login}" method="post" >
+    <form th:action="@{/login}" method="post" >
         <div class="p-2" align="center">
              <h1 class="h3 mb-3 font-weight-normal">Prijava</h1>
         </div>
@@ -26,20 +26,15 @@
 			<b>E-mail:</b>
        	<input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
        
-       <div class="p-2">
-         <label for="inputPassword" class="sr-only">Password</label>
+       		<div class="p-2"></div>
+       
+       	<label for="inputPassword" class="sr-only">Password</label>
        		<b>Password:</b>
-       	 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-       </div>
- <div class="checkbox mb-3">
-         <label>
-           <input type="checkbox" name="remember-me" /> Remember me
-         </label>
-       </div>
+       	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+       
        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-       <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/signup}">Create an account</a></div>
-  </form>
-    </div>
+  	</form>
+  </div>
     
      <div th:include="fragments/footer :: footer"/></div>
     

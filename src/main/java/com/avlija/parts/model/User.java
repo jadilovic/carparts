@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
@@ -36,13 +37,32 @@ public class User {
  @Column(name = "active")
  private int active;
  
+ @Transient
+ private String role;
+ 
  @ManyToMany(cascade=CascadeType.ALL)
  @JoinTable(name="user_role",
  joinColumns=@JoinColumn(name="user_id"),
  inverseJoinColumns=@JoinColumn(name="role_id"))
  private Set<Role> roles;
 
- public int getId() {
+ 
+ 
+ /**
+ * @return the role
+ */
+public String getRole() {
+	return role;
+}
+
+/**
+ * @param role the role to set
+ */
+public void setRole(String role) {
+	this.role = role;
+}
+
+public int getId() {
   return id;
  }
 
