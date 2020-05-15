@@ -9,9 +9,15 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<div th:include="fragments/header :: header"/></div>
+
  <div class="container">
   <h2>Hi <span th:utext="${userName}"></span>, this is the home page.</h2>
   <a th:href="@{/logout}">Sign out</a>
  </div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+      
 </body>
 </html>
