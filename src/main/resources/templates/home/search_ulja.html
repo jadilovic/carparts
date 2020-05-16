@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Pretraga Ulja</title>
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+	
+	<div class="card text-center">
+  		<div class="card-footer text-dark">
+    		<b>Ulja, masti, automobilske kemikalije</b>
+  		</div>
+	</div>
+	
+	<div class="row">
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Ulja</h5>
+        			<a th:href="@{/home/uljamotorna}" class="btn btn-primary">Ulja</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Masti</h5>
+        			<a href="#" class="btn btn-primary">Go somewhere</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Rashladna tekućina</h5>
+        			<a href="#" class="btn btn-primary">Go somewhere</a>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	<div class="row">
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Kočione tekućine</h5>
+        			<a href="#" class="btn btn-primary">Go somewhere</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Kemikalije za automobile</h5>
+        			<a href="#" class="btn btn-primary">Go somewhere</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Destilirana voda</h5>
+        			<a href="#" class="btn btn-primary">Go somewhere</a>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+</div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+      
+</body>
+</html>

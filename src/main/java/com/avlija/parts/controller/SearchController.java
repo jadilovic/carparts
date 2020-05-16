@@ -15,19 +15,33 @@ import com.avlija.parts.model.User;
 import com.avlija.parts.service.UserService;
 
 @Controller
-public class UserController {
+public class SearchController {
 
  @Autowired
  private UserService userService;
  
- @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView login() {
   ModelAndView model = new ModelAndView();
-  
-  model.setViewName("user/login");
+  model.setViewName("home/search");
   return model;
  }
  
+ @RequestMapping(value= {"/home/ulja"}, method=RequestMethod.GET)
+ public ModelAndView ulja() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_ulja");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/uljamotorna"}, method=RequestMethod.GET)
+ public ModelAndView uljaMotorna() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_ulje_motorno");
+  return model;
+ }
+ 
+ /*
  @RequestMapping(value= {"admin/signup"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();
@@ -81,4 +95,5 @@ public class UserController {
   model.setViewName("errors/access_denied");
   return model;
  }
+ */
 }
