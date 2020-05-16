@@ -9,6 +9,9 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<div th:include="fragments/header :: header"/></div>
+
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/signup}" th:object="${user}">
       <div class="row">
@@ -120,5 +123,8 @@
          </div>
      </form>
  </div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+ 
 </body>
 </html>

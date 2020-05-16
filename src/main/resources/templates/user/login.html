@@ -19,7 +19,7 @@
   </div>
     <form th:action="@{/login}" method="post" >
         <div class="p-2" align="center">
-             <h1 class="h3 mb-3 font-weight-normal">Prijava</h1>
+             <h2 class="h3 mb-3 font-weight-normal">Prijava</h2>
         </div>
 
 	  	<label for="inputEmail" class="sr-only">Email</label>
@@ -31,7 +31,9 @@
        	<label for="inputPassword" class="sr-only">Password</label>
        		<b>Password:</b>
        	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-       
+              
+       		<div class="p-2"></div>
+       		
        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   	</form>
   </div>

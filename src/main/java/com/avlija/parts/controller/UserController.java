@@ -28,12 +28,12 @@ public class UserController {
   return model;
  }
  
- @RequestMapping(value= {"/signup"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"admin/signup"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();
   User user = new User();
   model.addObject("user", user);
-  model.setViewName("user/signup");
+  model.setViewName("admin/signup");
   
   return model;
  }

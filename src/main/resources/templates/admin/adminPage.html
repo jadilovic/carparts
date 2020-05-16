@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Admin Page</title>
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+ 
+ <div class="p-2" align="center">
+  <h5>Hi <span th:utext="${userName}"></span>, this is the Admin Page.</h5>
+  </div>
+  
+ <table class="table table-borderless">
+ <tbody>
+   <tr>
+  	<td scope="col">
+  	 <a th:href="@{/signup}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Sign Up</a>
+  	</td>
+  	<td scope="col">
+  	 <a th:href="@{/admin/allreservations}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">List All Reservations</a>
+  	</td>
+  	</tr>
+  	<tr>
+  	<td scope="col">
+  <a th:href="@{/allusers}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">List All Users</a>
+  	</td>
+  	<td scope="col">
+  <a th:href="@{/finduser}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Find Users</a>
+  	</td>
+  	</tr>
+  	<tr>
+  	<td scope="col">
+  <a th:href="@{/createroom}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Create Room</a>
+  	</td>
+  	<td scope="col">
+  <a th:href="@{/loggedUsers}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Logged Users</a>
+  	</td>
+  	</tr>
+  	  	<tr>
+  	<td scope="col">
+  <a th:href="@{/createservice}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Create Service</a>
+  	</td>
+  	<td scope="col">
+  <a th:href="@{/allinvoices}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">List of Invoices</a>
+  	</td>
+  	</tr>
+ </tbody>
+  </table>
+ </div>
+ 
+  <div th:include="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>
