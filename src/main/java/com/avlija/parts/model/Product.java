@@ -1,6 +1,7 @@
 package com.avlija.parts.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,13 +18,14 @@ public class Product implements Serializable {
     private String sifra;
     private String name;
     
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name ="FK_ProductGroupId")
     private ProductGroup productGroup;
-
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    
+    @ManyToOne
+    @JoinColumn(name ="FK_ProductMakerId")
     private ProductMaker productMaker;
+
     
     private String description;
     private double price;
@@ -46,23 +48,6 @@ public class Product implements Serializable {
     
     public Product() {
     }
-
-
-	public Product(Long id, String sifra, String name, ProductGroup productGroup, ProductMaker productMaker,
-			String description, double price, int quantity, List<Product> products, List<Product> productOf) {
-		super();
-		this.id = id;
-		this.sifra = sifra;
-		this.name = name;
-		this.productGroup = productGroup;
-		this.productMaker = productMaker;
-		this.description = description;
-		this.price = price;
-		this.quantity = quantity;
-		this.products = products;
-		this.productOf = productOf;
-	}
-
 
 	/**
 	 * @return the id
@@ -110,40 +95,6 @@ public class Product implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-	/**
-	 * @return the productGroup
-	 */
-	public ProductGroup getProductGroup() {
-		return productGroup;
-	}
-
-
-	/**
-	 * @param productGroup the productGroup to set
-	 */
-	public void setProductGroup(ProductGroup productGroup) {
-		this.productGroup = productGroup;
-	}
-
-
-	/**
-	 * @return the productMaker
-	 */
-	public ProductMaker getProductMaker() {
-		return productMaker;
-	}
-
-
-	/**
-	 * @param productMaker the productMaker to set
-	 */
-	public void setProductMaker(ProductMaker productMaker) {
-		this.productMaker = productMaker;
-	}
-
-
 	/**
 	 * @return the description
 	 */
@@ -221,6 +172,34 @@ public class Product implements Serializable {
 	 */
 	public void setProductOf(List<Product> productOf) {
 		this.productOf = productOf;
+	}
+
+	/**
+	 * @return the productGroup
+	 */
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	/**
+	 * @param productGroup the productGroup to set
+	 */
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
+	}
+
+	/**
+	 * @return the productMaker
+	 */
+	public ProductMaker getProductMaker() {
+		return productMaker;
+	}
+
+	/**
+	 * @param productMaker the productMaker to set
+	 */
+	public void setProductMaker(ProductMaker productMaker) {
+		this.productMaker = productMaker;
 	}
 
 

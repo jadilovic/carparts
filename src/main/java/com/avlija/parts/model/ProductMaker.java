@@ -1,7 +1,9 @@
 package com.avlija.parts.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,13 +21,8 @@ public class ProductMaker implements Serializable {
 
     private String name;
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @OneToMany(mappedBy = "maker", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<ProductGroup> groups;
+    @OneToMany(mappedBy="productMaker", cascade = CascadeType.ALL)
+    Set<Product> products = new HashSet<Product>();
 
     public ProductMaker() {
     }
@@ -63,32 +60,17 @@ public class ProductMaker implements Serializable {
 	}
 
 	/**
-	 * @return the groups
+	 * @return the products
 	 */
-	public Set<ProductGroup> getGroups() {
-		return groups;
+	public Set<Product> getProducts() {
+		return products;
 	}
 
 	/**
-	 * @param groups the groups to set
+	 * @param products the products to set
 	 */
-	public void setGroups(Set<ProductGroup> groups) {
-		this.groups = groups;
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
-	/**
-	 * @return the product
-	 */
-	public Product getProduct() {
-		return product;
-	}
-
-	/**
-	 * @param product the product to set
-	 */
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-    
 }

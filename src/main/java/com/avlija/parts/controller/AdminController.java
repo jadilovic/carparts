@@ -1,6 +1,12 @@
 package com.avlija.parts.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -75,9 +81,7 @@ public class AdminController {
  public ModelAndView createMaker() {
   ModelAndView model = new ModelAndView();
   ProductMaker productMaker = new ProductMaker();
-  List<ProductGroup> productGroupList = productGroupRepository.findAll();
   model.addObject("productMaker", productMaker);
-  model.addObject("productGroupList", productGroupList);
   model.setViewName("admin/create_maker");
   
   return model;
@@ -95,12 +99,10 @@ public class AdminController {
    model.setViewName("admin/create_maker");
   } else {
 	  productMakerRepository.save(productMaker);
-   model.addObject("msg", "Novi proizvođać je uspješno kreiran!");
-   List<ProductGroup> productGroupList = productGroupRepository.findAll();
-   model.addObject("productGroupList", productGroupList);
-   model.addObject("productMaker", new ProductMaker());
-   model.setViewName("admin/create_maker");
-  }
+	  model.addObject("msg", "Novi proizvođać je uspješno kreiran!");
+	  model.addObject("productMaker", new ProductMaker());
+	  model.setViewName("admin/create_maker");
+  	}
   return model;
  }
  
@@ -127,12 +129,25 @@ public class AdminController {
    bindingResult.rejectValue("sifra", "error.product", "Ova šifra već postoji!");
   }
   if(bindingResult.hasErrors()) {
+	  List<ProductGroup> productGroupList = productGroupRepository.findAll();
+	  List<ProductMaker> productMakerList = productMakerRepository.findAll();
+	  model.addObject("product", product);
+	  model.addObject("productMakerList", productMakerList);
+	  model.addObject("productGroupList", productGroupList);
    model.setViewName("admin/create_product");
   } else {
    //model.addObject("msg", "Novi proizvođać je uspješno kreiran!");
+
+	  ProductGroup productGroup = product.getProductGroup();
+	  productGroupRepository.save(productGroup);
+	  
+	  ProductMaker productMaker = product.getProductMaker();
+	  productMakerRepository.save(productMaker);
+	  
 	  productRepository.save(product);
-   ProductGroup productGroup = product.getProductGroup();
-   List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+
+	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+   System.out.println("Products motorno ulje" + productList.toString());
    model.addObject("productList", productList);
    model.addObject("product", product);
    model.setViewName("admin/create_product2");
@@ -143,8 +158,15 @@ public class AdminController {
  @RequestMapping(value= {"admin/createproduct2"}, method=RequestMethod.POST)
  public ModelAndView createProduct2(@Valid Product product, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
+  List<Product> list = new ArrayList<Product>();
+  	if(product.getProducts() != null) {
+  		product.setProducts(list);
+  	}
    model.addObject("msg", "Novi auto dio je uspješno kreiran!");
    productRepository.save(product);
+   product.getProducts().addAll(product.getProducts());
+   productRepository.save(product);
+   
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
    model.addObject("product", new Product());
