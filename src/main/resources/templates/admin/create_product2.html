@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Odabir Zamijenskog Auto Dijela</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/createproduct2}" th:object="${product}">
+      		<div class="row">
+             <div class="col-md-3"></div>
+             	<div class="col-md-6">
+              		<div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+             	</div>
+         	</div>
+         <div class="p-3 row">
+             <div class="col-md-3"></div>
+                 <h5>Odabir Zamjenskih dijelova Novog Auto Dijela</h5>
+         </div>
+          <table class="table table-striped">
+  			<thead>
+    			<tr>
+      				<th scope="col">#</th>
+      				<th scope="col">Odaberi zamjenske dijelove</th>
+      				<th scope="col">Šifra</th>
+    			</tr>
+  			</thead>
+  			<tbody>
+    			<tr th:each="product : ${productList}">
+      			<th scope="row"><span th:text="${productStat.count}"></span></th>
+      			<td>
+      				<input type="checkbox" th:field="*{products}" th:value="${product.getId()}" />
+      				<label th:for="${#ids.prev('products')}" th:text="${product.getName()}"></label>
+      			</td>
+      			<td><label th:for="${#ids.prev('products')}" th:text="${product.getSifra()}"></label></td>
+    		</tr>
+  			</tbody>
+		</table>
+         <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Kreiraj novi auto dio</button>
+             </div>
+         </div>
+     </form>
+ </div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>
