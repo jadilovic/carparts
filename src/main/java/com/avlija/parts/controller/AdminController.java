@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -147,9 +148,13 @@ public class AdminController {
 	  productRepository.save(product);
 
 	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
-   System.out.println("Products motorno ulje" + productList.toString());
-   model.addObject("productList", productList);
-   model.addObject("product", product);
+   
+	  Long productId = product.getId();
+	  Product savedProduct = productRepository.findById(productId).get();
+	  
+	  model.addObject("productList", productList);
+
+   model.addObject("product", savedProduct);
    model.setViewName("admin/create_product2");
   }
   return model;
@@ -163,9 +168,11 @@ public class AdminController {
   		product.setProducts(list);
   	}
    model.addObject("msg", "Novi auto dio je uspješno kreiran!");
-   productRepository.save(product);
-   product.getProducts().addAll(product.getProducts());
-   productRepository.save(product);
+   Product savedProduct = productRepository.findById(product.getId()).get();
+   System.out.println("Product content ID " + product.getId());
+   System.out.println("Product content ID " + product.getChildren());
+   savedProduct.getChildren().addAll(product.getChildren());
+   productRepository.save(savedProduct);
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();

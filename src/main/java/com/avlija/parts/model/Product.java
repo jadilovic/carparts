@@ -31,19 +31,14 @@ public class Product implements Serializable {
     private double price;
     private int quantity;
 
-    @ManyToMany
-    @JoinTable(name="tbl_replace",
-     joinColumns=@JoinColumn(name="partId"),
-     inverseJoinColumns=@JoinColumn(name="replaceId")
-    )
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "part_hierarchy", 
+                joinColumns = { @JoinColumn(name = "part_id")}, 
+                inverseJoinColumns={@JoinColumn(name="child_part_id")})  
     private List<Product> products;
 
-    @ManyToMany
-    @JoinTable(name="tbl_replace",
-     joinColumns=@JoinColumn(name="replaceId"),
-     inverseJoinColumns=@JoinColumn(name="partId")
-    )
-    private List<Product> productOf;
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
+    private List<Product> children;  
     
     
     public Product() {
@@ -157,23 +152,6 @@ public class Product implements Serializable {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-
-
-	/**
-	 * @return the productOf
-	 */
-	public List<Product> getProductOf() {
-		return productOf;
-	}
-
-
-	/**
-	 * @param productOf the productOf to set
-	 */
-	public void setProductOf(List<Product> productOf) {
-		this.productOf = productOf;
-	}
-
 	/**
 	 * @return the productGroup
 	 */
@@ -200,6 +178,20 @@ public class Product implements Serializable {
 	 */
 	public void setProductMaker(ProductMaker productMaker) {
 		this.productMaker = productMaker;
+	}
+
+	/**
+	 * @return the children
+	 */
+	public List<Product> getChildren() {
+		return children;
+	}
+
+	/**
+	 * @param children the children to set
+	 */
+	public void setChildren(List<Product> children) {
+		this.children = children;
 	}
 
 
