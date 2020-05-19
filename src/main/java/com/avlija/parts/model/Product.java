@@ -3,7 +3,8 @@ package com.avlija.parts.model;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -31,15 +32,24 @@ public class Product implements Serializable {
     private double price;
     private int quantity;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "part_hierarchy", 
-                joinColumns = { @JoinColumn(name = "part_id")}, 
-                inverseJoinColumns={@JoinColumn(name="child_part_id")})  
-    private List<Product> products;
+   // @ManyToMany(cascade = CascadeType.MERGE)
+   // @JoinTable(name = "part_hierarchy", 
+   //             joinColumns = { @JoinColumn(name = "part_id")}, 
+   //             inverseJoinColumns={@JoinColumn(name="child_part_id")})  
+   // private List<Product> products;
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
-    private List<Product> children;  
+    //@ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
+    //private List<Product> children;  
     
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "part_hierarchy",
+            joinColumns = {
+                    @JoinColumn(name = "part_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "child_part_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)})
+    private Set<Product> products = new HashSet<>();
     
     public Product() {
     }
@@ -141,7 +151,7 @@ public class Product implements Serializable {
 	/**
 	 * @return the products
 	 */
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
@@ -149,7 +159,7 @@ public class Product implements Serializable {
 	/**
 	 * @param products the products to set
 	 */
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 	/**
@@ -179,20 +189,5 @@ public class Product implements Serializable {
 	public void setProductMaker(ProductMaker productMaker) {
 		this.productMaker = productMaker;
 	}
-
-	/**
-	 * @return the children
-	 */
-	public List<Product> getChildren() {
-		return children;
-	}
-
-	/**
-	 * @param children the children to set
-	 */
-	public void setChildren(List<Product> children) {
-		this.children = children;
-	}
-
 
 }

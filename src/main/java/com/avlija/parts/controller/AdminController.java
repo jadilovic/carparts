@@ -3,6 +3,7 @@ package com.avlija.parts.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -163,16 +164,20 @@ public class AdminController {
  @RequestMapping(value= {"admin/createproduct2"}, method=RequestMethod.POST)
  public ModelAndView createProduct2(@Valid Product product, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  List<Product> list = new ArrayList<Product>();
-  	if(product.getProducts() != null) {
-  		product.setProducts(list);
+  Set<Product> replaceProducts = new HashSet<Product>();
+  	if(product.getProducts() == null) {
+  		product.setProducts(replaceProducts);
+  	} else {
+  		replaceProducts = product.getProducts();
   	}
-   model.addObject("msg", "Novi auto dio je uspješno kreiran!");
-   Product savedProduct = productRepository.findById(product.getId()).get();
-   System.out.println("Product content ID " + product.getId());
-   System.out.println("Product content ID " + product.getChildren());
-   savedProduct.getChildren().addAll(product.getChildren());
-   productRepository.save(savedProduct);
+  	   Product savedProduct = productRepository.findById(product.getId()).get();
+  	   
+  	   System.out.println("Product content ID " + product.getId());
+  	   System.out.println("Product content ID " + product.getProducts());
+  	   
+  	   savedProduct.setProducts(replaceProducts);
+  	   productRepository.save(savedProduct);
+  	   model.addObject("msg", "Novi auto dio je uspješno kreiran!");
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();

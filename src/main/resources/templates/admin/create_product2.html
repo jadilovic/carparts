@@ -38,10 +38,10 @@
     			<tr th:each="product : ${productList}">
       			<th scope="row"><span th:text="${productStat.count}"></span></th>
       			<td>
-      				<input type="checkbox" th:field="*{children}" th:value="${product.getId()}" />
-      				<label th:for="${#ids.prev('children')}" th:text="${product.getName()}"></label>
+      				<input type="checkbox" th:field="*{products}" th:value="${product.getId()}" />
+      				<label th:for="${#ids.prev('products')}" th:text="${product.getName()}"></label>
       			</td>
-      			<td><label th:for="${#ids.prev('children')}" th:text="${product.getSifra()}"></label></td>
+      			<td><label th:for="${#ids.prev('products')}" th:text="${product.getSifra()}"></label></td>
     		</tr>
   			</tbody>
 		</table>
