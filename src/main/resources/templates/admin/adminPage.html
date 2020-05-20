@@ -16,7 +16,7 @@
  <div class="container">
  
  <div class="p-2" align="center">
-  <h5>Hi <span th:utext="${userName}"></span>, this is the Admin Page.</h5>
+  <h5>Hi <span th:utext="${userName}"></span>, ovo je Admin Stranica.</h5>
   </div>
   
  <table class="table table-borderless">
@@ -34,7 +34,7 @@
   <a th:href="@{/admin/creategroup}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Kreiraj Kategoriju</a>
   	</td>
   	<td scope="col">
-  <a th:href="@{/finduser}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Find Users</a>
+  <a th:href="@{/finduser}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Pronađi Korisnika</a>
   	</td>
   	</tr>
   	<tr>
@@ -42,12 +42,12 @@
   <a th:href="@{/admin/createmaker}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Kreiraj Proizvođača</a>
   	</td>
   	<td scope="col">
-  <a th:href="@{/loggedUsers}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Logged Users</a>
+  <a th:href="@{/loggedUsers}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Logovani Korisnici</a>
   	</td>
   	</tr>
   	  	<tr>
   	<td scope="col">
-  <a th:href="@{/admin/createproduct}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Kreiraj Auto Dio</a>
+  <a th:href="@{/admin/createproduct}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Kreiraj Auto Dio u Bazi</a>
   	</td>
   	<td scope="col">
   <a th:href="@{/allinvoices}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">List of Invoices</a>
