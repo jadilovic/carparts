@@ -138,25 +138,17 @@ public class AdminController {
 	  model.addObject("productGroupList", productGroupList);
    model.setViewName("admin/create_product");
   } else {
-   //model.addObject("msg", "Novi proizvođać je uspješno kreiran!");
 
 	  ProductGroup productGroup = product.getProductGroup();
-	  productGroupRepository.save(productGroup);
-	  
-	  ProductMaker productMaker = product.getProductMaker();
-	  productMakerRepository.save(productMaker);
+	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
 	  
 	  productRepository.save(product);
-
-	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
-   
 	  Long productId = product.getId();
 	  Product savedProduct = productRepository.findById(productId).get();
 	  
 	  model.addObject("productList", productList);
-
-   model.addObject("product", savedProduct);
-   model.setViewName("admin/create_product2");
+	  model.addObject("product", savedProduct);
+	  model.setViewName("admin/create_product2");
   }
   return model;
  }
@@ -171,9 +163,6 @@ public class AdminController {
   		replaceProducts = product.getProducts();
   	}
   	   Product savedProduct = productRepository.findById(product.getId()).get();
-  	   
-  	   System.out.println("Product content ID " + product.getId());
-  	   System.out.println("Product content ID " + product.getProducts());
   	   
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
