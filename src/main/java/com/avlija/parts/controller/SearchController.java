@@ -1,6 +1,7 @@
 package com.avlija.parts.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
+import com.avlija.parts.model.ProductMaker;
 import com.avlija.parts.model.User;
 import com.avlija.parts.repository.ProductGroupRepository;
+import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
@@ -25,7 +29,7 @@ import com.avlija.parts.service.UserService;
 public class SearchController {
 
  @Autowired
- private UserService userService;
+ private ProductRepository productRepository;
  
  @Autowired
  private ProductGroupRepository productGroupRepository;
@@ -34,8 +38,9 @@ public class SearchController {
  private ProductServiceImpl productServiceImpl;
  
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
- public ModelAndView login() {
+ public ModelAndView search() {
   ModelAndView model = new ModelAndView();
+  model.addObject("sampleInputs", new SampleInputs());
   model.setViewName("home/search");
   return model;
  }
@@ -65,6 +70,43 @@ public class SearchController {
   return model;
  }
  
+ @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
+ public ModelAndView listReplaceProducts(@PathVariable(name = "id") Long id) {
+	 Product product = productRepository.findById(id).get();
+	 Set <Product> productList = product.getProducts();
+	 String message2 = null;
+	 if(productList.size() == 0) {
+		 message2 = "Nema zamjenskog dijela";
+	 } else {
+		 message2 = "Zamjenski dijelovi za šifru " + product.getSifra();
+	 }
+  ModelAndView model = new ModelAndView();
+  model.addObject("message", product.getProductGroup().getName());
+  model.addObject("message2", message2);
+  model.addObject("productList", productList);
+  model.setViewName("home/list_products");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/productprofile"}, method=RequestMethod.POST)
+ public ModelAndView createMaker(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findBySifra(sampleInputs.getSifra());
+  
+  if(product == null) {
+   bindingResult.rejectValue("sifra", "error.sampleInputs", "Nije pronađen proizvod zadane šifre!");
+  }
+  if(bindingResult.hasErrors()) {
+   model.setViewName("home/search");
+  } else {
+	  Set<Product> replaceProducts = product.getProducts();
+	  model.addObject("replaceProducts", replaceProducts);
+	  model.addObject("msg", "Pregled profila traženog proizvoda!");
+	  model.addObject("product", product);
+	  model.setViewName("home/product_profile");
+  	}
+  return model;
+ }
  /*
  @RequestMapping(value= {"admin/signup"}, method=RequestMethod.GET)
  public ModelAndView signup() {

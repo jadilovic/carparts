@@ -18,8 +18,16 @@
 	<div class="card text-center">
   		<div class="card-body">
     		<h5 class="card-title">Pretraga po Šifri</h5>
-    		<a href="#" class="btn btn-primary btn-lg">Pretraga</a>
+    		
+		<form th:action="@{/home/productprofile}" th:object="${sampleInputs}" method="post">
+    		<div>
+        		<label>Unesite šifru:</label>
+        		<input type="text" th:field="*{sifra}" placeholder="sifra" />
+    			</div>
+    			<input type="submit" value="Traži"/>
+			</form>
   		</div>
+  		
   		<div class="card-footer text-dark">
     		<h5>Pregled Auto Dijelova po Grupama</h5>
   		</div>
