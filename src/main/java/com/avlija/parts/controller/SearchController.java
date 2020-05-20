@@ -1,5 +1,7 @@
 package com.avlija.parts.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.model.Product;
+import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.ProductGroupRepository;
+import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
 @Controller
@@ -19,6 +26,12 @@ public class SearchController {
 
  @Autowired
  private UserService userService;
+ 
+ @Autowired
+ private ProductGroupRepository productGroupRepository;
+ 
+ @Autowired
+ private ProductServiceImpl productServiceImpl;
  
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView login() {
@@ -38,6 +51,17 @@ public class SearchController {
  public ModelAndView uljaMotorna() {
   ModelAndView model = new ModelAndView();
   model.setViewName("home/search_ulje_motorno");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
+ public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
+	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
+	 List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+  ModelAndView model = new ModelAndView();
+  model.addObject("message", productGroup.getName());
+  model.addObject("productList", productList);
+  model.setViewName("home/list_products");
   return model;
  }
  
