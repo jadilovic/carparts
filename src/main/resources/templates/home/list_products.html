@@ -29,16 +29,20 @@
                 <th scope="col">Šifra</th>
                 <th scope="col">Stanje</th>
                 <th scope="col">Proizvođač</th>
-                <th scope="col">Zamjenske šifre</th>
+                <th scope="col">Dodatni</th>                
+                <th scope="col">Zamjenski</th>
             </tr>
         </thead>
         <tbody>
             <tr scope="row" th:each="product : ${productList}">
                 <td th:text="${product.sifra}">Sifra</td>
                 <td th:text="${product.quantity}">Stanje</td>
-                <td th:text="${product.getProductMaker().getName()}">Proizvodjac]</td>          
+                <td th:text="${product.getProductMaker().getName()}">Proizvodjac]</td>   
                 <td th:object="${product}">
-                	<a class="btn btn-primary" th:href="@{'/home/listreplaceproducts/' + *{id}}">Lista</a>
+                	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Info</a>
+                </td>       
+                <td th:object="${product}">
+                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Lista</a>
                 </td>
             </tr>
         </tbody>

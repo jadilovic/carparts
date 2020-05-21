@@ -10,7 +10,7 @@ public class SampleInputs {
     private Date dateField;
 
     private Double doubleField;
-    private Integer numberField;
+    private Integer quantity;
     private String sifra;
     private String colorField;
 
@@ -68,18 +68,19 @@ public class SampleInputs {
 		this.doubleField = doubleField;
 	}
 
+
 	/**
-	 * @return the numberField
+	 * @return the quantity
 	 */
-	public Integer getNumberField() {
-		return numberField;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
 	/**
-	 * @param numberField the numberField to set
+	 * @param quantity the quantity to set
 	 */
-	public void setNumberField(Integer numberField) {
-		this.numberField = numberField;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	/**

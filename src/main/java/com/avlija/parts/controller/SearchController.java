@@ -88,8 +88,27 @@ public class SearchController {
   return model;
  }
  
+ @RequestMapping(value= {"/home/productprofile/{id}"}, method=RequestMethod.GET)
+ public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(id).get();
+  String msg = null;
+  
+  if(product == null) {
+	  msg = "Nije pronađen proizvod sa zadanim ID brojem";
+	  model.addObject("msg", msg);
+  } else {
+	  Set<Product> replaceProducts = product.getProducts();
+	  model.addObject("replaceProducts", replaceProducts);
+	  model.addObject("msg", "Pregled profila traženog proizvoda!");
+	  model.addObject("product", product);
+	  model.setViewName("home/product_profile");
+  	}
+  return model;
+ }
+ 
  @RequestMapping(value= {"/home/productprofile"}, method=RequestMethod.POST)
- public ModelAndView createMaker(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
+ public ModelAndView productProfile(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findBySifra(sampleInputs.getSifra());
   
