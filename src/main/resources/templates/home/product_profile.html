@@ -21,14 +21,15 @@
               <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
          </div>
        </div>
+       
+       <div class="row">
+         <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <div class="alert alert-primary" role="alert">Informacije o proizvodu u bazi i zamjenski artikli</div>
+         </div>
+       </div>
  
   <table th:object="${product}" class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Informacije o proizvodu u bazi i zamjenski artikli</th>
-    </tr>
-  </thead>
   <tbody>
     <tr>
       <th scope="row">Šifra:</th>
