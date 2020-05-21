@@ -22,33 +22,17 @@
          </div>
        </div>
  
-  <table th:object="${product}" class="table">
+  <table th:object="${product}" class="table table-striped">
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col">Informacije o proizvodu u bazi i zamjenski artikli</th>
+      <th scope="col">Dodaj ili oduzmi proizvodu u bazi</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">Šifra:</th>
       <td><span th:text="*{sifra}"></span></td>
-    </tr>
-    <tr>
-      <th scope="row">Naziv:</th>
-      <td><span th:text="*{name}"></span></td>
-    </tr>
-    <tr>
-      <th scope="row">Kategorija:</th>
-      <td><span th:text="${product.getProductGroup().getName()}"></span></td>
-    </tr>
-        <tr>
-      <th scope="row">Proizvođać:</th>
-      <td><span th:text="${product.getProductMaker().getName()}"></span></td>
-    </tr>
-    <tr>
-      <th scope="row">Opis:</th>
-      <td><span th:text="*{description}"></span></td>
     </tr>
     <tr>
       <th scope="row">Cijena:</th>
@@ -58,14 +42,30 @@
       <th scope="row">Količina na stanju:</th>
       <td><span th:text="*{quantity}"></span></td>
     </tr>
+  </tbody>
+</table>
+    
+ <table class="table table-striped">
+  <thead>
     <tr>
-      <th scope="row">Transakcija:</th>
-      <td><a class="btn btn-success btn-block" th:href="@{'/home/addremove/' + *{id}}">Dodaj / Oduzmi</a></td>
+      <th scope="row">Količinu dodati:</th>
+      <td>
+      	<form th:action="@{/admin/add}" th:object="${sampleInputs}" method="post">
+      	   	<input type="hidden" th:field="*{id}" readonly="readonly"/>
+        	<input min="1" step="1" type="number" th:field="*{quantity}" placeholder="količina" />
+    		<input class="btn btn-success" type="submit" value="Dodaj"/>
+		</form>
+	  </td>
     </tr>
-    <tr th:each="replace : ${replaceProducts}">
-        <th scope="row">Zamjenski<span th:text="${replaceStat.count}"></span>:</th>
-        <td><span th:text="${replace.getSifra()}"></span> | | <a class="btn btn-danger" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
-        </td>
+    <tr>
+      <th scope="row">Količinu oduzeti:</th>
+      	<td>
+         	<form th:action="@{/admin/remove}" th:object="${sampleInputs}" method="post">
+      	   		<input type="hidden" th:field="*{id}" readonly="readonly"/>         
+        		<input min="1" step="1" type="number" th:field="*{quantity}" placeholder="količina" />
+    			<input class="btn btn-danger" type="submit" value="Oduzmi"/>
+			</form>
+	  	</td>
     </tr>
   </tbody>
 </table>

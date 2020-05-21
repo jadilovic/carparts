@@ -8,7 +8,7 @@ public class SampleInputs {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateField;
-
+    private Long id;
     private Double doubleField;
     private Integer quantity;
     private String sifra;
@@ -23,13 +23,25 @@ public class SampleInputs {
     }
 
 	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return the sifra
 	 */
 	public String getSifra() {
 		return sifra;
 	}
-
-
 
 	/**
 	 * @param sifra the sifra to set

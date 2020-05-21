@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
+import javax.persistence.metamodel.Metamodel;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductMaker;
@@ -175,6 +178,84 @@ public class AdminController {
    model.addObject("productGroupList", productGroupList);
    model.setViewName("admin/create_product");
   return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/addremove/{id}"}, method=RequestMethod.GET)
+ public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(id).get();
+  String msg = null;
+  
+  if(product == null) {
+	  msg = "Nije pronađen proizvod sa zadanim ID brojem";
+	  model.addObject("msg", msg);
+  		} else {
+  			SampleInputs sampleInputs = new SampleInputs();
+  			sampleInputs.setId(id);
+  			model.addObject("sampleInputs", sampleInputs);
+  			model.addObject("msg", "Transakcija proizvoda na stanju!");
+  			model.setViewName("admin/product_add_remove");
+  		}
+	model.addObject("product", product);
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/add"}, method=RequestMethod.POST)
+ public ModelAndView addProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(sampleInputs.getId()).get();
+  
+  if(sampleInputs.getQuantity() == null) {
+		SampleInputs inputs = new SampleInputs();
+		inputs.setId(product.getId());
+		model.addObject("sampleInputs", inputs);
+		model.addObject("product", product);
+		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
+		model.setViewName("admin/product_add_remove");
+  	} else {
+	  	int oldQuantity = product.getQuantity();
+	  	int newQuantiy = oldQuantity + sampleInputs.getQuantity();
+	  	product.setQuantity(newQuantiy);
+	  	productRepository.save(product);
+	  	
+		  Set<Product> replaceProducts = product.getProducts();
+		  model.addObject("replaceProducts", replaceProducts);
+		  model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
+		  model.addObject("product", product);
+		  model.setViewName("home/product_profile");
+  	}
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/remove"}, method=RequestMethod.POST)
+ public ModelAndView removeProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(sampleInputs.getId()).get();
+  
+  if(sampleInputs.getQuantity() == null) {
+		SampleInputs inputs = new SampleInputs();
+		inputs.setId(product.getId());
+		model.addObject("sampleInputs", inputs);
+		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
+		model.setViewName("admin/product_add_remove");
+  	}  else if(product.getQuantity() <= 0 || product.getQuantity() - sampleInputs.getQuantity() < 0){
+  			Set<Product> replaceProducts = product.getProducts();
+  			model.addObject("replaceProducts", replaceProducts);
+  			model.addObject("msg", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
+  			model.setViewName("home/product_profile");
+  		} else {
+  			int oldQuantity = product.getQuantity();
+  			int newQuantiy = oldQuantity - sampleInputs.getQuantity();
+  			product.setQuantity(newQuantiy);
+  			productRepository.save(product);
+  	
+  			Set<Product> replaceProducts = product.getProducts();
+  			model.addObject("replaceProducts", replaceProducts);
+  			model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
+  			model.setViewName("home/product_profile");
+  		}
+	model.addObject("product", product);
+  	return model;
  }
  /*
  @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
