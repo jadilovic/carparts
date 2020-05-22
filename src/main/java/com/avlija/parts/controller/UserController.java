@@ -47,7 +47,7 @@ public class UserController {
    bindingResult.rejectValue("email", "error.user", "This email already exists!");
   }
   if(bindingResult.hasErrors()) {
-   model.setViewName("user/signup");
+   model.setViewName("admin/signup");
   } else {
    userService.saveUser(user);
    model.addObject("msg", "User has been registered successfully!");
@@ -60,6 +60,16 @@ public class UserController {
  @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {
   ModelAndView model = new ModelAndView();
+  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+  User user = userService.findUserByEmail(auth.getName());
+  
+  if(user == null) {
+	  user = new User();
+	  user.setFirstname("TEST");
+	  user.setLastname("USER");
+  }
+  
+  model.addObject("userName", user.getFirstname() + " " + user.getLastname());
   model.setViewName("admin/adminPage");
   return model;
  }
@@ -85,6 +95,23 @@ public class UserController {
  public ModelAndView accessDenied() {
   ModelAndView model = new ModelAndView();
   model.setViewName("errors/access_denied");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/user/guest"}, method=RequestMethod.GET)
+ public ModelAndView guestPage() {
+  ModelAndView model = new ModelAndView();
+  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+  User user = userService.findUserByEmail(auth.getName());
+  
+  if(user == null) {
+	  user = new User();
+	  user.setFirstname("TEST");
+	  user.setLastname("USER");
+  }
+  
+  model.addObject("userName", user.getFirstname() + " " + user.getLastname());
+  model.setViewName("user/guestPage");
   return model;
  }
 }

@@ -14,17 +14,21 @@
 <div th:include="fragments/header :: header"/></div>
 
  <div class="container">
+ 
+       <div class="row">
+          <div class="col-md-12">
+              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+         </div>
+       </div>
 	
 	<div class="card text-center">
   		<div class="card-body">
     		<h5 class="card-title">Pretraga po Šifri</h5>
     		
 		<form th:action="@{/home/productprofile}" th:object="${sampleInputs}" method="post">
-    		<div>
-        		<label>Unesite šifru:</label>
+        		<label><h5>Unesite šifru:</h5></label>
         		<input type="text" th:field="*{sifra}" placeholder="sifra" />
-    			</div>
-    			<input type="submit" value="Traži"/>
+    			<input class="btn btn-warning btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
   		
@@ -38,49 +42,23 @@
     		<div class="card">
       			<div class="card-body">
         			<h5 class="card-title">Ulja, masti, automobilske kemikalije</h5>
-        			<a th:href="@{/home/ulja}" class="btn btn-primary btn-lg">Pregled</a>
+        			<a th:href="@{/home/ulja}" class="btn btn-primary btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>
   		<div class="col-sm-4">
     		<div class="card">
       			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
+        			<h5 class="card-title">Pogon</h5>
+        			<a href="#" class="btn btn-info btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>
   		<div class="col-sm-4">
     		<div class="card">
       			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
-      			</div>
-    		</div>
-  		</div>
-	</div>
-	<div class="row">
-  		<div class="col-sm-4">
-    		<div class="card">
-      			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
-      			</div>
-    		</div>
-  		</div>
-  		<div class="col-sm-4">
-    		<div class="card">
-      			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
-      			</div>
-    		</div>
-  		</div>
-  		<div class="col-sm-4">
-    		<div class="card">
-      			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
+        			<h5 class="card-title">Šasija</h5>
+        			<a href="#" class="btn btn-secondary btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>
@@ -89,24 +67,50 @@
   		<div class="col-sm-4">
     		<div class="card">
       			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
+        			<h5 class="card-title">Karoserija vozila</h5>
+        			<a href="#" class="btn btn-success btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>
   		<div class="col-sm-4">
     		<div class="card">
       			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
+        			<h5 class="card-title">Instalacijski i električni sustavi</h5>
+        			<a href="#" class="btn btn-danger btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>
   		<div class="col-sm-4">
     		<div class="card">
       			<div class="card-body">
-        			<h5 class="card-title">Special title treatment</h5>
-        			<a href="#" class="btn btn-primary btn-lg">Pregled</a>
+        			<h5 class="card-title">Unutrašnja oprema / udobnost</h5>
+        			<a href="#" class="btn btn-dark btn-block">Pregled</a>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	<div class="row">
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Auto instalacije</h5>
+        			<a href="#" class="btn btn-light btn-block">Pregled</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Hidraulika</h5>
+        			<a href="#" class="btn btn-primary btn-block">Pregled</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<h5 class="card-title">Cooling aggregates</h5>
+        			<a href="#" class="btn btn-info btn-block">Pregled</a>
       			</div>
     		</div>
   		</div>

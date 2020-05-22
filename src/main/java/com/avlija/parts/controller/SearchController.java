@@ -113,10 +113,8 @@ public class SearchController {
   Product product = productRepository.findBySifra(sampleInputs.getSifra());
   
   if(product == null) {
-   bindingResult.rejectValue("sifra", "error.sampleInputs", "Nije pronađen proizvod zadane šifre!");
-  }
-  if(bindingResult.hasErrors()) {
    model.setViewName("home/search");
+   model.addObject("msg", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
   } else {
 	  Set<Product> replaceProducts = product.getProducts();
 	  model.addObject("replaceProducts", replaceProducts);
