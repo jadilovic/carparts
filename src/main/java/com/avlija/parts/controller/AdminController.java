@@ -180,6 +180,39 @@ public class AdminController {
   return model;
  }
  
+ 
+ @RequestMapping(value= {"admin/editproduct/{id}"}, method=RequestMethod.GET)
+ public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(id).get();
+  List<ProductGroup> productGroupList = productGroupRepository.findAll();
+  List<ProductMaker> productMakerList = productMakerRepository.findAll();
+  model.addObject("product", product);
+  model.addObject("productMakerList", productMakerList);
+  model.addObject("productGroupList", productGroupList);
+  model.setViewName("admin/edit_product");
+  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/editproduct1"}, method=RequestMethod.POST)
+ public ModelAndView editProduct(@Valid Product product, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+
+	  ProductGroup productGroup = product.getProductGroup();
+	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+	  
+	  productRepository.save(product);
+	  Long productId = product.getId();
+	  Product savedProduct = productRepository.findById(productId).get();
+	  
+	  model.addObject("productList", productList);
+	  model.addObject("product", savedProduct);
+	  model.setViewName("admin/create_product2");
+	  
+  return model;
+ }
+ 
  @RequestMapping(value= {"/admin/addremove/{id}"}, method=RequestMethod.GET)
  public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();

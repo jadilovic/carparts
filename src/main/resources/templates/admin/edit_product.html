@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Kreiranje Nove Grupe</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/editproduct1}" th:object="${product}">
+      <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+     </div>
+             </div>
+         </div>
+         <div class="p-3 row">
+             <div class="col-md-3"></div>
+                 <h5>Kreiranje Novog Auto Dijela</h5>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="text" th:field="*{sifra}" class="form-control" id="sifra"
+                                placeholder="Šifra auto dijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-3">
+                 <div class="form-control-feedback">
+                    <span class="text-danger align-middle" th:if="${#fields.hasErrors('sifra')}" th:errors="*{sifra}">
+                       </span>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Naziv auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-envelope-o"></i></div>
+                         <input type="text" th:field="*{name}" class="form-control" id="name"
+                                placeholder="Naziv auto dijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+          </div>
+       <table class="table table-striped">
+  		<tbody>
+    		<tr>
+      			<th scope="row"><label for="productGroup">Odaberi kategoriju auto dijela:</label></th>
+      			<td>
+      	  			<select th:field="*{productGroup}">
+              			<option th:each="group : ${productGroupList}"
+              				th:value="${group.id}"
+              				th:utext="${group.name}"/>
+          			</select>
+      			</td>
+    		</tr>
+    		<tr>
+      			<th scope="row"><label for="productMaker">Odaberi proizvođača auto dijela:</label></th>
+      			<td>
+      	  			<select th:field="*{productMaker}">
+              			<option th:each="maker : ${productMakerList}"
+              				th:value="${maker.id}"
+              				th:utext="${maker.name}"/>
+          			</select>
+      			</td>
+    		</tr>
+    	</tbody>
+    	</table>
+    	<div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="description">Opis auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-list-alt"></i></div>
+                         <input type="text" th:field="*{description}" class="form-control" id="description"
+                                placeholder="Opis auto dijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+           </div>
+           <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="price">Cijena po komadu</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-dollar"></i></div>
+                         <input type="number" th:field="*{price}" class="form-control" id="price"
+                         required autofocus>
+                     </div>
+                 </div>
+             </div>
+           </div>
+           <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="quantity">Količina na stanju</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-info"></i></div>
+                         <input type="number" th:field="*{quantity}" class="form-control" id="quantity"
+                         required autofocus>
+                     </div>
+                 </div>
+             </div>
+           </div>
+         <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Naredni korak</button>
+             </div>
+         </div>
+     </form>
+ </div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>
