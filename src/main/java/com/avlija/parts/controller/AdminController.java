@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.form.SampleInputs;
+import com.avlija.parts.model.Brand;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductMaker;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductMakerRepository;
 import com.avlija.parts.repository.ProductRepository;
@@ -51,7 +53,9 @@ public class AdminController {
  
  @Autowired
  private ProductServiceImpl productServiceImpl;
-
+ 
+ @Autowired
+ private BrandRepository brandRepository;
 
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.GET)
  public ModelAndView createGroup() {
@@ -289,6 +293,35 @@ public class AdminController {
   		}
 	model.addObject("product", product);
   	return model;
+ }
+ 
+ @RequestMapping(value= {"admin/createbrand"}, method=RequestMethod.GET)
+ public ModelAndView createBrand() {
+  ModelAndView model = new ModelAndView();
+  Brand brand = new Brand();
+  model.addObject("brand", brand);
+  model.setViewName("admin/create_brand");
+  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/createbrand"}, method=RequestMethod.POST)
+ public ModelAndView createBrand(@Valid Brand brand, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  Brand brandExists = brandRepository.findByName(brand.getName());
+  
+  if(brandExists != null) {
+   bindingResult.rejectValue("name", "error.brand", "Ova marka automobila već postoji!");
+  }
+  if(bindingResult.hasErrors()) {
+   model.setViewName("admin/create_brand");
+  } else {
+	  brandRepository.save(brand);
+   model.addObject("msg", "Nova marka automobila je uspješno kreirana!");
+   model.addObject("brand", new Brand());
+   model.setViewName("admin/create_brand");
+  }
+  return model;
  }
  /*
  @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
