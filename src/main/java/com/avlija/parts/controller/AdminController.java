@@ -25,11 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Brand;
+import com.avlija.parts.model.CarModel;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductMaker;
 import com.avlija.parts.model.User;
 import com.avlija.parts.repository.BrandRepository;
+import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductMakerRepository;
 import com.avlija.parts.repository.ProductRepository;
@@ -40,7 +42,7 @@ import com.avlija.parts.service.UserService;
 public class AdminController {
 
  @Autowired
- private UserService userService;
+ private CarModelRepository carModelRepository;
  
  @Autowired
  private ProductGroupRepository productGroupRepository;
@@ -321,6 +323,40 @@ public class AdminController {
    model.addObject("brand", new Brand());
    model.setViewName("admin/create_brand");
   }
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/createcarmodel"}, method=RequestMethod.GET)
+ public ModelAndView createCarModel() {
+  ModelAndView model = new ModelAndView();
+  CarModel carModel = new CarModel();
+  List<Brand> brands = (List<Brand>) brandRepository.findAll();
+  model.addObject("carModel", carModel);
+  model.addObject("brands", brands);
+  model.setViewName("admin/create_car_model");
+  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/createcarmodel"}, method=RequestMethod.POST)
+ public ModelAndView createCarModel(@Valid CarModel carModel, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  CarModel carModelExists = carModelRepository.findByName(carModel.getName());
+  
+  if(carModelExists != null) {
+   bindingResult.rejectValue("name", "error.carModel", "Ova model automobila već postoji!");
+  }
+  if(bindingResult.hasErrors()) {
+	  System.out.println("There is error");
+  } else {
+	  carModelRepository.save(carModel);
+	   model.addObject("msg", "Novi model automobila je uspješno kreiran!");
+  }
+  
+  List<Brand> brands = (List<Brand>) brandRepository.findAll();
+  model.addObject("carModel", new CarModel());
+  model.addObject("brands", brands);
+  model.setViewName("admin/create_car_model");
   return model;
  }
  /*
