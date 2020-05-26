@@ -13,6 +13,9 @@ public class SampleInputs {
     private Integer quantity;
     private String sifra;
     private String colorField;
+    private String brandName;
+    private String modelName;
+    private String groupName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTimeField;
@@ -121,6 +124,48 @@ public class SampleInputs {
 	 */
 	public void setDateTimeField(Date dateTimeField) {
 		this.dateTimeField = dateTimeField;
+	}
+
+	/**
+	 * @return the brandName
+	 */
+	public String getBrandName() {
+		return brandName;
+	}
+
+	/**
+	 * @param brandName the brandName to set
+	 */
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	/**
+	 * @return the modelName
+	 */
+	public String getModelName() {
+		return modelName;
+	}
+
+	/**
+	 * @param modelName the modelName to set
+	 */
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+	/**
+	 * @return the groupName
+	 */
+	public String getGroupName() {
+		return groupName;
+	}
+
+	/**
+	 * @param groupName the groupName to set
+	 */
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
     

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Pretraga po modelu automobila</title>
+ <title>Pretraga po modelu automobila i grupi artikla</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -14,7 +14,7 @@
 <div th:include="fragments/header :: header"/></div>
 
  <div class="container">
-     <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch3}" th:object="${carModel}">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
       <div class="row">
              <div class="col-md-3"></div>
              <div class="col-md-6">
@@ -24,18 +24,28 @@
          </div>
          <div class="p-3 row">
              <div class="col-md-3"></div>
-                 <h5>Pretraga po modelu automobila</h5>
+                 <h5>Pretraga po modelu automobila i grupi artikla</h5>
          </div>
 
        <table class="table table-striped">
   		<tbody>
+  		    <tr>
+      			<th scope="row"><label for="brandName">Marka automobila:</label></th>
+      			<td th:field="*{brandName}" th:utext="*{brandName}">
+      			</td>
+    		</tr>
     		<tr>
-      			<th scope="row"><label for="name">Odaberi model automobila:</label></th>
+      			<th scope="row"><label for="modelName">Model automobila:</label></th>
+      			<td th:field="*{modelName}" th:utext="*{modelName}">
+      			</td>
+    		</tr>
+    		<tr>
+      			<th scope="row"><label for="name">Odaberi grupu artikla:</label></th>
       			<td>
-      	  			<select th:field="*{name}">
-              			<option th:each="model : ${carModels}"
-              				th:value="${model.id}"
-              				th:utext="${model.name}"/>
+      	  			<select th:field="*{groupName}">
+              			<option th:each="group : ${productGroups}"
+              				th:value="${group.id}"
+              				th:utext="${group.name}"/>
           			</select>
       			</td>
       			<td></td>
@@ -53,7 +63,7 @@
          <div class="row">
              <div class="col-md-3"></div>
              <div class="col-md-6">
-                 <button type="submit" class="btn btn-success btn-block"><i class="fa fa-user-plus"></i>Dalje</button>
+                 <button type="submit" class="btn btn-success btn-block"><i class="fa fa-user-plus"></i>Traži</button>
              </div>
          </div>
      </form>

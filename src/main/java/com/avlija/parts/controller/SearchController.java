@@ -189,12 +189,41 @@ public class SearchController {
  }
  
  @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.POST)
- public ModelAndView createCarModel(@Valid CarModel carModel, BindingResult bindingResult) {
+ public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   List<CarModel> carModels = carModelRepository.findByBrand(carModel.getBrand());
   model.addObject("carModel", new CarModel());
   model.addObject("carModels", carModels);
-  model.setViewName("admin/select_model");
+  model.setViewName("home/select_model");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/modelsearch3"}, method=RequestMethod.POST)
+ public ModelAndView modelSearch3(@Valid CarModel carModel, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  CarModel selectedCarModel = carModelRepository.findByName(carModel.getName());
+  System.out.println("SELECTED CAR Model " + selectedCarModel + carModel.getName());
+  List<ProductGroup> productGroups = productGroupRepository.findAll();
+  SampleInputs inputs = new SampleInputs();
+  inputs.setBrandName(selectedCarModel.getBrand().getName());
+  inputs.setModelName(selectedCarModel.getName());
+  model.addObject("inputs", inputs);
+  model.addObject("productGroups", productGroups);
+  model.setViewName("home/select_group");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
+ public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  ProductGroup group = productGroupRepository.findByName(inputs.getGroupName());
+  String carBrand = inputs.getBrandName();
+  String carModel = inputs.getModelName();
+  String pattern = "%" + carBrand + "%" + carModel + "%";
+  List<Product> productList = productRepository.findByDescriptionLike(pattern);
+  model.addObject("message", inputs.getGroupName());
+  model.addObject("productList", productList);
+  model.setViewName("home/list_products");
   return model;
  }
  /*
