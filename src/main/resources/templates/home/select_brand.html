@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Kreiranje Novog Modela Auta</title>
+ <title>Pretraga po marki i modelu automobila</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -14,7 +14,7 @@
 <div th:include="fragments/header :: header"/></div>
 
  <div class="container">
-     <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/createcarmodel}" th:object="${carModel}">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch2}" th:object="${carModel}">
       <div class="row">
              <div class="col-md-3"></div>
              <div class="col-md-6">
@@ -24,28 +24,9 @@
          </div>
          <div class="p-3 row">
              <div class="col-md-3"></div>
-                 <h5>Kreiranje Novog Modela Automobila</h5>
+                 <h5>Pretraga po marki i modelu automobila</h5>
          </div>
-         <div class="row">
-             <div class="col-md-3 field-label-responsive">
-                 <label for="name">Naziv Modela Automobila</label>
-             </div>
-             <div class="col-md-6">
-                 <div class="form-group">
-                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
-                         <input type="text" th:field="*{name}" class="form-control" id="name"
-                                placeholder="Naziv auto modela" required autofocus>
-                     </div>
-                 </div>
-             </div>
-             <div class="col-md-3">
-                 <div class="form-control-feedback">
-                    <span class="text-danger align-middle" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-                       </span>
-                 </div>
-             </div>
-         </div>
+
        <table class="table table-striped">
   		<tbody>
     		<tr>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Pretraga Filteri</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+	
+	<div class="card text-center p-4">
+  		<div class="card-footer text-dark">
+    		<b>Filteri</b>
+  		</div>
+	</div>
+	
+	<div class="row">
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<a th:href="@{/home/filterulja}" class="btn btn-primary btn-block">Filter ulja</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<a th:href="@{/home/filterzraka}" class="btn btn-secondary btn-block">Filter zraka</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div class="col-sm-4">
+    		<div class="card">
+      			<div class="card-body">
+        			<a th:href="@{/home/filtergoriva}" class="btn btn-success btn-block">Filter goriva</a>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+</div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+      
+</body>
+</html>

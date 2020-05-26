@@ -32,6 +32,7 @@
       				<th scope="col">#</th>
       				<th scope="col">Odaberi zamjenske dijelove</th>
       				<th scope="col">Šifra</th>
+      				<th scope="col">Proizvođač</th>
     			</tr>
   			</thead>
   			<tbody>
@@ -42,6 +43,7 @@
       				<label th:for="${#ids.prev('products')}" th:text="${product.getName()}"></label>
       			</td>
       			<td><label th:for="${#ids.prev('products')}" th:text="${product.getSifra()}"></label></td>
+      			<td><label th:for="${#ids.prev('products')}" th:text="${product.getProductMaker().getName()}"></label></td>
     		</tr>
   			</tbody>
 		</table>

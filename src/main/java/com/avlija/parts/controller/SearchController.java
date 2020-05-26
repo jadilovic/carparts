@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.form.SampleInputs;
+import com.avlija.parts.model.Brand;
+import com.avlija.parts.model.CarModel;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductMaker;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.BrandRepository;
+import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.service.ProductServiceImpl;
@@ -36,6 +40,12 @@ public class SearchController {
  
  @Autowired
  private ProductServiceImpl productServiceImpl;
+ 
+ @Autowired
+ private BrandRepository brandRepository;
+ 
+ @Autowired
+ private CarModelRepository carModelRepository;
  
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView search() {
@@ -56,6 +66,41 @@ public class SearchController {
  public ModelAndView uljaMotorna() {
   ModelAndView model = new ModelAndView();
   model.setViewName("home/search_ulje_motorno");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/motorfilteri"}, method=RequestMethod.GET)
+ public ModelAndView motorFilteri() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_motor_filteri");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/filteri"}, method=RequestMethod.GET)
+ public ModelAndView filteri() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_filteri");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/filterulja"}, method=RequestMethod.GET)
+ public ModelAndView filterUlja() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_filteri_ulja");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/filterzraka"}, method=RequestMethod.GET)
+ public ModelAndView filterZraka() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_filteri_zraka");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/filtergoriva"}, method=RequestMethod.GET)
+ public ModelAndView filterGoriva() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/search_filteri_goriva");
   return model;
  }
  
@@ -122,6 +167,34 @@ public class SearchController {
 	  model.addObject("product", product);
 	  model.setViewName("home/product_profile");
   	}
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/homesearch"}, method=RequestMethod.GET)
+ public ModelAndView homeSearch() {
+  ModelAndView model = new ModelAndView();
+  model.setViewName("home/home_search");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/modelsearch"}, method=RequestMethod.GET)
+ public ModelAndView modelSearch() {
+  ModelAndView model = new ModelAndView();
+  List<Brand> brands = (List<Brand>) brandRepository.findAll();
+  model.addObject("brands", brands);
+  CarModel carModel = new CarModel();
+  model.addObject("carModel", carModel);
+  model.setViewName("home/select_brand");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.POST)
+ public ModelAndView createCarModel(@Valid CarModel carModel, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  List<CarModel> carModels = carModelRepository.findByBrand(carModel.getBrand());
+  model.addObject("carModel", new CarModel());
+  model.addObject("carModels", carModels);
+  model.setViewName("admin/select_model");
   return model;
  }
  /*
