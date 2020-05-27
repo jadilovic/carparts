@@ -216,9 +216,16 @@ public class SearchController {
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
  public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
+  
+  System.out.println("GROUP NAME " + inputs.getGroupName());
   ProductGroup group = productGroupRepository.findByName(inputs.getGroupName());
+  
+  System.out.println("BRAND NAME " + inputs.getBrandName());
   String carBrand = inputs.getBrandName();
+  
+  System.out.println("MODEL NAME " + inputs.getModelName());
   String carModel = inputs.getModelName();
+  
   String pattern = "%" + carBrand + "%" + carModel + "%";
   List<Product> productList = productRepository.findByDescriptionLike(pattern);
   model.addObject("message", inputs.getGroupName());

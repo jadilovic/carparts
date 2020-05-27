@@ -34,7 +34,7 @@
       			<td>
       	  			<select th:field="*{name}">
               			<option th:each="model : ${carModels}"
-              				th:value="${model.id}"
+              				th:value="${model.name}"
               				th:utext="${model.name}"/>
           			</select>
       			</td>

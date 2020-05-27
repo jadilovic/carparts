@@ -31,12 +31,14 @@
   		<tbody>
   		    <tr>
       			<th scope="row"><label for="brandName">Marka automobila:</label></th>
-      			<td th:field="*{brandName}" th:utext="*{brandName}">
+      			<td>
+      				<input type="text" th:field="*{brandName}" id="brandName">
       			</td>
     		</tr>
     		<tr>
       			<th scope="row"><label for="modelName">Model automobila:</label></th>
-      			<td th:field="*{modelName}" th:utext="*{modelName}">
+      			<td>
+      			     <input type="text" th:field="*{modelName}" id="modelName">
       			</td>
     		</tr>
     		<tr>
