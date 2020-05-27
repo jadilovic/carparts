@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Kreiranje Nove Grupe</title>
+ <title>Izmjena Podataka</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -24,7 +24,7 @@
          </div>
          <div class="p-3 row">
              <div class="col-md-3"></div>
-                 <h5>Kreiranje Novog Auto Dijela</h5>
+                 <h5>Izmjena Podatak Auto Dijela</h5>
          </div>
          <div class="row">
              <div class="col-md-3 field-label-responsive">
@@ -35,14 +35,8 @@
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
                          <input type="text" th:field="*{sifra}" class="form-control" id="sifra"
-                                placeholder="Šifra auto dijela" required autofocus>
+                                placeholder="Šifra auto dijela" readonly="readonly" required autofocus>
                      </div>
-                 </div>
-             </div>
-             <div class="col-md-3">
-                 <div class="form-control-feedback">
-                    <span class="text-danger align-middle" th:if="${#fields.hasErrors('sifra')}" th:errors="*{sifra}">
-                       </span>
                  </div>
              </div>
          </div>
@@ -60,30 +54,34 @@
                  </div>
              </div>
           </div>
-       <table class="table table-striped">
-  		<tbody>
-    		<tr>
-      			<th scope="row"><label for="productGroup">Odaberi kategoriju auto dijela:</label></th>
-      			<td>
-      	  			<select th:field="*{productGroup}">
-              			<option th:each="group : ${productGroupList}"
-              				th:value="${group.id}"
-              				th:utext="${group.name}"/>
-          			</select>
-      			</td>
-    		</tr>
-    		<tr>
-      			<th scope="row"><label for="productMaker">Odaberi proizvođača auto dijela:</label></th>
-      			<td>
-      	  			<select th:field="*{productMaker}">
-              			<option th:each="maker : ${productMakerList}"
-              				th:value="${maker.id}"
-              				th:utext="${maker.name}"/>
-          			</select>
-      			</td>
-    		</tr>
-    	</tbody>
-    	</table>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="productGroup">Kategorija auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-flag"></i></div>
+                         <input type="text" th:field="${productGroup.name}" class="form-control" id="productGroup"
+                                th:value="${productGroup.id}" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+          </div>
+           <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="productGroup">Proizvođač auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-play-circle-o"></i></div>
+                         <input type="text" th:field="${productMaker.name}" class="form-control" id="productMaker"
+                                th:value="${productMaker.id}" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+          </div>
     	<div class="row">
              <div class="col-md-3 field-label-responsive">
                  <label for="description">Opis auto dijela:</label>

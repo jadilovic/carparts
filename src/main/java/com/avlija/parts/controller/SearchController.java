@@ -227,7 +227,7 @@ public class SearchController {
   String carModel = inputs.getModelName();
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
-  List<Product> productList = productRepository.findByDescriptionLike(pattern);
+  List<Product> productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
   model.addObject("message", inputs.getGroupName());
   model.addObject("productList", productList);
   model.setViewName("home/list_products");

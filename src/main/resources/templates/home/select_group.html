@@ -46,7 +46,7 @@
       			<td>
       	  			<select th:field="*{groupName}">
               			<option th:each="group : ${productGroups}"
-              				th:value="${group.id}"
+              				th:value="${group.name}"
               				th:utext="${group.name}"/>
           			</select>
       			</td>

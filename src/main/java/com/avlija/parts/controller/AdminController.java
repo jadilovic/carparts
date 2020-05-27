@@ -191,11 +191,11 @@ public class AdminController {
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
-  List<ProductGroup> productGroupList = productGroupRepository.findAll();
-  List<ProductMaker> productMakerList = productMakerRepository.findAll();
+  ProductGroup productGroup = product.getProductGroup();
+  ProductMaker productMaker = product.getProductMaker();
   model.addObject("product", product);
-  model.addObject("productMakerList", productMakerList);
-  model.addObject("productGroupList", productGroupList);
+  model.addObject("productMaker", productMaker);
+  model.addObject("productGroup", productGroup);
   model.setViewName("admin/edit_product");
   
   return model;
@@ -215,7 +215,7 @@ public class AdminController {
 	  model.addObject("productList", productList);
 	  model.addObject("product", savedProduct);
 	  model.setViewName("admin/create_product2");
-	  
+ 
   return model;
  }
  

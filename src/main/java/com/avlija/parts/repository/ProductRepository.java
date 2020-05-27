@@ -16,5 +16,5 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
  
  List<Product> findByProductGroup(ProductGroup productGroup);
  
- List<Product> findByDescriptionLike(String pattern);
+ List<Product> findByDescriptionLikeAndProductGroup(String pattern, ProductGroup productGroup);
 }
