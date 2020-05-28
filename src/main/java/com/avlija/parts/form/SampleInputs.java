@@ -2,7 +2,10 @@ package com.avlija.parts.form;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.avlija.parts.model.Product;
+
 import java.util.Date;
+import java.util.List;
 
 public class SampleInputs {
 
@@ -19,6 +22,8 @@ public class SampleInputs {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTimeField;
+    
+    private List<Product> replaceProducts;
     
     
     public SampleInputs() {
@@ -166,6 +171,14 @@ public class SampleInputs {
 	 */
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	public List<Product> getReplaceProducts() {
+		return replaceProducts;
+	}
+
+	public void setReplaceProducts(List<Product> replaceProducts) {
+		this.replaceProducts = replaceProducts;
 	}
 
     

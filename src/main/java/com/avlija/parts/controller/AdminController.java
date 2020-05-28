@@ -208,7 +208,6 @@ public class AdminController {
 	  ProductGroup productGroup = product.getProductGroup();
 	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
 	  
-	  productRepository.save(product);
 	  Long productId = product.getId();
 	  Product savedProduct = productRepository.findById(productId).get();
 	  
