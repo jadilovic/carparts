@@ -191,7 +191,7 @@ public class AdminController {
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
-  ProductGroup productGroup = product.getProductGroup();
+  String productGroup = product.getProductGroup().getName();
   ProductMaker productMaker = product.getProductMaker();
   model.addObject("product", product);
   model.addObject("productMaker", productMaker);
@@ -202,13 +202,15 @@ public class AdminController {
  }
  
  @RequestMapping(value= {"admin/editproduct1"}, method=RequestMethod.POST)
- public ModelAndView editProduct(@Valid Product product, BindingResult bindingResult) {
+ public ModelAndView editProduct(@Valid Product product, String productGroup) {
   ModelAndView model = new ModelAndView();
-
-	  ProductGroup productGroup = product.getProductGroup();
-	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+  
+	  System.out.println("PRODUCT GROUP NAME: " + productGroup);
+	  ProductGroup productGroupObject = productGroupRepository.findByName(productGroup);
+	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroupObject);
 	  
 	  Long productId = product.getId();
+	  System.out.println("PRODUCT ID: " + productId);
 	  Product savedProduct = productRepository.findById(productId).get();
 	  
 	  model.addObject("productList", productList);
