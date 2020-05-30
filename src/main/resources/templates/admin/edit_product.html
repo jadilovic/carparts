@@ -63,8 +63,8 @@
                  <div class="form-group">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-flag"></i></div>
-                         <input type="text" th:field="${productGroup}" class="form-control" id="productGroup"
-                                th:value="${productGroup}" readonly="readonly">
+                         <input type="text" th:field="*{productGroup.name}" class="form-control" id="productGroup"
+                                th:value="*{productGroup.id}" readonly="readonly">
                      </div>
                  </div>
              </div>
@@ -77,8 +77,8 @@
                  <div class="form-group">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-play-circle-o"></i></div>
-                         <input type="text" th:field="${productMaker.name}" class="form-control" id="productMaker"
-                                th:value="${productMaker.id}" readonly="readonly">
+                         <input type="text" th:field="*{productMaker.name}" class="form-control" id="productMaker"
+                                th:value="*{productMaker.id}" readonly="readonly">
                      </div>
                  </div>
              </div>

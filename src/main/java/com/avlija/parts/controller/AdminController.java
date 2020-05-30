@@ -191,33 +191,51 @@ public class AdminController {
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
-  String productGroup = product.getProductGroup().getName();
-  ProductMaker productMaker = product.getProductMaker();
   model.addObject("product", product);
-  model.addObject("productMaker", productMaker);
-  model.addObject("productGroup", productGroup);
   model.setViewName("admin/edit_product");
-  
   return model;
  }
  
  @RequestMapping(value= {"admin/editproduct1"}, method=RequestMethod.POST)
- public ModelAndView editProduct(@Valid Product product, String productGroup) {
+ public ModelAndView editProduct(@Valid Product product, ProductGroup productGroup) {
   ModelAndView model = new ModelAndView();
   
-	  System.out.println("PRODUCT GROUP NAME: " + productGroup);
-	  ProductGroup productGroupObject = productGroupRepository.findByName(productGroup);
-	  List<Product> productList = productServiceImpl.findProductsByGroup(productGroupObject);
+  	Product savedProduct = productRepository.findById(product.getId()).get();
+  		product.setProductGroup(savedProduct.getProductGroup());
+  		product.setProductMaker(savedProduct.getProductMaker());
+  		product.setProducts(savedProduct.getProducts());
+
+	  List<Product> productList = productServiceImpl.findProductsByGroup(savedProduct.getProductGroup());
+	  productRepository.save(product);
 	  
-	  Long productId = product.getId();
-	  System.out.println("PRODUCT ID: " + productId);
-	  Product savedProduct = productRepository.findById(productId).get();
-	  
+	  model.addObject("msg", "Dopuna zamjenskih dijelova za šifru - " + product.getSifra() +
+			  			" - iz kategorije - " + product.getProductGroup().getName());
 	  model.addObject("productList", productList);
-	  model.addObject("product", savedProduct);
-	  model.setViewName("admin/create_product2");
+	  model.addObject("product", product);
+	  model.setViewName("admin/edit_product2");
  
   return model;
+ }
+ 
+ @RequestMapping(value= {"admin/editproduct2"}, method=RequestMethod.POST)
+ public ModelAndView editProduct2(@Valid Product product) {
+  ModelAndView model = new ModelAndView();
+  Set<Product> replaceProducts = new HashSet<Product>();
+  	if(product.getProducts() == null) {
+  		product.setProducts(replaceProducts);
+  	} else {
+  		replaceProducts = product.getProducts();
+  	}
+  	   Product savedProduct = productRepository.findById(product.getId()).get();
+  	   
+  	   savedProduct.setProducts(replaceProducts);
+  	   productRepository.save(savedProduct);
+  	   model.addObject("msg", "Auto dio uspješno izmjenjen!");
+
+  	   model.addObject("replaceProducts", replaceProducts);
+  	   model.addObject("product", savedProduct);
+  	   model.setViewName("home/product_profile");
+  	   return model;
  }
  
  @RequestMapping(value= {"/admin/addremove/{id}"}, method=RequestMethod.GET)

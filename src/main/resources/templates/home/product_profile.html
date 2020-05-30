@@ -56,9 +56,14 @@
       <th scope="row">Transakcija:</th>
       <td><a class="btn btn-success btn-block" th:href="@{'/admin/addremove/' + *{id}}">Dodaj / Oduzmi</a></td>
     </tr>
+    <tr>
+        <th scope="row">Zamjenske sifre:</th>
+        <td>
+        </td>
     <tr th:each="replace : ${replaceProducts}">
-        <th scope="row">Zamjenski<span th:text="${replaceStat.count}"></span>:</th>
-        <td><span th:text="${replace.getSifra()}"></span> | | <a class="btn btn-danger" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
+        <th scope="row"><span th:text="${replace.getSifra()}"></span></th>
+        <td>
+           	<a class="btn btn-warning btn-block" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
         </td>
     </tr>
   </tbody>
