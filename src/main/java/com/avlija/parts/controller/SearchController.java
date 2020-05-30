@@ -192,7 +192,7 @@ public class SearchController {
  public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   List<CarModel> carModels = carModelRepository.findByBrand(carModel.getBrand());
-  model.addObject("carModel", new CarModel());
+  model.addObject("carModel", carModel);
   model.addObject("carModels", carModels);
   model.setViewName("home/select_model");
   return model;
