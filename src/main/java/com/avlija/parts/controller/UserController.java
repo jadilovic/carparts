@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.service.UserService;
 
@@ -29,6 +30,10 @@ public class UserController {
  
  @Autowired
  private TransactionRepository transactionRepository;
+ 
+ @Autowired
+ private ProductRepository productRepository;
+ 
  
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
  public ModelAndView login() {
@@ -135,10 +140,28 @@ public class UserController {
 		 message2 = "List svih transakcija";
 	 }
   ModelAndView model = new ModelAndView();
-  model.addObject("message", product.getProductGroup().getName());
   model.addObject("message2", message2);
-  model.addObject("productList", productList);
-  model.setViewName("home/list_products");
+  model.addObject("transactionsList", transactionsList);
+  model.setViewName("user/list_transactions");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
+ public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(id).get();
+  List <Transaction> transactionsList = transactionRepository.findByProduct(product);
+  
+	 String message2 = null;
+	 if(transactionsList.size() == 0) {
+		 message2 = "Nema transakcija";
+	 } else {
+		 message2 = "List svih transakcija za proizvod " + product.getName() + " šifre: " + product.getSifra();
+	 }
+	 
+  model.addObject("message2", message2);
+  model.addObject("transactionsList", transactionsList);
+  model.setViewName("user/list_transactions");
   return model;
  }
 }

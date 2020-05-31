@@ -19,8 +19,12 @@ public class Transaction implements Serializable{
     private Long id;
 	
     private Date created;
+    
+    private int transQuant;
 
-    private double totalCost;
+    private double totalValue;
+    
+    private String transType;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
@@ -33,9 +37,11 @@ public class Transaction implements Serializable{
     public Transaction() {
     }
 
-	public Transaction(Date created, double totalCost, Product product, User user) {
+	public Transaction(Date created, int transQuant, double totalValue, String transType, Product product, User user) {
 		this.created = created;
-		this.totalCost = totalCost;
+		this.totalValue = totalValue;
+		this.transQuant = transQuant;
+		this.transType = transType;
 		this.product = product;
 		this.user = user;
 	}
@@ -71,15 +77,15 @@ public class Transaction implements Serializable{
 	/**
 	 * @return the totalCost
 	 */
-	public double getTotalCost() {
-		return totalCost;
+	public double getTotalValue() {
+		return totalValue;
 	}
 
 	/**
 	 * @param totalCost the totalCost to set
 	 */
-	public void setTotalCost(double totalCost) {
-		this.totalCost = totalCost;
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
 	}
 
 	/**
@@ -108,6 +114,34 @@ public class Transaction implements Serializable{
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the transQuant
+	 */
+	public int getTransQuant() {
+		return transQuant;
+	}
+
+	/**
+	 * @param transQuant the transQuant to set
+	 */
+	public void setTransQuant(int transQuant) {
+		this.transQuant = transQuant;
+	}
+
+	/**
+	 * @return the transType
+	 */
+	public String getTransType() {
+		return transType;
+	}
+
+	/**
+	 * @param transType the transType to set
+	 */
+	public void setTransType(String transType) {
+		this.transType = transType;
 	}
     
     

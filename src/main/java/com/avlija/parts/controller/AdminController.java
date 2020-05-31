@@ -1,19 +1,13 @@
 package com.avlija.parts.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
-import javax.persistence.metamodel.Metamodel;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,12 +23,14 @@ import com.avlija.parts.model.CarModel;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductMaker;
+import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductMakerRepository;
 import com.avlija.parts.repository.ProductRepository;
+import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
@@ -58,6 +54,13 @@ public class AdminController {
  
  @Autowired
  private BrandRepository brandRepository;
+ 
+ @Autowired
+ private UserService userService;
+ 
+ @Autowired
+ private TransactionRepository transactionRepository;
+ 
 
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.GET)
  public ModelAndView createGroup() {
@@ -276,6 +279,13 @@ public class AdminController {
 	  	product.setQuantity(newQuantiy);
 	  	productRepository.save(product);
 	  	
+	  	double total = sampleInputs.getQuantity() * product.getPrice();
+	  	String transType = "ULAZ";
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    User user = userService.findUserByEmail(auth.getName());
+	  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
+	  	transactionRepository.save(transaction);
+	  	
 		  Set<Product> replaceProducts = product.getProducts();
 		  model.addObject("replaceProducts", replaceProducts);
 		  model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
@@ -306,6 +316,13 @@ public class AdminController {
   			int newQuantiy = oldQuantity - sampleInputs.getQuantity();
   			product.setQuantity(newQuantiy);
   			productRepository.save(product);
+  			
+  		  	double total = sampleInputs.getQuantity() * product.getPrice();
+  		  	String transType = "IZLAZ";
+  		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+  		    User user = userService.findUserByEmail(auth.getName());
+  		  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
+  		  	transactionRepository.save(transaction);
   	
   			Set<Product> replaceProducts = product.getProducts();
   			model.addObject("replaceProducts", replaceProducts);

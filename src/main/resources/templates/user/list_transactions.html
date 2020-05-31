@@ -26,23 +26,35 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Šifra</th>
-                <th scope="col">Stanje</th>
+                <th scope="col">ID #</th>
+                <th scope="col">Datum Transakcije</th>
+                <th scope="col">Šifra proizvoda</th>
+                <th scope="col">Naziv proizvoda</th>                
                 <th scope="col">Proizvođač</th>
-                <th scope="col">Dodatni</th>                
-                <th scope="col">Zamjenski</th>
+                <th scope="col">Količina</th> 
+                <th scope="col">Vrsta transakcije</th>                
+                <th scope="col">Transakciju izvršio</th>               
+                <th scope="col">Ukupna vrijednost</th>
+                <th scope="col">Dodatni Info</th>               
+                <th scope="col">Zamjenski proizvodi</th>
             </tr>
         </thead>
         <tbody>
-            <tr scope="row" th:each="product : ${productList}">
-                <td th:text="${product.sifra}">Sifra</td>
-                <td th:text="${product.quantity}">Stanje</td>
-                <td th:text="${product.getProductMaker().getName()}">Proizvodjac]</td>   
-                <td th:object="${product}">
-                	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Info</a>
+            <tr scope="row" th:each="trans : ${transactionsList}">
+                <td th:text="${trans.id}">ID</td>
+                <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
+                <td th:text="${trans.getProduct().getSifra()}">Šifra</td>   
+                <td th:text="${trans.getProduct().getName()}">Naziv</td>   
+                <td th:text="${trans.getProduct().getProductMaker().getName()}">Proizvođač</td>   
+                <td th:text="${trans.transQuant}">Količina</td> 
+                <td th:text="${trans.transType}">Vrsta transakcije</td>   
+                <td th:text="${trans.getUser().getFirstname()}">Korisnik</td>
+                <td th:text="${trans.totalValue}">Vrijednost</td>                
+                <td th:object="${trans.getProduct()}">
+                	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Product Info</a>
                 </td>       
-                <td th:object="${product}">
-                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Lista</a>
+                <td th:object="${trans.getProduct()}">
+                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Zamjenska Lista</a>
                 </td>
             </tr>
         </tbody>
