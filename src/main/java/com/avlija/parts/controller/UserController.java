@@ -1,5 +1,8 @@
 package com.avlija.parts.controller;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +10,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.model.Product;
+import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.service.UserService;
 
 @Controller
@@ -19,6 +26,9 @@ public class UserController {
 
  @Autowired
  private UserService userService;
+ 
+ @Autowired
+ private TransactionRepository transactionRepository;
  
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
  public ModelAndView login() {
@@ -112,6 +122,23 @@ public class UserController {
   
   model.addObject("userName", user.getFirstname() + " " + user.getLastname());
   model.setViewName("user/guestPage");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/user/alltransactions"}, method=RequestMethod.GET)
+ public ModelAndView listReplaceProducts() {
+	 List <Transaction> transactionsList = (List<Transaction>) transactionRepository.findAll();
+	 String message2 = null;
+	 if(transactionsList.size() == 0) {
+		 message2 = "Nema transakcija";
+	 } else {
+		 message2 = "List svih transakcija";
+	 }
+  ModelAndView model = new ModelAndView();
+  model.addObject("message", product.getProductGroup().getName());
+  model.addObject("message2", message2);
+  model.addObject("productList", productList);
+  model.setViewName("home/list_products");
   return model;
  }
 }
