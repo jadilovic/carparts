@@ -5,12 +5,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,9 +48,29 @@ public class User {
  inverseJoinColumns=@JoinColumn(name="role_id"))
  private Set<Role> roles;
 
+ @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+         cascade = CascadeType.ALL)
+ private Set<Transaction> transactions;
  
+ public User() {
+	 
+ }
  
  /**
+ * @return the transactions
+ */
+public Set<Transaction> getTransactions() {
+	return transactions;
+}
+
+/**
+ * @param transactions the transactions to set
+ */
+public void setTransactions(Set<Transaction> transactions) {
+	this.transactions = transactions;
+}
+
+/**
  * @return the role
  */
 public String getRole() {

@@ -26,6 +26,10 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name ="FK_ProductMakerId")
     private ProductMaker productMaker;
+    
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    	private Set<Transaction> transactions;
 
     
     private String description;
@@ -53,6 +57,26 @@ public class Product implements Serializable {
     
     public Product() {
     }
+
+    
+    
+	/**
+	 * @return the transactions
+	 */
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+
+
+
+	/**
+	 * @param transactions the transactions to set
+	 */
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+
 
 	/**
 	 * @return the id
