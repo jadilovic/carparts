@@ -67,7 +67,7 @@
     <tr th:each="replace : ${replaceProducts}">
         <th scope="row"><span th:text="${replace.getSifra()}"></span></th>
         <td>
-           	<a class="btn btn-warning btn-block" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
+           	<a class="btn btn-info btn-block" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
         </td>
     </tr>
   </tbody>
