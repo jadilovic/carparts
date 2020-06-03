@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.avlija.parts.model.User;
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
  
  User findByEmail(String email);
 }

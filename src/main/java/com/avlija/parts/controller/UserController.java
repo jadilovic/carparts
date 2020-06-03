@@ -1,7 +1,6 @@
 package com.avlija.parts.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -163,5 +162,14 @@ public class UserController {
   model.addObject("transactionsList", transactionsList);
   model.setViewName("user/list_transactions");
   return model;
+ }
+ 
+ @RequestMapping("/user/profile")
+ public ModelAndView profilePage() {
+     ModelAndView mav = new ModelAndView("user/profile_page");
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+     User userProfile = userService.findUserByEmail(auth.getName());
+     mav.addObject("userProfile", userProfile);
+     return mav;
  }
 }
