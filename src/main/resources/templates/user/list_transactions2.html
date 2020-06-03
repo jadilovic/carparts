@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Lisa proizvoda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/></div>
+
+ <div class="p-2" align="center">
+   <h5>Lista proizvoda iz kategorije:</h5>
+ </div>
+
+
+  <div class="container table-responsive" align="center">
+    <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
+        
+    <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
+        
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID #</th>
+                <th scope="col">Datum Transakcije</th>
+                <th scope="col">Šifra proizvoda</th>
+                <th scope="col">Naziv proizvoda</th>                
+                <th scope="col">Proizvođač</th>
+                <th scope="col">Količina</th> 
+                <th scope="col">Vrsta transakcije</th>                
+                <th scope="col">Transakciju izvršio</th>               
+                <th scope="col">Ukupna vrijednost</th>
+                <th scope="col">Dodatni Info</th>               
+                <th scope="col">Zamjenski proizvodi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr scope="row" th:each="trans : ${transactionsList}">
+                <td th:text="${trans.id}">ID</td>
+                <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
+                <td th:text="${trans.getProduct().getSifra()}">Šifra</td>   
+                <td th:text="${trans.getProduct().getName()}">Naziv</td>   
+                <td th:text="${trans.getProduct().getProductMaker().getName()}">Proizvođač</td>   
+                <td th:text="${trans.transQuant}">Količina</td> 
+                <td th:text="${trans.transType}">Vrsta transakcije</td>   
+                <td th:text="${trans.getUser().getFirstname()}">Korisnik</td>
+                <td th:text="${trans.totalValue}">Vrijednost</td>                
+                <td th:object="${trans.getProduct()}">
+                	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Product Info</a>
+                </td>       
+                <td th:object="${trans.getProduct()}">
+                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Zamjenska Lista</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- transactions pagination -->
+        </div>
+        <div class="col-md-2"></div>
+			<div class="row" th:fragment="pagination">
+        <div class="col-md-2"></div>
+        
+        <div class="col-md-8">
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                        <a class="page-link" th:href="@{|/user/alltransactions2/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    
+ <div th:replace="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>

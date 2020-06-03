@@ -1,20 +1,29 @@
 package com.avlija.parts.controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.model.Product;
+import com.avlija.parts.model.Role;
 import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.repository.ProductRepository;
@@ -131,7 +140,7 @@ public class UserController {
  
  @RequestMapping(value= {"/user/alltransactions"}, method=RequestMethod.GET)
  public ModelAndView listReplaceProducts() {
-	 List <Transaction> transactionsList = (List<Transaction>) transactionRepository.findAll();
+	 List <Transaction> transactionsList = (List<Transaction>) transactionRepository.findByOrderByCreatedDesc();
 	 String message2 = null;
 	 if(transactionsList.size() == 0) {
 		 message2 = "Nema transakcija";
@@ -149,7 +158,7 @@ public class UserController {
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
-  List <Transaction> transactionsList = transactionRepository.findByProduct(product);
+  List <Transaction> transactionsList = transactionRepository.findByProductOrderByCreatedDesc(product);
   
 	 String message2 = null;
 	 if(transactionsList.size() == 0) {
@@ -169,7 +178,25 @@ public class UserController {
      ModelAndView mav = new ModelAndView("user/profile_page");
      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
      User userProfile = userService.findUserByEmail(auth.getName());
+     Set <Role> roles = userProfile.getRoles();
+     mav.addObject("roles", roles);
      mav.addObject("userProfile", userProfile);
      return mav;
  }
+
+ @RequestMapping(value = "/user/alltransactions2/{page}")
+ public ModelAndView listArticlesPageByPage(@PathVariable("page") int page) {
+     ModelAndView modelAndView = new ModelAndView("user/list_transactions2");
+     PageRequest pageable = PageRequest.of(page - 1, 15);
+     Page<Transaction> transactionsPage = transactionRepository.findAll(pageable);
+     int totalPages = transactionsPage.getTotalPages();
+     if(totalPages > 0) {
+         List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+         modelAndView.addObject("pageNumbers", pageNumbers);
+     }
+     modelAndView.addObject("activeArticleList", true);
+     modelAndView.addObject("transactionsList", transactionsPage.getContent());
+     return modelAndView;
+ }
+
 }
