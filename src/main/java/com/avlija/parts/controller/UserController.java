@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -208,7 +209,7 @@ public class UserController {
  public String customersPage(HttpServletRequest request, Model model) {
      
      int page = 0; //default page number is 0 (yes it is weird)
-     int size = 1; //default page size is 10
+     int size = 10; //default page size is 10
      
      if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
          page = Integer.parseInt(request.getParameter("page")) - 1;
@@ -218,7 +219,7 @@ public class UserController {
          size = Integer.parseInt(request.getParameter("size"));
      }
      
-     model.addAttribute("customers", transactionRepository.findAll(PageRequest.of(page, size)));
+     model.addAttribute("customers", transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending())));
      return "user/list_transactions2";
  }
 
