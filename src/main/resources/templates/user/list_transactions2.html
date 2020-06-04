@@ -17,11 +17,13 @@
    <h5>Lista proizvoda iz kategorije:</h5>
  </div>
 
-
   <div class="container table-responsive" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
         
     <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
+        
+    <div class="row" th:fragment="article-list" th:if="${transactionsList != null && !transactionsList.isEmpty()}">
+        <div class="col-md-2"></div>
         
     <table class="table table-striped">
         <thead>
@@ -77,7 +79,7 @@
         </div>
         <div class="col-md-2"></div>
     </div>
-    
+  </div>
  <div th:replace="fragments/footer :: footer"/></div>
  
 </body>
