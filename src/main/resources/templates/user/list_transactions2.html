@@ -17,12 +17,15 @@
    <h5>Lista proizvoda iz kategorije:</h5>
  </div>
 
+  
+  
+  
   <div class="container table-responsive" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
         
     <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
         
-    <div class="row" th:fragment="article-list" th:if="${transactionsList != null && !transactionsList.isEmpty()}">
+    <div class="row" th:fragment="article-list" th:if="${customers != null && !customers.isEmpty()}">
         <div class="col-md-2"></div>
         
     <table class="table table-striped">
@@ -42,7 +45,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr scope="row" th:each="trans : ${transactionsList}">
+            <tr scope="row" th:each="trans : ${customers}">
                 <td th:text="${trans.id}">ID</td>
                 <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
                 <td th:text="${trans.getProduct().getSifra()}">Šifra</td>   
@@ -61,8 +64,42 @@
             </tr>
         </tbody>
     </table>
+    </div>
+    </div>
     
-    <!-- transactions pagination -->
+    <!-- customers pagination -->
+<nav aria-label="Pagination" th:if="${customers.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-medium">
+        <li class="page-item" th:classappend="${customers.number eq 0} ? 'disabled'">
+            <a class="page-link svg-icon"
+               th:href="@{/user/alltransactions?page={id}(id=${customers.number lt 2 ? 1 : customers.number})}"
+               aria-label="Previous"
+               title="Previous Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${i eq customers.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence( customers.number + 1, customers.totalPages > 10 + customers.number ? customers.number + 10 : customers.totalPages, 1)}">
+            <a class="page-link" th:href="@{/user/alltransactions?page={id}(id=${i})}" th:text="${i}"
+               th:title="${'Page '+ i}"
+               rel="tooltip"></a>
+        </li>
+        <li class="page-item disabled" th:if="${customers.number + 10 < customers.totalPages}">
+            <a class="page-link svg-icon" href="#">
+                <span data-feather="more-horizontal" width="20" height="20"></span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${customers.number + 1 eq customers.totalPages} ? 'disabled'">
+            <a class="page-link svg-icon" th:href="@{/user/alltransactions?page={id}(id=${customers.number + 2})}"
+               aria-label="Next"
+               title="Next Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>
+            </a>
+        </li>
+    </ul>
+</nav>
+    
+    <!-- transactions pagination --
         </div>
         <div class="col-md-2"></div>
 			<div class="row" th:fragment="pagination">
@@ -77,9 +114,11 @@
                 </ul>
             </nav>
         </div>
+        
         <div class="col-md-2"></div>
     </div>
   </div>
+ -->
  <div th:replace="fragments/footer :: footer"/></div>
  
 </body>

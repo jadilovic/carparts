@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -139,6 +142,7 @@ public class UserController {
   return model;
  }
  
+ /*
  @RequestMapping(value= {"/user/alltransactions"}, method=RequestMethod.GET)
  public ModelAndView listReplaceProducts() {
 	 List <Transaction> transactionsList = (List<Transaction>) transactionRepository.findByOrderByCreatedDesc();
@@ -154,6 +158,7 @@ public class UserController {
   model.setViewName("user/list_transactions");
   return model;
  }
+ */
  
  @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
@@ -195,11 +200,26 @@ public class UserController {
          List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
          modelAndView.addObject("pageNumbers", pageNumbers);
      }
-     System.out.println("ALL TRANSACTIONS: " + transactionRepository.findAll());
-     modelAndView.addObject("activeArticleList", true);
-    modelAndView.addObject("transactionsList", transactionsPage.getContent());
-    // modelAndView.addObject("transactionsList", transactionRepository.findAll());
+     modelAndView.addObject("transactionsList", transactionsPage.getContent());
      return modelAndView;
+ }
+ 
+ @GetMapping("/user/alltransactions")
+ public String customersPage(HttpServletRequest request, Model model) {
+     
+     int page = 0; //default page number is 0 (yes it is weird)
+     int size = 1; //default page size is 10
+     
+     if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+         page = Integer.parseInt(request.getParameter("page")) - 1;
+     }
+
+     if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+         size = Integer.parseInt(request.getParameter("size"));
+     }
+     
+     model.addAttribute("customers", transactionRepository.findAll(PageRequest.of(page, size)));
+     return "user/list_transactions2";
  }
 
 }
