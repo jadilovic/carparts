@@ -2,14 +2,11 @@ package com.avlija.parts.controller;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -29,7 +26,6 @@ import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
-import com.avlija.parts.service.TransactionService;
 import com.avlija.parts.service.UserService;
 
 @Controller
@@ -43,9 +39,6 @@ public class UserController {
  
  @Autowired
  private ProductRepository productRepository;
- 
- @Autowired
- private TransactionService transactionService;
  
  
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
@@ -143,43 +136,6 @@ public class UserController {
   return model;
  }
  
- /*
- @RequestMapping(value= {"/user/alltransactions"}, method=RequestMethod.GET)
- public ModelAndView listReplaceProducts() {
-	 List <Transaction> transactionsList = (List<Transaction>) transactionRepository.findByOrderByCreatedDesc();
-	 String message2 = null;
-	 if(transactionsList.size() == 0) {
-		 message2 = "Nema transakcija";
-	 } else {
-		 message2 = "List svih transakcija";
-	 }
-  ModelAndView model = new ModelAndView();
-  model.addObject("message2", message2);
-  model.addObject("transactionsList", transactionsList);
-  model.setViewName("user/list_transactions");
-  return model;
- }
- */
- 
- @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
- public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
-  ModelAndView model = new ModelAndView();
-  Product product = productRepository.findById(id).get();
-  List <Transaction> transactionsList = transactionRepository.findByProductOrderByCreatedDesc(product);
-  
-	 String message2 = null;
-	 if(transactionsList.size() == 0) {
-		 message2 = "Nema transakcija";
-	 } else {
-		 message2 = "List svih transakcija za proizvod " + product.getName() + " šifre: " + product.getSifra();
-	 }
-	 
-  model.addObject("message2", message2);
-  model.addObject("transactionsList", transactionsList);
-  model.setViewName("user/list_transactions");
-  return model;
- }
- 
  @RequestMapping("/user/profile")
  public ModelAndView profilePage() {
      ModelAndView mav = new ModelAndView("user/profile_page");
@@ -190,25 +146,30 @@ public class UserController {
      mav.addObject("userProfile", userProfile);
      return mav;
  }
-
- @RequestMapping(value = "/user/alltransactions2/{page}")
- public ModelAndView listArticlesPageByPage(@PathVariable("page") int page) {
-     ModelAndView modelAndView = new ModelAndView("user/list_transactions2");
-     PageRequest pageable = PageRequest.of(page - 1, 3);
-     Page<Transaction> transactionsPage = transactionService.getPaginatedTransactions(pageable);
-     int totalPages = transactionsPage.getTotalPages();
-     if(totalPages > 0) {
-         List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
-         modelAndView.addObject("pageNumbers", pageNumbers);
-     }
-     modelAndView.addObject("transactionsList", transactionsPage.getContent());
-     return modelAndView;
+ 
+ @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
+ public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
+  ModelAndView model = new ModelAndView();
+  Product product = productRepository.findById(id).get();
+ //List <Transaction> transactionsList = transactionRepository.findByProductOrderByCreatedDesc(product);
+  List <Transaction> transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
+	 String message2 = null;
+	 if(transactionsList.size() == 0) {
+		 message2 = "Nema transakcija";
+	 } else {
+		 message2 = "Lista 30 posljednjih transakcija za proizvod " + product.getName() + " šifre: " + product.getSifra();
+	 }
+	 
+  model.addObject("message2", message2);
+  model.addObject("transactionsList", transactionsList);
+  model.setViewName("user/list_transactions");
+  return model;
  }
  
  @GetMapping("/user/alltransactions")
  public String customersPage(HttpServletRequest request, Model model) {
      
-     int page = 0; //default page number is 0 (yes it is weird)
+     int page = 0; //default page number is 0
      int size = 10; //default page size is 10
      
      if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
@@ -219,7 +180,8 @@ public class UserController {
          size = Integer.parseInt(request.getParameter("size"));
      }
      
-     model.addAttribute("customers", transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending())));
+     model.addAttribute("message", "za sve artikle.");
+     model.addAttribute("transactions", transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending())));
      return "user/list_transactions2";
  }
 

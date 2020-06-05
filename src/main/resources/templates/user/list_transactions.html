@@ -47,7 +47,7 @@
                 <td th:text="${trans.getProduct().getName()}">Naziv</td>   
                 <td th:text="${trans.getProduct().getProductMaker().getName()}">Proizvođač</td>   
                 <td th:text="${trans.transQuant}">Količina</td> 
-                <td th:text="${trans.transType}">Vrsta transakcije</td>   
+     <th th:style="|${trans.transType == 'IZLAZ' ? 'color: red;' : 'color: green;'}}|" th:text="${trans.transType}">Vrsta transakcije</th>   
                 <td th:text="${trans.getUser().getFirstname()}">Korisnik</td>
                 <td th:text="${trans.totalValue}">Vrijednost</td>                
                 <td th:object="${trans.getProduct()}">

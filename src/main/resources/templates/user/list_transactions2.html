@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Lisa proizvoda</title>
+ <title>Lisa transakcija</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -14,18 +14,13 @@
 <div th:replace="fragments/header :: header"/></div>
 
  <div class="p-2" align="center">
-   <h5>Lista proizvoda iz kategorije:</h5>
+   <h5>Lista transakcija:</h5>
  </div>
-
-  
-  
   
   <div class="container table-responsive" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
         
-    <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
-        
-    <div class="row" th:fragment="article-list" th:if="${customers != null && !customers.isEmpty()}">
+    <div class="row" th:fragment="article-list" th:if="${transactions != null && !transactions.isEmpty()}">
         <div class="col-md-2"></div>
         
     <table class="table table-striped">
@@ -45,14 +40,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr scope="row" th:each="trans : ${customers}">
+            <tr scope="row" th:each="trans : ${transactions}">
                 <td th:text="${trans.id}">ID</td>
                 <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
                 <td th:text="${trans.getProduct().getSifra()}">Šifra</td>   
                 <td th:text="${trans.getProduct().getName()}">Naziv</td>   
                 <td th:text="${trans.getProduct().getProductMaker().getName()}">Proizvođač</td>   
                 <td th:text="${trans.transQuant}">Količina</td> 
-                <td th:text="${trans.transType}">Vrsta transakcije</td>   
+     <th th:style="|${trans.transType == 'IZLAZ' ? 'color: red;' : 'color: green;'}}|" th:text="${trans.transType}">Vrsta transakcije</th>   
                 <td th:text="${trans.getUser().getFirstname()}">Korisnik</td>
                 <td th:text="${trans.totalValue}">Vrijednost</td>                
                 <td th:object="${trans.getProduct()}">
@@ -67,30 +62,30 @@
     </div>
     </div>
     
-    <!-- customers pagination -->
-<nav aria-label="Pagination" th:if="${customers.totalPages gt 0}">
+    <!-- transactions pagination -->
+<nav aria-label="Pagination" th:if="${transactions.totalPages gt 0}">
     <ul class="pagination justify-content-center font-weight-medium">
-        <li class="page-item" th:classappend="${customers.number eq 0} ? 'disabled'">
+        <li class="page-item" th:classappend="${transactions.number eq 0} ? 'disabled'">
             <a class="page-link svg-icon"
-               th:href="@{/user/alltransactions?page={id}(id=${customers.number lt 2 ? 1 : customers.number})}"
+               th:href="@{/user/alltransactions?page={id}(id=${transactions.number lt 2 ? 1 : transactions.number})}"
                aria-label="Previous"
                title="Previous Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>
             </a>
         </li>
-        <li class="page-item" th:classappend="${i eq customers.number + 1} ? 'active'"
-            th:each="i : ${#numbers.sequence( customers.number + 1, customers.totalPages > 10 + customers.number ? customers.number + 10 : customers.totalPages, 1)}">
+        <li class="page-item" th:classappend="${i eq transactions.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence( transactions.number + 1, transactions.totalPages > 10 + transactions.number ? transactions.number + 10 : transactions.totalPages, 1)}">
             <a class="page-link" th:href="@{/user/alltransactions?page={id}(id=${i})}" th:text="${i}"
                th:title="${'Page '+ i}"
                rel="tooltip"></a>
         </li>
-        <li class="page-item disabled" th:if="${customers.number + 10 < customers.totalPages}">
+        <li class="page-item disabled" th:if="${transactions.number + 10 < transactions.totalPages}">
             <a class="page-link svg-icon" href="#">
                 <span data-feather="more-horizontal" width="20" height="20"></span>
             </a>
         </li>
-        <li class="page-item" th:classappend="${customers.number + 1 eq customers.totalPages} ? 'disabled'">
-            <a class="page-link svg-icon" th:href="@{/user/alltransactions?page={id}(id=${customers.number + 2})}"
+        <li class="page-item" th:classappend="${transactions.number + 1 eq transactions.totalPages} ? 'disabled'">
+            <a class="page-link svg-icon" th:href="@{/user/alltransactions?page={id}(id=${transactions.number + 2})}"
                aria-label="Next"
                title="Next Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>
@@ -98,27 +93,7 @@
         </li>
     </ul>
 </nav>
-    
-    <!-- transactions pagination --
-        </div>
-        <div class="col-md-2"></div>
-			<div class="row" th:fragment="pagination">
-        <div class="col-md-2"></div>
-        
-        <div class="col-md-8">
-            <nav aria-label="Pagination">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-                        <a class="page-link" th:href="@{|/user/alltransactions2/${pageNumber}|}" th:text=${pageNumber}>1</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        
-        <div class="col-md-2"></div>
-    </div>
-  </div>
- -->
+
  <div th:replace="fragments/footer :: footer"/></div>
  
 </body>
