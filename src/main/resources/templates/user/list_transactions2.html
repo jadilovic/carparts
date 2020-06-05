@@ -15,11 +15,11 @@
 
  <div class="p-2" align="center">
    <h5>Lista transakcija:</h5>
+       <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
  </div>
   
   <div class="container table-responsive" align="center">
-    <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
-        
+
     <div class="row" th:fragment="article-list" th:if="${transactions != null && !transactions.isEmpty()}">
         <div class="col-md-2"></div>
         
