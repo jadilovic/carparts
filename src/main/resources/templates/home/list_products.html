@@ -14,15 +14,14 @@
 <div th:replace="fragments/header :: header"/></div>
 
  <div class="p-2" align="center">
-   <h5>Lista proizvoda iz kategorije:</h5>
+   <h5>Lista proizvoda:</h5>
+   <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>  
+    <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>   
  </div>
 
 
   <div class="container table-responsive" align="center">
-    <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
-        
-    <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
-        
+
     <table class="table table-striped">
         <thead>
             <tr>
