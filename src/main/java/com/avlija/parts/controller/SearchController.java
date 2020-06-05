@@ -6,8 +6,6 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,14 +18,11 @@ import com.avlija.parts.model.Brand;
 import com.avlija.parts.model.CarModel;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
-import com.avlija.parts.model.ProductMaker;
-import com.avlija.parts.model.User;
 import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.service.ProductServiceImpl;
-import com.avlija.parts.service.UserService;
 
 @Controller
 public class SearchController {

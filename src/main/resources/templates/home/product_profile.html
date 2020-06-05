@@ -40,11 +40,7 @@
       <th scope="row">Proizvođać:</th>
       <td><span th:text="${product.getProductMaker().getName()}"></span></td>
     </tr>
-    <tr>
-      <th scope="row">Opis:</th>
-      <td><span th:text="*{description}"></span></td>
-    </tr>
-    <tr>
+        <tr>
       <th scope="row">Cijena:</th>
       <td><span th:text="*{price}"></span></td>
     </tr>
@@ -61,7 +57,7 @@
       <td><a class="btn btn-warning btn-block" th:href="@{'/user/prodtransactions/' + *{id}}">Pregled liste transakcija</a></td>
     </tr>
     <tr>
-        <th scope="row">Zamjenske sifre:</th>
+      <th scope="row">Zamjenske sifre:</th>
         <td>
         </td>
     <tr th:each="replace : ${replaceProducts}">
@@ -69,6 +65,10 @@
         <td>
            	<a class="btn btn-info btn-block" th:href="@{'/home/productprofile/' + ${replace.getId()}}">Info</a>
         </td>
+    </tr>
+    <tr>
+      <th scope="row">Opis:</th>
+      <td><span th:text="*{description}"></span></td>
     </tr>
   </tbody>
 </table>
