@@ -121,28 +121,18 @@ public class SearchController {
 
 	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
 	 List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
-	 User user = getCurrentUser();
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
-	 for(Product product: productList) {
-		 ProductQuantity productQuantity;
-		 try {
-			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
-		 } catch(Exception e) {
-			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
-			 productQuantityRepository.save(productQuantity);
-		 }
-		 productQuantitiyList.add(productQuantity);
-	 }
+	 productQuantitiyList = getProductQuantityList(productList);
 	 
-  ModelAndView model = new ModelAndView();
-  model.addObject("productQuantityList", productQuantitiyList);
-  model.addObject("message", productGroup.getName());
-  model.addObject("productList", productList);
-  model.setViewName("home/list_products");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
+	 ModelAndView model = new ModelAndView();
+	 model.addObject("productQuantityList", productQuantitiyList);
+	 model.addObject("message", productGroup.getName());
+	 model.addObject("productList", productList);
+	 model.setViewName("home/list_products");
+	 return model;
+ 	}
+
+@RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
  public ModelAndView listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
 	 Set <Product> productList = product.getProducts();
@@ -173,7 +163,7 @@ public class SearchController {
 	  Set<Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
 	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
-	  System.out.println("Product QUANTITY : " + productQuantity.getQuantity());
+
 	  model.addObject("replaceProducts", replaceProducts);
 	  model.addObject("msg", "Pregled profila traženog proizvoda!");
 	  model.addObject("productQuantity", productQuantity);
@@ -193,9 +183,13 @@ public class SearchController {
    model.addObject("msg", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
   } else {
 	  Set<Product> replaceProducts = product.getProducts();
+	  User user = getCurrentUser();
+	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+
 	  model.addObject("replaceProducts", replaceProducts);
 	  model.addObject("msg", "Pregled profila traženog proizvoda!");
 	  model.addObject("product", product);
+	  model.addObject("productQuantity", productQuantity);
 	  model.setViewName("home/product_profile");
   	}
   return model;
@@ -248,7 +242,6 @@ public class SearchController {
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
  public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  
   System.out.println("GROUP NAME " + inputs.getGroupName());
   ProductGroup group = productGroupRepository.findByName(inputs.getGroupName());
   
@@ -259,9 +252,12 @@ public class SearchController {
   String carModel = inputs.getModelName();
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
-  List<Product> productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
+  	List<Product> productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
+	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
+	 productQuantitiyList = getProductQuantityList(productList);
   model.addObject("message", inputs.getGroupName());
   model.addObject("productList", productList);
+  model.addObject("productQuantityList", productQuantitiyList);
   model.setViewName("home/list_products");
   return model;
  }
@@ -272,4 +268,20 @@ public class SearchController {
 		return user;
  }
  
+ 
+ private List<ProductQuantity> getProductQuantityList(List<Product> productList) {
+	 User user = getCurrentUser();
+	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
+	 for(Product product: productList) {
+		 ProductQuantity productQuantity;
+		 try {
+			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+		 } catch(Exception e) {
+			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
+			 productQuantityRepository.save(productQuantity);
+		 }
+		 productQuantitiyList.add(productQuantity);
+	 }
+	return productQuantitiyList;
+}
 }
