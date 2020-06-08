@@ -33,10 +33,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr scope="row" th:each="product : ${productList}">
+            <tr scope="row" th:each="product, productStat : ${productList}">
                 <td th:text="${product.sifra}">Sifra</td>
-                <td th:text="${product.quantity}">Stanje</td>
-                <td th:text="${product.getProductMaker().getName()}">Proizvodjac]</td>   
+                <td>
+					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>
+				</td>
+                <td th:text="${product.getProductMaker().getName()}">Proizvodjac</td>   
                 <td th:object="${product}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Info</a>
                 </td>       

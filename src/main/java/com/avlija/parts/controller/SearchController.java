@@ -1,11 +1,15 @@
 package com.avlija.parts.controller;
 
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +22,17 @@ import com.avlija.parts.model.Brand;
 import com.avlija.parts.model.CarModel;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
+import com.avlija.parts.model.ProductQuantity;
+import com.avlija.parts.model.User;
+import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
+import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.service.ProductServiceImpl;
+import com.avlija.parts.service.UserService;
+
 
 @Controller
 public class SearchController {
@@ -42,6 +52,13 @@ public class SearchController {
  @Autowired
  private CarModelRepository carModelRepository;
  
+ @Autowired
+ ProductQuantityRepository productQuantityRepository;
+ 
+ @Autowired
+ private UserService userService;
+ 
+
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView search() {
   ModelAndView model = new ModelAndView();
@@ -101,9 +118,24 @@ public class SearchController {
  
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
  public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
+
 	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
 	 List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
+	 User user = getCurrentUser();
+	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
+	 for(Product product: productList) {
+		 ProductQuantity productQuantity;
+		 try {
+			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+		 } catch(Exception e) {
+			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
+			 productQuantityRepository.save(productQuantity);
+		 }
+		 productQuantitiyList.add(productQuantity);
+	 }
+	 
   ModelAndView model = new ModelAndView();
+  model.addObject("productQuantityList", productQuantitiyList);
   model.addObject("message", productGroup.getName());
   model.addObject("productList", productList);
   model.setViewName("home/list_products");
@@ -139,8 +171,12 @@ public class SearchController {
 	  model.addObject("msg", msg);
   } else {
 	  Set<Product> replaceProducts = product.getProducts();
+	  User user = getCurrentUser();
+	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  System.out.println("Product QUANTITY : " + productQuantity.getQuantity());
 	  model.addObject("replaceProducts", replaceProducts);
 	  model.addObject("msg", "Pregled profila traženog proizvoda!");
+	  model.addObject("productQuantity", productQuantity);
 	  model.addObject("product", product);
 	  model.setViewName("home/product_profile");
   	}
@@ -151,7 +187,7 @@ public class SearchController {
  public ModelAndView productProfile(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findBySifra(sampleInputs.getSifra());
-  
+
   if(product == null) {
    model.setViewName("home/search");
    model.addObject("msg", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
@@ -228,6 +264,12 @@ public class SearchController {
   model.addObject("productList", productList);
   model.setViewName("home/list_products");
   return model;
+ }
+ 
+ private User getCurrentUser() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		return user;
  }
  
 }

@@ -34,7 +34,8 @@ public class Product implements Serializable {
     
     private String description;
     private double price;
-    private int quantity;
+    
+    // private int quantity;
 
    // @ManyToMany(cascade = CascadeType.MERGE)
    // @JoinTable(name = "part_hierarchy", 
@@ -158,7 +159,7 @@ public class Product implements Serializable {
 
 	/**
 	 * @return the quantity
-	 */
+	 
 	public int getQuantity() {
 		return quantity;
 	}
@@ -166,11 +167,11 @@ public class Product implements Serializable {
 
 	/**
 	 * @param quantity the quantity to set
-	 */
+	 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
+*/
 
 	/**
 	 * @return the products
