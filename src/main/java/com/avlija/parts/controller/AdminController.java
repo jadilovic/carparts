@@ -185,6 +185,10 @@ public class AdminController {
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Novi auto dio je uspješno kreiran!");
+  	   
+  	   	User user = getCurrentUser();
+		 ProductQuantity productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
+		 productQuantityRepository.save(productQuantity);
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
@@ -240,9 +244,12 @@ public class AdminController {
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Auto dio uspješno izmjenjen!");
+  	   User user = getCurrentUser();
+		ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
 
   	   model.addObject("replaceProducts", replaceProducts);
   	   model.addObject("product", savedProduct);
+  	   model.addObject("productQuantity", productQuantity);
   	   model.setViewName("home/product_profile");
   	   return model;
  }
