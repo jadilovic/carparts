@@ -26,6 +26,8 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
 	List<Transaction> findByOrderByCreatedDesc();
 	
 	Page<Transaction> findAll(Pageable pageable);
+	
+	Page<Transaction> findByUser(User user, Pageable pageable);
 
 	List<Transaction> findFirst30ByProductOrderByCreatedDesc(Product product);
 }

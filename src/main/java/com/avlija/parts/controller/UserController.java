@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -191,8 +192,13 @@ public class UserController {
          size = Integer.parseInt(request.getParameter("size"));
      }
      
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+     User user = userService.findUserByEmail(auth.getName());
+     
+     Page<Transaction> transactionsList = transactionRepository.findByUser(user, PageRequest.of(page, size, Sort.by("created").descending()));
+     
      model.addAttribute("message", "za sve artikle.");
-     model.addAttribute("transactions", transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending())));
+     model.addAttribute("transactions", transactionsList);
      return "user/list_transactions2";
  }
  
