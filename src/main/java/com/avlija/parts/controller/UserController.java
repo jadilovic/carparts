@@ -1,5 +1,6 @@
 package com.avlija.parts.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.model.Product;
+import com.avlija.parts.model.ProductQuantity;
 import com.avlija.parts.model.Role;
 import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
+import com.avlija.parts.model.UserProduct;
+import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.service.UserService;
@@ -39,6 +43,9 @@ public class UserController {
  
  @Autowired
  private ProductRepository productRepository;
+ 
+ @Autowired
+ ProductQuantityRepository productQuantityRepository;
  
  
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
@@ -71,14 +78,18 @@ public class UserController {
    model.setViewName("admin/signup");
   } else {
    userService.saveUser(user);
+   user = userService.findUserByEmail(user.getEmail());
+   List<Product> productsList = (List<Product>) productRepository.findAll();
+   productsAddedToNewUser(productsList, user);
+   
    model.addObject("msg", "User has been registered successfully!");
    model.addObject("user", new User());
    model.setViewName("admin/signup");
   }
   return model;
  }
- 
- @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
+
+@RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {
   ModelAndView model = new ModelAndView();
   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -184,5 +195,20 @@ public class UserController {
      model.addAttribute("transactions", transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending())));
      return "user/list_transactions2";
  }
+ 
+ 
+ private void productsAddedToNewUser(List<Product> productsList, @Valid User user) {
+	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
+	 for(Product product: productsList) {
+		 ProductQuantity productQuantity;
+		 try {
+			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+		 } catch(Exception e) {
+			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
+			 productQuantityRepository.save(productQuantity);
+		 }
+		 productQuantitiyList.add(productQuantity);
+	 }
+ 	}
 
 }

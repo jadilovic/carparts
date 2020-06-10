@@ -1,5 +1,6 @@
 package com.avlija.parts.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ import com.avlija.parts.repository.ProductMakerRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
+import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
@@ -65,7 +67,10 @@ public class AdminController {
  private TransactionRepository transactionRepository;
  
  @Autowired
- ProductQuantityRepository productQuantityRepository;
+ private ProductQuantityRepository productQuantityRepository;
+ 
+ @Autowired
+ private UserRepository userRepository;
  
 
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.GET)
@@ -186,9 +191,10 @@ public class AdminController {
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Novi auto dio je uspješno kreiran!");
   	   
-  	   	User user = getCurrentUser();
-		 ProductQuantity productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
-		 productQuantityRepository.save(productQuantity);
+  	   Product newProduct = productRepository.findById(savedProduct.getId()).get();
+  	   List<User> usersList = userRepository.findAll();
+  	   
+  	   usersAddedToTheNewProduct(newProduct, usersList);
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
@@ -199,8 +205,8 @@ public class AdminController {
   return model;
  }
  
- 
- @RequestMapping(value= {"admin/editproduct/{id}"}, method=RequestMethod.GET)
+
+@RequestMapping(value= {"admin/editproduct/{id}"}, method=RequestMethod.GET)
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
@@ -244,6 +250,7 @@ public class AdminController {
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Auto dio uspješno izmjenjen!");
+  	   
   	   User user = getCurrentUser();
 		ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
 
@@ -437,6 +444,19 @@ public class AdminController {
 		return user;
 }
 
+ private void usersAddedToTheNewProduct(Product newProduct, List<User> usersList) {
+	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
+	 for(User user: usersList) {
+		 ProductQuantity productQuantity;
+		 try {
+			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), newProduct.getId())).get();
+		 } catch(Exception e) {
+			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), newProduct.getId()), 0);
+			 productQuantityRepository.save(productQuantity);
+		 }
+		 productQuantitiyList.add(productQuantity);
+	 }
+}
  /*
  @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {
