@@ -324,45 +324,49 @@ public class AdminController {
   return model;
  }
  
- /*
+ 
  @RequestMapping(value= {"/admin/remove"}, method=RequestMethod.POST)
  public ModelAndView removeProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(sampleInputs.getId()).get();
-  
+	User user = getCurrentUser();
+	  ProductQuantity oldProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+
   if(sampleInputs.getQuantity() == null) {
 		SampleInputs inputs = new SampleInputs();
 		inputs.setId(product.getId());
 		model.addObject("sampleInputs", inputs);
+		  model.addObject("productQuantity", oldProductQuantity);
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
-  	}  else if(product.getQuantity() <= 0 || product.getQuantity() - sampleInputs.getQuantity() < 0){
+  	}  else if(oldProductQuantity.getQuantity() <= 0 || oldProductQuantity.getQuantity() - sampleInputs.getQuantity() < 0){
   			Set<Product> replaceProducts = product.getProducts();
   			model.addObject("replaceProducts", replaceProducts);
+  				model.addObject("productQuantity", oldProductQuantity);
   			model.addObject("msg", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
   			model.setViewName("home/product_profile");
   		} else {
-  			int oldQuantity = product.getQuantity();
+  			int oldQuantity = oldProductQuantity.getQuantity();
   			int newQuantiy = oldQuantity - sampleInputs.getQuantity();
-  			product.setQuantity(newQuantiy);
-  			productRepository.save(product);
+  			oldProductQuantity.setQuantity(newQuantiy);
+  		  	productQuantityRepository.save(oldProductQuantity);
   			
   		  	double total = sampleInputs.getQuantity() * product.getPrice();
   		  	String transType = "IZLAZ";
-  		    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-  		    User user = userService.findUserByEmail(auth.getName());
   		  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
   		  	transactionRepository.save(transaction);
   	
   			Set<Product> replaceProducts = product.getProducts();
-  			model.addObject("replaceProducts", replaceProducts);
+  			
+  		  model.addObject("productQuantity", oldProductQuantity);
+  		  model.addObject("replaceProducts", replaceProducts);
   			model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
   			model.setViewName("home/product_profile");
   		}
 	model.addObject("product", product);
   	return model;
  }
- */
+ 
  
  @RequestMapping(value= {"admin/createbrand"}, method=RequestMethod.GET)
  public ModelAndView createBrand() {
