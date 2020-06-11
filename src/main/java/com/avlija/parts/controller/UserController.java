@@ -93,8 +93,8 @@ public class UserController {
 @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {
   ModelAndView model = new ModelAndView();
-  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-  User user = userService.findUserByEmail(auth.getName());
+
+  User user = getCurrentUser();
   
   if(user == null) {
 	  user = new User();
@@ -106,8 +106,8 @@ public class UserController {
   model.setViewName("admin/adminPage");
   return model;
  }
- 
- @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
+
+@RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
  public ModelAndView home() {
   ModelAndView model = new ModelAndView();
   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -151,8 +151,7 @@ public class UserController {
  @RequestMapping("/user/profile")
  public ModelAndView profilePage() {
      ModelAndView mav = new ModelAndView("user/profile_page");
-     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-     User userProfile = userService.findUserByEmail(auth.getName());
+     User userProfile = getCurrentUser();
      Set <Role> roles = userProfile.getRoles();
      mav.addObject("roles", roles);
      mav.addObject("userProfile", userProfile);
@@ -163,8 +162,8 @@ public class UserController {
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
- //List <Transaction> transactionsList = transactionRepository.findByProductOrderByCreatedDesc(product);
-  List <Transaction> transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
+  User user = getCurrentUser();
+  List <Transaction> transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
 	 String message2 = null;
 	 if(transactionsList.size() == 0) {
 		 message2 = "Nema transakcija";
@@ -192,8 +191,7 @@ public class UserController {
          size = Integer.parseInt(request.getParameter("size"));
      }
      
-     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-     User user = userService.findUserByEmail(auth.getName());
+     User user = getCurrentUser();
      
      Page<Transaction> transactionsList = transactionRepository.findByUser(user, PageRequest.of(page, size, Sort.by("created").descending()));
      
@@ -216,5 +214,10 @@ public class UserController {
 		 productQuantitiyList.add(productQuantity);
 	 }
  	}
-
+ 
+ private User getCurrentUser() {
+	  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	  User user = userService.findUserByEmail(auth.getName());
+	return user;
+}
 }
