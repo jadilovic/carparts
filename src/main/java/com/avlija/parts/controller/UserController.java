@@ -57,13 +57,36 @@ public class UserController {
   return model;
  }
  
- @RequestMapping(value= {"admin/signup"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/guestsignup"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();
   User user = new User();
   model.addObject("user", user);
-  model.setViewName("admin/signup");
+  model.setViewName("home/signup");
   
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/guestsignup"}, method=RequestMethod.POST)
+ public ModelAndView createGuestUser(@Valid User user, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  User userExists = userService.findUserByEmail(user.getEmail());
+  
+  if(userExists != null) {
+   bindingResult.rejectValue("email", "error.user", "This email already exists!");
+  }
+  if(bindingResult.hasErrors()) {
+   model.setViewName("home/signup");
+  } else {
+   userService.saveUser(user);
+   user = userService.findUserByEmail(user.getEmail());
+   List<Product> productsList = (List<Product>) productRepository.findAll();
+   productsAddedToNewUser(productsList, user);
+   
+   model.addObject("msg", "User has been registered successfully!");
+   model.addObject("user", new User());
+   model.setViewName("home/signup");
+  }
   return model;
  }
  
@@ -163,7 +186,12 @@ public class UserController {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
   User user = getCurrentUser();
-  List <Transaction> transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
+  List<Transaction> transactionsList = new ArrayList<>();
+  if(user.getRole().equals("ADMIN")) {
+	  transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
+  } else {
+	  transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
+  }
 	 String message2 = null;
 	 if(transactionsList.size() == 0) {
 		 message2 = "Nema transakcija";
