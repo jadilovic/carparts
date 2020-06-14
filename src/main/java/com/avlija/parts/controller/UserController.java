@@ -62,7 +62,7 @@ public class UserController {
   ModelAndView model = new ModelAndView();
   User user = new User();
   model.addObject("user", user);
-  model.setViewName("home/signup");
+  model.setViewName("user/guest_signup");
   
   return model;
  }
@@ -73,19 +73,19 @@ public class UserController {
   User userExists = userService.findUserByEmail(user.getEmail());
   
   if(userExists != null) {
-   bindingResult.rejectValue("email", "error.user", "This email already exists!");
+   bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
   }
   if(bindingResult.hasErrors()) {
-   model.setViewName("home/signup");
+   model.setViewName("user/guest_signup");
   } else {
    userService.saveUser(user);
    user = userService.findUserByEmail(user.getEmail());
    List<Product> productsList = (List<Product>) productRepository.findAll();
    productsAddedToNewUser(productsList, user);
    
-   model.addObject("msg", "User has been registered successfully!");
+   model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost!");
    model.addObject("user", new User());
-   model.setViewName("home/signup");
+   model.setViewName("user/login");
   }
   return model;
  }

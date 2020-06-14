@@ -39,6 +39,9 @@ public class User {
  @Column(name = "active")
  private int active;
  
+ @Column(name = "country")
+ private String country;
+ 
  @Transient
  private String role;
  
@@ -139,4 +142,19 @@ public int getId() {
  public void setRoles(Set<Role> roles) {
   this.roles = roles;
  }
+
+/**
+ * @return the country
+ */
+public String getCountry() {
+	return country;
+}
+
+/**
+ * @param country the country to set
+ */
+public void setCountry(String country) {
+	this.country = country;
+}
+ 
 }

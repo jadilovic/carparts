@@ -21,6 +21,8 @@
     <form th:action="@{/login}" method="post" >
         <div class="p-2" align="center">
              <h2 class="h3 mb-3 font-weight-normal">Prijava</h2>
+             <p>Your Auto Parts Database - Vaša baza podataka autodijelova</p>
+             <p><b th:if="${msg}" th:text="${msg}" th:class="${'alert ' + alertClass}"></b></p>  
         </div>
 
 	  	<label for="inputEmail" class="sr-only">Email</label>
@@ -33,15 +35,15 @@
        		<b>Password:</b>
        	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
               
-       		<div class="p-2"></div>
-       		
+    <div class="p-2"></div>	
        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   	</form>
-  	
-  	<a th:href="@{/guestsignup}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Dodaj Novog Korisnika</a>
-  	
-  </div>
+  	  
+  	<div class="p-4" align="center">
+  		<a th:href="@{/guestsignup}" class="btn-warning btn-block" role="button" aria-pressed="true">Nemate profil? Kreiraj <b>"Gost"</b> profil korisnika!</a>
+    </div>	
     
+    </div>
      <div th:include="fragments/footer :: footer"/></div>
     
 </body>
