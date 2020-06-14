@@ -187,7 +187,7 @@ public class UserController {
   Product product = productRepository.findById(id).get();
   User user = getCurrentUser();
   List<Transaction> transactionsList = new ArrayList<>();
-  if(user.getRole().equals("ADMIN")) {
+  if(user.getRole() == "ADMIN") {
 	  transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
   } else {
 	  transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
