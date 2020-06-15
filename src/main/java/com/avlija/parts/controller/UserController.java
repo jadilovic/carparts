@@ -228,6 +228,17 @@ public class UserController {
      return "user/list_transactions2";
  }
  
+ @RequestMapping(value= {"/admin/allusers"}, method=RequestMethod.GET)
+ public ModelAndView showAllUsers() {
+  ModelAndView model = new ModelAndView();
+  List<User> listUsers = userService.findAllUsers();
+  model.addObject("listUsers", listUsers);
+  User user = new User();
+  model.addObject("user", user);
+  model.setViewName("admin/list_all_users");
+  
+  return model;
+ }
  
  private void productsAddedToNewUser(List<Product> productsList, @Valid User user) {
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();

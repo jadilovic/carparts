@@ -10,6 +10,7 @@ import com.avlija.parts.repository.RoleRespository;
 import com.avlija.parts.repository.UserRepository;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -36,5 +37,10 @@ public class UserServiceImpl implements UserService {
   user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
   userRepository.save(user);
  }
+
+@Override
+public List<User> findAllUsers() {
+	return userRepository.findAll();
+}
 
 }
