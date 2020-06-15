@@ -21,15 +21,17 @@
   <div class="container table-responsive" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>
     
-    <table border="1" cellpadding="2" class="table-striped">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">User ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Created</th>
                 <th scope="col">Country</th>
-                <th scope="col">Active: 1-YES / 0-NO</th>
+                <th scope="col">Active</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Change</th>
             </tr>
         </thead>
         <tbody>
@@ -37,14 +39,11 @@
                 <td th:text="${user.id}">User ID</td>
                 <td th:text="${user.email}">Email</td>
                 <td th:text="${user.firstname}">First Name</td>
-                <td th:text="${user.lastname}">Last Name</td>
+                <td th:text="${#dates.format(user.created, 'dd-MM-yyyy HH:mm')}">Date</td>
                 <td th:text="${user.country}">Country</td>
                 <td th:text="${user.active}">Active</td>                
                 <td>
-                	<a class="btn btn-success" th:href="@{'/profile/' + ${user.id}}">Profile</a>
-                </td>
-                <td>
-                    <a class="btn btn-warning" th:href="@{'/resinfo/' + ${user.id}}">Reservations</a>
+                	<a class="btn btn-success" th:href="@{'/editprofile/' + ${user.id}}">Edit Profile</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" th:href="@{'/active/' + ${user.id}}">Change Active</a>

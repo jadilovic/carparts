@@ -1,5 +1,6 @@
 package com.avlija.parts.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -41,6 +42,9 @@ public class User {
  
  @Column(name = "country")
  private String country;
+ 
+ @Column(name="created")
+ private Date created;
  
  @Transient
  private String role;
@@ -156,5 +160,20 @@ public String getCountry() {
 public void setCountry(String country) {
 	this.country = country;
 }
+
+/**
+ * @return the created
+ */
+public Date getCreated() {
+	return created;
+}
+
+/**
+ * @param created the created to set
+ */
+public void setCreated(Date created) {
+	this.created = created;
+}
  
+
 }

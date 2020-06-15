@@ -1,6 +1,7 @@
 package com.avlija.parts.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +79,8 @@ public class UserController {
   if(bindingResult.hasErrors()) {
    model.setViewName("user/guest_signup");
   } else {
+	  Date date = new Date();
+	  user.setCreated(date);
    userService.saveUser(user);
    user = userService.findUserByEmail(user.getEmail());
    List<Product> productsList = (List<Product>) productRepository.findAll();
@@ -90,7 +93,17 @@ public class UserController {
   return model;
  }
  
- @RequestMapping(value= {"admin/signup"}, method=RequestMethod.POST)
+ @RequestMapping(value= {"/admin/signup"}, method=RequestMethod.GET)
+ public ModelAndView adminSignup() {
+  ModelAndView model = new ModelAndView();
+  User user = new User();
+  model.addObject("user", user);
+  model.setViewName("admin/signup");
+  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/signup"}, method=RequestMethod.POST)
  public ModelAndView createUser(@Valid User user, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   User userExists = userService.findUserByEmail(user.getEmail());
@@ -102,9 +115,9 @@ public class UserController {
    model.setViewName("admin/signup");
   } else {
    userService.saveUser(user);
-   user = userService.findUserByEmail(user.getEmail());
-   List<Product> productsList = (List<Product>) productRepository.findAll();
-   productsAddedToNewUser(productsList, user);
+   //user = userService.findUserByEmail(user.getEmail());
+   //List<Product> productsList = (List<Product>) productRepository.findAll();
+   //productsAddedToNewUser(productsList, user);
    
    model.addObject("msg", "User has been registered successfully!");
    model.addObject("user", new User());

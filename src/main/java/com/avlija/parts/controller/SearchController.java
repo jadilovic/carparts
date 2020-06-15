@@ -3,7 +3,6 @@ package com.avlija.parts.controller;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -135,16 +134,19 @@ public class SearchController {
 @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
  public ModelAndView listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
-	 Set <Product> productList = product.getProducts();
+	 List <Product> productList = product.getProducts();
 	 String message2 = null;
 	 if(productList.size() == 0) {
 		 message2 = "Nema zamjenskog dijela";
 	 } else {
 		 message2 = "Zamjenski dijelovi za šifru " + product.getSifra();
 	 }
+	 List <ProductQuantity> productQuantityList = new ArrayList<ProductQuantity>();
+	 productQuantityList = getProductQuantityList(productList);
   ModelAndView model = new ModelAndView();
   model.addObject("message", product.getProductGroup().getName());
   model.addObject("message2", message2);
+  model.addObject("productQuantityList", productQuantityList);
   model.addObject("productList", productList);
   model.setViewName("home/list_products");
   return model;
@@ -160,7 +162,7 @@ public class SearchController {
 	  msg = "Nije pronađen proizvod sa zadanim ID brojem";
 	  model.addObject("msg", msg);
   } else {
-	  Set<Product> replaceProducts = product.getProducts();
+	  List <Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
 	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
 
@@ -182,9 +184,15 @@ public class SearchController {
    model.setViewName("home/search");
    model.addObject("msg", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
   } else {
-	  Set<Product> replaceProducts = product.getProducts();
+	  List <Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
-	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  ProductQuantity productQuantity;
+	  try {
+		  productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  } catch(Exception e) {
+		  UserProduct userProduct = new UserProduct(user.getId(), product.getId());
+		  productQuantity = new ProductQuantity(userProduct, 0);
+	  }
 
 	  model.addObject("replaceProducts", replaceProducts);
 	  model.addObject("msg", "Pregled profila traženog proizvoda!");

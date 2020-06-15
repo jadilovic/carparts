@@ -2,9 +2,7 @@ package com.avlija.parts.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -179,7 +177,7 @@ public class AdminController {
  @RequestMapping(value= {"admin/createproduct2"}, method=RequestMethod.POST)
  public ModelAndView createProduct2(@Valid Product product, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  Set<Product> replaceProducts = new HashSet<Product>();
+  List <Product> replaceProducts = new ArrayList<Product>();
   	if(product.getProducts() == null) {
   		product.setProducts(replaceProducts);
   	} else {
@@ -239,7 +237,7 @@ public class AdminController {
  @RequestMapping(value= {"admin/editproduct2"}, method=RequestMethod.POST)
  public ModelAndView editProduct2(@Valid Product product) {
   ModelAndView model = new ModelAndView();
-  Set<Product> replaceProducts = new HashSet<Product>();
+  List<Product> replaceProducts = new ArrayList<Product>();
   	if(product.getProducts() == null) {
   		product.setProducts(replaceProducts);
   	} else {
@@ -319,7 +317,7 @@ public class AdminController {
 	  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
 	  	transactionRepository.save(transaction);
 	  	
-		  Set<Product> replaceProducts = product.getProducts();
+		  List <Product> replaceProducts = product.getProducts();
 		  newProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
 
 		  model.addObject("replaceProducts", replaceProducts);
@@ -347,7 +345,7 @@ public class AdminController {
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
   	}  else if(oldProductQuantity.getQuantity() <= 0 || oldProductQuantity.getQuantity() - sampleInputs.getQuantity() < 0){
-  			Set<Product> replaceProducts = product.getProducts();
+  			List <Product> replaceProducts = product.getProducts();
   			model.addObject("replaceProducts", replaceProducts);
   				model.addObject("productQuantity", oldProductQuantity);
   			model.addObject("msg", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
@@ -363,7 +361,7 @@ public class AdminController {
   		  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
   		  	transactionRepository.save(transaction);
   	
-  			Set<Product> replaceProducts = product.getProducts();
+  			List <Product> replaceProducts = product.getProducts();
   			
   		  model.addObject("productQuantity", oldProductQuantity);
   		  model.addObject("replaceProducts", replaceProducts);

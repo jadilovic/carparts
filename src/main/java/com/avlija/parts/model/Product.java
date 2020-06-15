@@ -3,7 +3,8 @@ package com.avlija.parts.model;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,7 +55,7 @@ public class Product implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "child_part_id", referencedColumnName = "id",
                             nullable = false, updatable = false)})
-    private Set<Product> products = new HashSet<>();
+    private List <Product> products = new ArrayList<>();
     
     public Product() {
     }
@@ -176,7 +177,7 @@ public class Product implements Serializable {
 	/**
 	 * @return the products
 	 */
-	public Set<Product> getProducts() {
+	public List <Product> getProducts() {
 		return products;
 	}
 
@@ -184,7 +185,7 @@ public class Product implements Serializable {
 	/**
 	 * @param products the products to set
 	 */
-	public void setProducts(Set<Product> products) {
+	public void setProducts(List  <Product> products) {
 		this.products = products;
 	}
 	/**
