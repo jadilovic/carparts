@@ -164,8 +164,14 @@ public class SearchController {
   } else {
 	  List <Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
-	  ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
-
+	  ProductQuantity productQuantity;
+	  try {
+		  productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  } catch(Exception e) {
+		  UserProduct userProduct = new UserProduct(user.getId(), product.getId());
+		  productQuantity = new ProductQuantity(userProduct, 0);
+	  }
+	  
 	  model.addObject("replaceProducts", replaceProducts);
 	  model.addObject("msg", "Pregled profila traženog proizvoda!");
 	  model.addObject("productQuantity", productQuantity);
@@ -286,7 +292,7 @@ public class SearchController {
 			 productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
 		 } catch(Exception e) {
 			 productQuantity = new ProductQuantity(new UserProduct(user.getId(), product.getId()), 0);
-			 productQuantityRepository.save(productQuantity);
+			 // productQuantityRepository.save(productQuantity);
 		 }
 		 productQuantitiyList.add(productQuantity);
 	 }

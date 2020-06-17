@@ -82,9 +82,6 @@ public class UserController {
 	  Date date = new Date();
 	  user.setCreated(date);
    userService.saveUser(user);
-   user = userService.findUserByEmail(user.getEmail());
-   List<Product> productsList = (List<Product>) productRepository.findAll();
-   productsAddedToNewUser(productsList, user);
    
    model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost!");
    model.addObject("user", new User());
@@ -114,10 +111,17 @@ public class UserController {
   if(bindingResult.hasErrors()) {
    model.setViewName("admin/signup");
   } else {
+	  Date date = new Date();
+	  user.setCreated(date);
    userService.saveUser(user);
-   //user = userService.findUserByEmail(user.getEmail());
-   //List<Product> productsList = (List<Product>) productRepository.findAll();
-   //productsAddedToNewUser(productsList, user);
+   user = userService.findUserByEmail(user.getEmail());
+   Set<Role> roles = user.getRoles();
+   for(Role role: roles) {
+	   if(role.getRole().equals("CLIENT")) {
+		   List<Product> productsList = (List<Product>) productRepository.findAll();
+		   productsAddedToNewUser(productsList, user);
+	   }
+   }
    
    model.addObject("msg", "User has been registered successfully!");
    model.addObject("user", new User());
@@ -142,6 +146,23 @@ public class UserController {
   model.setViewName("admin/adminPage");
   return model;
  }
+
+@RequestMapping(value= {"/user/client"}, method=RequestMethod.GET)
+public ModelAndView clientPage() {
+ ModelAndView model = new ModelAndView();
+
+ User user = getCurrentUser();
+ 
+ if(user == null) {
+	  user = new User();
+	  user.setFirstname("TEST");
+	  user.setLastname("USER");
+ }
+ 
+ model.addObject("userName", user.getFirstname() + " " + user.getLastname());
+ model.setViewName("user/clientPage");
+ return model;
+}
 
 @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
  public ModelAndView home() {
@@ -200,11 +221,15 @@ public class UserController {
   Product product = productRepository.findById(id).get();
   User user = getCurrentUser();
   List<Transaction> transactionsList = new ArrayList<>();
-  if(user.getRole() == "ADMIN") {
-	  transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
-  } else {
-	  transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
-  }
+  Set<Role> roles = user.getRoles();
+  for(Role role: roles) {
+	  if(role.getRole().equals("ADMIN")) {
+		  transactionsList = transactionRepository.findFirst30ByProductOrderByCreatedDesc(product);
+	  } else {
+		  	transactionsList = transactionRepository.findFirst30ByProductAndUserOrderByCreatedDesc(product, user);
+	  		}
+  	}
+
 	 String message2 = null;
 	 if(transactionsList.size() == 0) {
 		 message2 = "Nema transakcija";
@@ -233,9 +258,15 @@ public class UserController {
      }
      
      User user = getCurrentUser();
-     
-     Page<Transaction> transactionsList = transactionRepository.findByUser(user, PageRequest.of(page, size, Sort.by("created").descending()));
-     
+     Page <Transaction> transactionsList = null;
+     Set<Role> roles = user.getRoles();
+     for(Role role: roles) {
+   	  if(role.getRole().equals("ADMIN")) {
+   		  transactionsList = transactionRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+   	  	} else {
+   		  transactionsList = transactionRepository.findByUser(user, PageRequest.of(page, size, Sort.by("created").descending()));
+   	  	}
+     }    
      model.addAttribute("message", "za sve artikle.");
      model.addAttribute("transactions", transactionsList);
      return "user/list_transactions2";

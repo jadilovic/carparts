@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Guest Page</title>
+ <title>Client Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -12,28 +12,29 @@
 <body>
 
 <div th:include="fragments/header :: header"/></div>
+
  <div class="container">
  
  <div class="p-2" align="center">
-  <p><span th:utext="${userName}"></span> Gost Opcije</p>
-</div>
+  <p><span th:utext="${userName}"></span> Klijent Opcije</p>
+  </div>
   
  <table class="table table-borderless">
  <tbody>
    <tr>
   	<td scope="col">
-  	 <a th:href="@{/home/homesearch}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
+  	 <a th:href="@{/admin/signup}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
   	</td>
   	<td scope="col">
-  	 <a th:href="@{/home/home}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pregled Usluga za Klijente</a>
+  	 <a th:href="@{/user/alltransactions}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Pregled Transakcija</a>
   	</td>
   	</tr>
   	<tr>
   	<td scope="col">
-  <a th:href="@{/home/home}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Kako Postati Klijent?</a>
+  <a th:href="@{/home/home}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Oglasi Korisnika</a>
   	</td>
   	<td scope="col">
-  <a th:href="@{/home/home}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Pregled Oglasa Autodijelova</a>
+  <a th:href="@{/home/home}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Zahtjev za Dopunu Baze</a>
   	</td>
   	</tr>
  </tbody>

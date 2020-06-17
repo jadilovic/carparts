@@ -43,10 +43,10 @@
                 <td th:text="${user.country}">Country</td>
                 <td th:text="${user.active}">Active</td>                
                 <td>
-                	<a class="btn btn-success" th:href="@{'/editprofile/' + ${user.id}}">Edit Profile</a>
+                	<a class="btn btn-success" th:href="@{'/admin/editprofile/' + ${user.id}}">Edit Profile</a>
                 </td>
                 <td>
-                    <a class="btn btn-danger" th:href="@{'/active/' + ${user.id}}">Change Active</a>
+                    <a class="btn btn-danger" th:href="@{'/admin/active/' + ${user.id}}">Change Active</a>
                 </td>
             </tr>
         </tbody>
