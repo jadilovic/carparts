@@ -184,7 +184,7 @@ public class UserController {
   return model;
  }
  
- @RequestMapping("/user/profile")
+ @RequestMapping("/home/profile")
  public ModelAndView profilePage() {
      ModelAndView mav = new ModelAndView("user/profile_page");
      User userProfile = getCurrentUser();

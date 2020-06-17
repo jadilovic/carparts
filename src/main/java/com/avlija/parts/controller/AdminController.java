@@ -259,7 +259,7 @@ public class AdminController {
   	   return model;
  }
  
- @RequestMapping(value= {"/admin/addremove/{id}"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/user/addremove/{id}"}, method=RequestMethod.GET)
  public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
@@ -282,7 +282,7 @@ public class AdminController {
   return model;
  }
  
- @RequestMapping(value= {"/admin/add"}, method=RequestMethod.POST)
+ @RequestMapping(value= {"/user/add"}, method=RequestMethod.POST)
  public ModelAndView addProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(sampleInputs.getId()).get();
@@ -330,7 +330,7 @@ public class AdminController {
  }
  
  
- @RequestMapping(value= {"/admin/remove"}, method=RequestMethod.POST)
+ @RequestMapping(value= {"/user/remove"}, method=RequestMethod.POST)
  public ModelAndView removeProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(sampleInputs.getId()).get();
