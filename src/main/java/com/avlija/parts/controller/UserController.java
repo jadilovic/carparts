@@ -167,7 +167,7 @@ public class UserController {
   return model;
  }
  
- @RequestMapping(value= {"/user/guest"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/home/guest"}, method=RequestMethod.GET)
  public ModelAndView guestPage() {
   ModelAndView model = new ModelAndView();
   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
