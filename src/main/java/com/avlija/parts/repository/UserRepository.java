@@ -9,4 +9,6 @@ import com.avlija.parts.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
  
  User findByEmail(String email);
+ 
+ 
 }

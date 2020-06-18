@@ -32,13 +32,18 @@ import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
+import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.UserService;
+import com.fasterxml.jackson.datatype.jdk8.OptionalDoubleSerializer;
 
 @Controller
 public class UserController {
 
  @Autowired
  private UserService userService;
+ 
+ @Autowired
+ private UserRepository userRepository;
  
  @Autowired
  private TransactionRepository transactionRepository;
@@ -216,7 +221,7 @@ public ModelAndView clientPage() {
  }
  
  @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
- public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
+ public ModelAndView productTransactions(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
   Product product = productRepository.findById(id).get();
   User user = getCurrentUser();
@@ -281,6 +286,31 @@ public ModelAndView clientPage() {
   model.addObject("user", user);
   model.setViewName("admin/list_all_users");
   
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/editprofile/{id}"}, method=RequestMethod.GET)
+ public ModelAndView editProfile(@PathVariable(name = "id") Integer id) {
+  ModelAndView model = new ModelAndView();
+  User user = userRepository.findById(id).get();
+  model.addObject("user", user);
+  model.setViewName("admin/edit_user");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/editprofile"}, method=RequestMethod.POST)
+ public ModelAndView editProduct(@Valid User user) {
+  ModelAndView model = new ModelAndView();
+  
+  User oldUser = userRepository.findByEmail(user.getEmail());
+  user.setPassword(oldUser.getPassword());
+  userRepository.save(user);
+  User newUser = userRepository.findByEmail(user.getEmail());
+	  
+	  model.addObject("msg", "Izmjena podataka profila korisnika izvrsena");
+	  model.addObject("userProfile", newUser);
+	  model.setViewName("admin/profile_page");
+ 
   return model;
  }
  
