@@ -43,4 +43,11 @@ public List<User> findAllUsers() {
 	return userRepository.findAll();
 }
 
+@Override
+public void updateUser(User user) {
+	  Role userRole = roleRespository.findByRole(user.getRole());
+	  user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+	  userRepository.save(user);
+}
+
 }

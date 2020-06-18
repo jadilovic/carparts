@@ -34,7 +34,7 @@ import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.UserService;
-import com.fasterxml.jackson.datatype.jdk8.OptionalDoubleSerializer;
+import com.avlija.parts.service.UserServiceImpl;
 
 @Controller
 public class UserController {
@@ -302,14 +302,25 @@ public ModelAndView clientPage() {
  public ModelAndView editProduct(@Valid User user) {
   ModelAndView model = new ModelAndView();
   
-  User oldUser = userRepository.findByEmail(user.getEmail());
-  user.setPassword(oldUser.getPassword());
-  userRepository.save(user);
-  User newUser = userRepository.findByEmail(user.getEmail());
-	  
+  User changedUser = userRepository.findByEmail(user.getEmail());
+  changedUser.setFirstname(user.getFirstname());
+  changedUser.setLastname(user.getLastname());
+  changedUser.setRole(user.getRole());
+  changedUser.setCountry(user.getCountry());
+  userService.updateUser(changedUser);
+  
+  Set<Role> roles = changedUser.getRoles();
+  for(Role role: roles) {
+	   if(role.getRole().equals("CLIENT")) {
+		   List<Product> productsList = (List<Product>) productRepository.findAll();
+		   productsAddedToNewUser(productsList, changedUser);
+	   }
+  }
+  
 	  model.addObject("msg", "Izmjena podataka profila korisnika izvrsena");
-	  model.addObject("userProfile", newUser);
-	  model.setViewName("admin/profile_page");
+	  model.addObject("userProfile", changedUser);
+	  model.addObject("roles", roles);
+	  model.setViewName("user/profile_page");
  
   return model;
  }
