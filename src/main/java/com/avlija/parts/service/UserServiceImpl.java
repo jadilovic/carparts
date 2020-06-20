@@ -11,6 +11,7 @@ import com.avlija.parts.repository.UserRepository;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -48,6 +49,11 @@ public void updateUser(User user) {
 	  Role userRole = roleRespository.findByRole(user.getRole());
 	  user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 	  userRepository.save(user);
+}
+
+@Override
+public Optional findUserByResetToken(String resetToken) {
+	return userRepository.findByResetToken(resetToken);
 }
 
 }

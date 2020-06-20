@@ -46,6 +46,12 @@ public class User {
  @Column(name="created")
  private Date created;
  
+	@Column(name = "last_login")
+	private Date lastLogin;
+
+	@Column(name = "reset_token")
+	private String resetToken;
+ 
  @Transient
  private String role;
  
@@ -173,6 +179,34 @@ public Date getCreated() {
  */
 public void setCreated(Date created) {
 	this.created = created;
+}
+
+/**
+ * @return the lastLogin
+ */
+public Date getLastLogin() {
+	return lastLogin;
+}
+
+/**
+ * @param lastLogin the lastLogin to set
+ */
+public void setLastLogin(Date lastLogin) {
+	this.lastLogin = lastLogin;
+}
+
+/**
+ * @return the resetToken
+ */
+public String getResetToken() {
+	return resetToken;
+}
+
+/**
+ * @param resetToken the resetToken to set
+ */
+public void setResetToken(String resetToken) {
+	this.resetToken = resetToken;
 }
  
 

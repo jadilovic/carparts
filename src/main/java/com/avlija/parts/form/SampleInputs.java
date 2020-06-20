@@ -19,6 +19,7 @@ public class SampleInputs {
     private String brandName;
     private String modelName;
     private String groupName;
+    private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTimeField;
@@ -181,5 +182,17 @@ public class SampleInputs {
 		this.replaceProducts = replaceProducts;
 	}
 
-    
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
