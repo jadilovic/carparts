@@ -18,18 +18,20 @@ public class MailConfig {
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        javaMailSender.setHost("smtp-relay.sendinblue.com");
+        final String username = "j.adilovic@gmail.com";//your Gmail username 
+        final String password = "";//your Gmail password
+        String host = "smtp.gmail.com";
+        javaMailSender.setHost(host);
         javaMailSender.setPort(587);
 
         javaMailSender.setJavaMailProperties(getMailProperties());
         
-        Authenticator auth = new Authenticator() {
-        	protected PasswordAuthentication getPasswordAuthentication() {
-        		return new PasswordAuthentication("j.adilovic@gmail.com", "U1wAzvhVg8WXZrHS");
-        	}
-		};
-		
-		Session session = Session.getDefaultInstance(getMailProperties(), auth);
+     // Get the Session object
+        Session session = Session.getInstance(getMailProperties(), new Authenticator() {
+       	 protected PasswordAuthentication getPasswordAuthentication() {
+       		 return new PasswordAuthentication(username, password);
+       	 	}
+        });
 		
 		javaMailSender.setSession(session);
 
@@ -42,7 +44,13 @@ public class MailConfig {
         properties.setProperty("mail.smtp.auth", "true");
         properties.setProperty("mail.smtp.starttls.enable", "false");
         properties.setProperty("mail.debug", "false");
-        
-        return properties;
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+         props.put("mail.smtp.auth", "true");
+         props.put("mail.smtp.starttls.enable", "true"); 
+         props.put("mail.smtp.host", host);
+         props.put("mail.smtp.port", "587");
+        return props;
     }
 }
