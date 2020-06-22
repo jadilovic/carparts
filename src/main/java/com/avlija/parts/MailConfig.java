@@ -18,8 +18,8 @@ public class MailConfig {
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        final String username = "j.adilovic@gmail.com";//your Gmail username 
-        final String password = "";//your Gmail password
+        final String username = "yap.webapp@gmail.com";//your Gmail username 
+        final String password = "Bossama0";//your Gmail password
         String host = "smtp.gmail.com";
         javaMailSender.setHost(host);
         javaMailSender.setPort(587);
