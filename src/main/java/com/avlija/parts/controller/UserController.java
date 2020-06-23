@@ -34,7 +34,6 @@ import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.UserService;
-import com.avlija.parts.service.UserServiceImpl;
 
 @Controller
 public class UserController {

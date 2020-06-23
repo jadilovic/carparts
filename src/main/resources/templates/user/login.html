@@ -16,7 +16,7 @@
 <body>
  <div class="container">
      <div class="alert alert-success" role="alert"  th:if="${message}">
-     	<span th:utext="${message}"></span>
+     	<b><span th:utext="${message}"></span></b>
      </div>
   <div class="alert alert-danger" role="alert" th:if="${param.error}">
    Unesena lozinka ili email su netačni!

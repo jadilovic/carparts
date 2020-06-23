@@ -1,6 +1,5 @@
 package com.avlija.parts.controller;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.User;
+import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.EmailService;
 import com.avlija.parts.service.UserService;
+
 
 @Controller
 public class PasswordController {
@@ -53,6 +53,7 @@ public class PasswordController {
 
 		if (user == null) {
 			modelAndView.addObject("message", "We didn't find an account for that e-mail address.");
+			modelAndView.setViewName("user/forgotPassword");
 		} else {
 			
 			// Generate random 36-character string token for reset password 
@@ -60,13 +61,13 @@ public class PasswordController {
 			user.setResetToken(UUID.randomUUID().toString());
 
 			// Save token to database
-			userService.updateUser(user);
+			userService.resetUpdate(user);
 
 			String appUrl = request.getScheme() + "://" + request.getServerName();
 			
 			// Email message
 			SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
-			passwordResetEmail.setFrom("j.adilovic@gmail.com");
+			passwordResetEmail.setFrom("yap.webapp@gmail.com");
 			passwordResetEmail.setTo(user.getEmail());
 			passwordResetEmail.setSubject("Password Reset Request");
 			passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
@@ -77,9 +78,8 @@ public class PasswordController {
 			// Add success message to view
 			modelAndView.addObject("message", "A password reset link has been sent to " + sampleInputs.getEmail()
 										+ ". Go to your email and click on the link.");
+			modelAndView.setViewName("user/login");
 		}
-
-		modelAndView.setViewName("user/login");
 		return modelAndView;
 
 	}
@@ -88,15 +88,17 @@ public class PasswordController {
 	@RequestMapping(value = "/reset", method = RequestMethod.GET)
 	public ModelAndView displayResetPasswordPage(ModelAndView modelAndView, @RequestParam("token") String token) {
 		
-		Optional<User> user = userService.findUserByResetToken(token);
+		User user = userService.findUserByResetToken(token);
+		SampleInputs sampleInputs = new SampleInputs();
 
-		if (user.isPresent()) { // Token found in DB
-			modelAndView.addObject("token", token);
+		if (user != null) { // Token found in DB
+			sampleInputs.setToken(token);
 		} else { // Token not found in DB
 			modelAndView.addObject("errorMessage", "Oops!  This is an invalid password reset link. Token not found in the database");
 		}
-		modelAndView.addObject("sampleInputs", new SampleInputs());
-		modelAndView.setViewName("resetPassword");
+		
+		modelAndView.addObject("sampleInputs", sampleInputs);
+		modelAndView.setViewName("user/resetPassword");
 		return modelAndView;
 	}
 
@@ -105,21 +107,23 @@ public class PasswordController {
 	public ModelAndView setNewPassword(ModelAndView modelAndView, SampleInputs sampleInputs) {
 
 		// Find the user associated with the reset token
-		Optional<User> user = userService.findUserByResetToken(sampleInputs.getToken());
+		System.out.println("TOKEN: " + sampleInputs.getToken());
+		User user = userService.findUserByResetToken(sampleInputs.getToken());
 
 		// This should always be non-null but we check just in case
-		if (user.isPresent()) {
+		if (user != null) {
 			
-			User resetUser = user.get(); 
+			User resetUser = user; 
             
-			// Set new password    
+			// Set new password   
+			System.out.println("NEW PASSWORD: " + sampleInputs.getPassword());
             resetUser.setPassword(bCryptPasswordEncoder.encode(sampleInputs.getPassword()));
             
 			// Set the reset token to null so it cannot be used again
 			resetUser.setResetToken(null);
 
 			// Save user
-			userService.updateUser(resetUser);
+			userService.resetUpdate(resetUser);
 
 			// In order to set a model attribute on a redirect, we must use
 			// RedirectAttributes
@@ -130,7 +134,7 @@ public class PasswordController {
 			
 		} else {
 			modelAndView.addObject("error", "Oops!  This is an invalid password reset link.");
-			modelAndView.setViewName("resetPassword");	
+			modelAndView.setViewName("user/resetPassword");	
 		}
 		
 		return modelAndView;
