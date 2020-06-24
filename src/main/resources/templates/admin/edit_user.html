@@ -103,7 +103,7 @@
                  <div class="form-group has-danger">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-map-marker"></i></div>
-                    		<select name="country" id="country">
+                    		<select th:field="*{country}" name="country" id="country">
     							<option value="Bosna i Hercegovina">Bosna i Hercegovina</option>
     							<option value="Crna Gora">Crna Gora</option>
     							<option value="Hrvatska">Hrvatska</option>
@@ -114,29 +114,23 @@
              </div>
          </div>
          
-         <!-- PASSWORD -->
-         <!--  
+         <!-- ACTIVE -->
          <div class="row">
              <div class="col-md-3 field-label-responsive">
-                 <label for="password">Password</label>
+                 <label for="active">Active</label>
              </div>
              <div class="col-md-6">
                  <div class="form-group has-danger">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                         <input type="password" th:field="*{password}" class="form-control" id="password"
-                                placeholder="Password" required>
+                    		<select th:field="*{active}" name="active" id="active">
+    							<option value=1>1</option>
+    							<option value=0>0</option>
+							</select>
                      </div>
                  </div>
              </div>
-             <div class="col-md-3">
-                 <div class="form-control-feedback">
-                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                         </span>
-                 </div>
-             </div>
          </div>
-         -->
          
          <div class="row">
              <div class="col-md-3"></div>

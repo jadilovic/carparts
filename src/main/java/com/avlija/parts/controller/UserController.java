@@ -79,8 +79,7 @@ public class UserController {
   
   if(userExists != null) {
    bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
-  }
-  if(bindingResult.hasErrors()) {
+  } if(bindingResult.hasErrors()) {
    model.setViewName("user/guest_signup");
   } else {
 	  Date date = new Date();
@@ -306,6 +305,7 @@ public ModelAndView clientPage() {
   changedUser.setLastname(user.getLastname());
   changedUser.setRole(user.getRole());
   changedUser.setCountry(user.getCountry());
+  changedUser.setActive(user.getActive());
   userService.updateUser(changedUser);
   
   Set<Role> roles = changedUser.getRoles();

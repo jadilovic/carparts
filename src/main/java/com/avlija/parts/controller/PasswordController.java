@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.User;
-import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.EmailService;
 import com.avlija.parts.service.UserService;
 
@@ -52,7 +51,7 @@ public class PasswordController {
 		User user = userService.findUserByEmail(sampleInputs.getEmail());
 
 		if (user == null) {
-			modelAndView.addObject("message", "We didn't find an account for that e-mail address.");
+			modelAndView.addObject("message", "Nije pronađen uneseni e-mail.");
 			modelAndView.setViewName("user/forgotPassword");
 		} else {
 			
@@ -69,15 +68,15 @@ public class PasswordController {
 			SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
 			passwordResetEmail.setFrom("yap.webapp@gmail.com");
 			passwordResetEmail.setTo(user.getEmail());
-			passwordResetEmail.setSubject("Password Reset Request");
-			passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
-					+ "/reset?token=" + user.getResetToken());
+			passwordResetEmail.setSubject("Zahtjev za izmjenu lozinke - Password Reset Request");
+			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
+					+ ":8080/reset?token=" + user.getResetToken());
 			
 			emailService.sendEmail(passwordResetEmail);
 
 			// Add success message to view
-			modelAndView.addObject("message", "A password reset link has been sent to " + sampleInputs.getEmail()
-										+ ". Go to your email and click on the link.");
+			modelAndView.addObject("message", "Link za izmjenu lozinke je poslan na " + sampleInputs.getEmail()
+										+ ".\n Otvorite vaš e-mail i kliknite na link.");
 			modelAndView.setViewName("user/login");
 		}
 		return modelAndView;
@@ -94,7 +93,7 @@ public class PasswordController {
 		if (user != null) { // Token found in DB
 			sampleInputs.setToken(token);
 		} else { // Token not found in DB
-			modelAndView.addObject("errorMessage", "Oops!  This is an invalid password reset link. Token not found in the database");
+			modelAndView.addObject("errorMessage", "Oops!  Ovaj link je istekao. Token nije pronađen u bazi podataka");
 		}
 		
 		modelAndView.addObject("sampleInputs", sampleInputs);
@@ -110,8 +109,18 @@ public class PasswordController {
 		System.out.println("TOKEN: " + sampleInputs.getToken());
 		User user = userService.findUserByResetToken(sampleInputs.getToken());
 
-		// This should always be non-null but we check just in case
-		if (user != null) {
+		String passwordValidation = sampleInputs.getPassword();
+		
+		if (user == null) {
+			modelAndView.addObject("error", "Oops! Ovo nije odogovarajući link za izmjenu lozinke.");
+			modelAndView.setViewName("user/resetPassword");	
+			} else if(!passwordValidation.matches("[a-zA-Z0-9]*") || passwordValidation.length() < 8 || passwordValidation.length() > 14) {
+				modelAndView.addObject("error", "Oops! Lozinka mora da sadrži slova i brojeve, i ne smije biti kraća od 8 karaktera i duža od 14 karaktera.");
+				modelAndView.setViewName("user/resetPassword");	
+			} else if(passwordValidation.compareTo(sampleInputs.getConfirmPassword()) != 0){
+				modelAndView.addObject("error", "Oops! Lozinka i potvrda lozinke nisu iste.");
+				modelAndView.setViewName("user/resetPassword");	
+			} else {
 			
 			User resetUser = user; 
             
@@ -122,21 +131,14 @@ public class PasswordController {
 			// Set the reset token to null so it cannot be used again
 			resetUser.setResetToken(null);
 
-			// Save user
+			// Save user with new password
 			userService.resetUpdate(resetUser);
 
-			// In order to set a model attribute on a redirect, we must use
-			// RedirectAttributes
-			modelAndView.addObject("message", "You have successfully reset your password.  You may now login.");
+			modelAndView.addObject("message", "Uspješno ste izmjenili vašu lozinku. Sad se možete prijaviti na YAP web aplikaciju.");
 
 			modelAndView.setViewName("user/login");
 			return modelAndView;
-			
-		} else {
-			modelAndView.addObject("error", "Oops!  This is an invalid password reset link.");
-			modelAndView.setViewName("user/resetPassword");	
 		}
-		
 		return modelAndView;
    }
    
