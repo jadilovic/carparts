@@ -291,6 +291,9 @@ public ModelAndView clientPage() {
  public ModelAndView editProfile(@PathVariable(name = "id") Integer id) {
   ModelAndView model = new ModelAndView();
   User user = userRepository.findById(id).get();
+  Set<Role> roles = user.getRoles();
+  for(Role role: roles)
+	  user.setRole(role.getRole());
   model.addObject("user", user);
   model.setViewName("admin/edit_user");
   return model;
