@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Client Steps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+	<body>
+	<div th:include="fragments/header :: header"/></div>
+ 
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>Album example</h1>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        </p>
+      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+    </div>
+  </section>
+ 
+  	<div th:include="fragments/footer :: footer"/></div>
+ </body>
+</html>
