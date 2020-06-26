@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Client Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+	<body>
+	<div th:include="fragments/header :: header"/></div>
+ 
+<div class="p-2 mx-auto text-center">
+  <h3>Pregled usluga za klijente</h3>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Upravljanje Skladištem</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Količina na stanju</li>
+          <li>Transakcije ulaza i izlaza</li>
+          <li>Zamjenski dijelovi</li>
+          <li>Dopuna baze autodijelova</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Skladište na dlanu</button>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Pretraga Autodijelova</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Po grupama</li>
+          <li>Po šifri</li>
+          <li>Po modelu auta</li>
+          <li>Lista zamjenskih dijelova</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary">Pretraga na dlanu</button>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Oglasnik Autodijelova</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Objava oglasa</li>
+          <li>Pregled oglasa</li>
+          <li>Pretraga oglasa</li>
+          <li>Povezivanje prodavaca i kupaca</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary">Oglasi na dlanu</button>
+      </div>
+    </div>
+  </div>
+  </div>
+ 
+  	<div th:include="fragments/footer :: footer"/></div>
+ </body>
+</html>
