@@ -14,17 +14,25 @@
  
   <section class="jumbotron text-center">
     <div class="container">
-      <h1>Album example</h1>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+      <h3>Kako postati YAP Database klijent?</h3>
+      <p class="lead text-muted">Prvi korak je da se registrujete kao 'Gost' korisnik. Kliknite na donji link do stranice za registraciju</p>
       <p>
-        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a th:href="@{/guestsignup}" class="btn btn-lg btn-block btn-primary my-2">Kreiraj 'Gost' profil</a>
         </p>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        
+      <div class="p-2 mx-auto text-center">
+      	<p class="lead text-muted">Ako već imate registrovan 'Gost' profil pošaljite poruku sa tekstom <b>'Želim otvoriti YAP Database klijent račun'</b> na e-mail adresu <b>yap.webapp@gmail.com</b></p>
         <p>
-        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        	<a th:href="@{/clientservices}" class="btn btn-lg btn-block btn-secondary my-2">Usluge za klijente</a>
+      	</p>
+      </div>
+      
+            <p class="lead text-muted">Za registrovane klijente i goste:</p>
+        <p>
+        <a th:href="@{/login}" class="btn btn-lg btn-block btn-success my-2">Prijava</a>
       </p>
     </div>
-  </section>
+    </section>
  
   	<div th:include="fragments/footer :: footer"/></div>
  </body>

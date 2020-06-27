@@ -10,14 +10,14 @@ import com.avlija.parts.model.User;
 @Controller
 public class HomeController {
  
- @RequestMapping(value= {"/home/clientservices"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/clientservices"}, method=RequestMethod.GET)
  public ModelAndView login() {
   ModelAndView model = new ModelAndView();
   model.setViewName("home/clientServices");
   return model;
  }
  
- @RequestMapping(value= {"/home/becomeclient"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/becomeclient"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();
   model.setViewName("home/becomeClient");

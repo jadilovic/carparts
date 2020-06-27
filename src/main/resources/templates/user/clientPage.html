@@ -16,14 +16,14 @@
  <div class="container">
  
  <div class="p-2" align="center">
-  <p><span th:utext="${userName}"></span> Klijent Opcije</p>
+  <h5><span th:utext="${userName}"></span> Klijent Opcije</h5>
   </div>
   
  <table class="table table-borderless">
  <tbody>
    <tr>
   	<td scope="col">
-  	 <a th:href="@{/admin/signup}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
+  	 <a th:href="@{/home/homesearch}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
   	</td>
   	<td scope="col">
   	 <a th:href="@{/user/alltransactions}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Pregled Transakcija</a>
