@@ -1,6 +1,5 @@
 package com.avlija.parts.controller;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +59,17 @@ public class MarketController {
 	 
 	 @Autowired
 	 private PostRepository postRepository;
+	 
+	 @RequestMapping(value= {"/user/postinfo/{id}"}, method=RequestMethod.GET)
+	 public ModelAndView postInfo(@PathVariable(name = "id") Integer id)  {
+		 Post post = postRepository.findById(id).get();
+		 ModelAndView model = new ModelAndView();
+	   		
+		 model.addObject("msg", "Info o objavljenom oglasu");
+		 model.addObject("post", post);
+		 model.setViewName("user/post_info");
+	  	   return model;
+	 }
  
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
@@ -91,16 +101,12 @@ public class MarketController {
 	 }
 	 
 	 @RequestMapping(value= {"/user/market"}, method=RequestMethod.POST)
-	 public ModelAndView publishPost(@Valid Post post, HttpServletRequest request) {
-	  ModelAndView model = new ModelAndView();
-	  		
+	 public String publishPost(@Valid Post post, HttpServletRequest request) {
 	  	   post.setCreated(new Date());
 	  	   postRepository.save(post);
-	   		
-	   		model.addObject("msg", "Info o objavljenom oglasu");
-	  	   model.addObject("post", post);
-	  	   model.setViewName("user/post_info");
-	  	   return model;
+	  	   int id = post.getId();
+
+	  	   return "redirect:/user/postinfo/" + id;
 	 }
 	 
 	 @GetMapping(value= {"/user/userposts"})
