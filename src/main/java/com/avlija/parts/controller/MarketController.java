@@ -140,6 +140,35 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 @GetMapping(value= {"/home/allposts"})
+	 public ModelAndView listAllPosts(HttpServletRequest request) {
+	  ModelAndView model = new ModelAndView();
+	  	   
+	       int page = 0; //default page number is 0
+	       int size = 10; //default page size is 10
+	       
+	       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+	           page = Integer.parseInt(request.getParameter("page")) - 1;
+	       }
+
+	       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+	           size = Integer.parseInt(request.getParameter("size"));
+	       }
+
+	       Page <Post> postsList = null;
+	   		postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+
+	   		String message = null;
+	   		if(postsList == null) {
+	   			message = "Nema objavljenih oglasa";
+	   		}
+	   		
+	   		model.addObject("message", message);
+	  	   model.addObject("postsList", postsList);
+	  	   model.setViewName("home/all_posts");
+	  	   return model;
+	 }
+	 
 	 private User getCurrentUser() {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findUserByEmail(auth.getName());

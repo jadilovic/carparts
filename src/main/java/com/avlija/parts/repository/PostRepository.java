@@ -17,4 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
  Post findByProductSifra(String sifra);
 
 Page<Post> findByUserId(int userId, Pageable pageable);
+
+Page<Post> findAll(Pageable pageable);
 }
