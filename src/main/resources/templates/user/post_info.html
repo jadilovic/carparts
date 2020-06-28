@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/></div>
+
+ <div class="container">
+ 
+      <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+     </div>
+     
+  <table th:object="${post}" class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Oglas ID:</th>
+      <td><span th:text="*{id}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Šifra proizvoda:</th>
+      <td><span th:text="*{productSifra}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Naziv proizvoda:</th>
+      <td><span th:text="*{productName}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Ime prodavača:</th>
+      <td><span th:text="*{userName}"></span></td>
+    </tr>
+    <tr>
+        <th scope="row">Kontakt na:</th>
+        <td><span th:text="*{contactOption}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Kontakt:</th>
+      <td><span th:text="*{contactInfo}"></span></td>
+    </tr>
+    <tr>
+        <th scope="row">Količina:</th>
+        <td><span th:text="*{postQuantity}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Active:</th>
+      <td><span th:text="*{active}"></span></td>
+    </tr>
+        <tr>
+      <th scope="row">Cijena:</th>
+      <td><span th:text="*{price}"></span></td>
+    </tr>
+    <tr>
+        <th scope="row">Objavljeno:</th>
+        <td th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}">Date</td>
+    </tr>
+    <tr>
+       <td>
+          <a class="btn btn-warning" th:href="@{/user/userposts}">Sve objave korisnika</a>
+       </td>       
+       <td>
+          <a class="btn btn-danger" th:href="@{/user/marketsearch}">Pretraga oglasa</a>
+       </td>
+    </tr>
+  </tbody>
+</table>
+ </div>
+ 
+ <div th:replace="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>

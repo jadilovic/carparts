@@ -1,22 +1,35 @@
 package com.avlija.parts.controller;
 
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.form.SampleInputs;
+import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductQuantity;
+import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.BrandRepository;
+import com.avlija.parts.repository.PostRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
@@ -46,10 +59,10 @@ public class MarketController {
 	 private ProductQuantityRepository productQuantityRepository;
 	 
 	 @Autowired
-	 private UserRepository userRepository;
+	 private PostRepository postRepository;
  
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
-	 public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
+	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
 	  ModelAndView model = new ModelAndView();
 	  Product product = productRepository.findById(id).get();
 	  User user = getCurrentUser();
@@ -60,17 +73,66 @@ public class MarketController {
 		  model.addObject("product", product);
 		  model.addObject("productQuantity", productQuantity);
 		  model.addObject("replaceProducts", replaceProducts);
-			model.addObject("msg", "Nije moguce objaviti u oglasniku jer nemate proizvod na stanju");
+			model.addObject("err", "Nije moguce objaviti u oglasniku jer nemate proizvod na stanju");
   			model.setViewName("home/product_profile");
 	  } else {
-	  			model.addObject("productQuantity", productQuantity);
-	  			model.addObject("msg", "Transakcija proizvoda na stanju!");
-	  			model.setViewName("admin/product_add_remove");
-	  			model.addObject("product", product);
+		  Post post = new Post();
+		  post.setActive(1);
+		  post.setProductId(product.getId());
+		  post.setUserId(user.getId());
+		  post.setUserName(user.getFirstname());
+		  post.setProductSifra(product.getSifra());
+		  post.setProductName(product.getName());
+	  			model.addObject("post", post);
+	  			model.addObject("msg", "Objava oglasa. Popunite prazna polja!");
+	  			model.setViewName("user/publish_post");
 	  		}
 	  return model;
 	 }
 	 
+	 @RequestMapping(value= {"/user/market"}, method=RequestMethod.POST)
+	 public ModelAndView publishPost(@Valid Post post, HttpServletRequest request) {
+	  ModelAndView model = new ModelAndView();
+	  		
+	  	   post.setCreated(new Date());
+	  	   postRepository.save(post);
+	   		
+	   		model.addObject("msg", "Info o objavljenom oglasu");
+	  	   model.addObject("post", post);
+	  	   model.setViewName("user/post_info");
+	  	   return model;
+	 }
+	 
+	 @GetMapping(value= {"/user/userposts"})
+	 public ModelAndView listUserPosts(HttpServletRequest request) {
+	  ModelAndView model = new ModelAndView();
+	  	   
+	       int page = 0; //default page number is 0
+	       int size = 10; //default page size is 10
+	       
+	       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+	           page = Integer.parseInt(request.getParameter("page")) - 1;
+	       }
+
+	       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+	           size = Integer.parseInt(request.getParameter("size"));
+	       }
+	       
+	       User user = getCurrentUser();
+	       int userId = user.getId();
+	       Page <Post> postsList = null;
+	   		postsList = postRepository.findByUserId(userId, PageRequest.of(page, size, Sort.by("created").descending()));
+
+	   		String message = null;
+	   		if(postsList == null) {
+	   			message = "Nemate objavljenih oglasa";
+	   		}
+	   		
+	   		model.addObject("message", message);
+	  	   model.addObject("postsList", postsList);
+	  	   model.setViewName("user/user_posts");
+	  	   return model;
+	 }
 	 
 	 private User getCurrentUser() {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
