@@ -1,5 +1,7 @@
 package com.avlija.parts.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,9 +16,11 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
  
  Post findByProductId(Long id);
  
- Post findByProductSifra(String sifra);
+ List<Post> findByProductSifra(String sifra);
 
 Page<Post> findByUserId(int userId, Pageable pageable);
 
 Page<Post> findAll(Pageable pageable);
+
+Page<Post> findByProductSifra(String sifra, Pageable pageable);
 }

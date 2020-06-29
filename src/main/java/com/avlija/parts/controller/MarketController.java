@@ -84,15 +84,34 @@ public class MarketController {
 	 }
 	 
 	 @RequestMapping(value= {"/user/postinfo"}, method=RequestMethod.POST)
-	 public ModelAndView searchPost(@Valid SampleInputs sampleInputs) {
+	 public ModelAndView searchPost(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 ModelAndView model = new ModelAndView();
-		 Post postBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
-		 if(postBySifra == null) {
+		 List<Post> postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
+		 if(postsBySifra == null) {
 			   model.setViewName("user/search_posts");
 			   model.addObject("msg", "Nije pronađen oglas sa unesenom šifrom. Pokušajte ponovo.");
 		 } else {
-	  	   model.addObject("post", postBySifra);
-	  	   model.setViewName("user/post_info");
+		  	   
+		       int page = 0; //default page number is 0
+		       int size = 10; //default page size is 10
+		       
+		       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+		           page = Integer.parseInt(request.getParameter("page")) - 1;
+		       }
+
+		       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+		           size = Integer.parseInt(request.getParameter("size"));
+		       }
+
+		       Page <Post> postsList = null;
+		   		postsList = postRepository.findByProductSifra(sampleInputs.getSifra(), PageRequest.of(page, size, Sort.by("created").descending()));
+
+		   		String message = null;
+		   		if(postsList == null) {
+		   			message = "Nema objavljenih oglasa";
+		   		}
+	  	   model.addObject("postsList", postsList);
+	  	   model.setViewName("user/all_posts");
 		 }
 	  	   return model;
 	 }

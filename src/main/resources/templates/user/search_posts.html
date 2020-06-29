@@ -39,7 +39,7 @@
     		
 		<form th:action="@{/user/postinfo2}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite ID broj:</h5></label>
-        		<input type="number" th:field="*{postId}" placeholder="postId" required autofocus/>
+        		<input type="number" th:field="*{postId}" placeholder="ID broj" required autofocus/>
     			<input class="btn btn-warning btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
