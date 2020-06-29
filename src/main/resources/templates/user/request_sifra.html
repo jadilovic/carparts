@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>Zahtjev za dopunom baze</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:include="fragments/header :: header"/></div>
+
+ <div class="container">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{/user/request}" th:object="${request}">
+      <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+     </div>
+             </div>
+         </div>
+         <div class="p-3 row">
+             <div class="col-md-3"></div>
+                 <h5>Unos novih šifri za dopunu baze</h5>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra 1</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="hidden" th:field="*{id}" class="form-control" id="id">                         
+                         <input type="text" th:field="*{sifra1}" class="form-control" id="sifra1"
+                                placeholder="Šifra autodijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra 2</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="text" th:field="*{sifra2}" class="form-control" id="sifra2"
+                                placeholder="Šifra autodijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra 3</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="text" th:field="*{sifra3}" class="form-control" id="sifra3"
+                                placeholder="Šifra autodijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra 4</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="text" th:field="*{sifra4}" class="form-control" id="sifra4"
+                                placeholder="Šifra autodijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Šifra 5</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                         <input type="text" th:field="*{sifra5}" class="form-control" id="sifra5"
+                                placeholder="Šifra autodijela" required autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>                                        
+         <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+                 <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Pošalji zahtjev</button>
+             </div>
+         </div>
+     </form>
+ </div>
+ 
+      <div th:include="fragments/footer :: footer"/></div>
+ 
+</body>
+</html>

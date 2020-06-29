@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Oglas Info</title>
+ <title>Poslan Zahtjev Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -18,7 +18,7 @@
       <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
      </div>
      
-  <table th:object="${post}" class="table">
+  <table th:object="${request}" class="table">
   <thead>
     <tr>
       <th scope="col">Title</th>
@@ -27,44 +27,40 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Oglas ID:</th>
+      <th scope="row">Šifra 1:</th>
+      <td><span th:text="*{sifra1}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Šifra 2:</th>
+      <td><span th:text="*{sifra2}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Šifra 3:</th>
+      <td><span th:text="*{sifra3}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Šifra 4:</th>
+      <td><span th:text="*{sifra4}"></span></td>
+    </tr>
+    <tr>
+        <th scope="row">Šifra 5:</th>
+        <td><span th:text="*{sifra5}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Zahtjev ID:</th>
       <td><span th:text="*{id}"></span></td>
     </tr>
     <tr>
-      <th scope="row">Šifra proizvoda:</th>
-      <td><span th:text="*{productSifra}"></span></td>
+        <th scope="row">Klijent:</th>
+        <td><span th:text="${request.getUser().getFirstname()}"></span></td>
     </tr>
     <tr>
-      <th scope="row">Naziv proizvoda:</th>
-      <td><span th:text="*{productName}"></span></td>
+      <th scope="row">Status zahtjeva:</th>
+      <td><span th:text="*{completed}"></span></td>
     </tr>
     <tr>
-      <th scope="row">Ime prodavača:</th>
-      <td><span th:text="*{userName}"></span></td>
-    </tr>
-    <tr>
-        <th scope="row">Kontakt na:</th>
-        <td><span th:text="*{contactOption}"></span></td>
-    </tr>
-    <tr>
-      <th scope="row">Kontakt:</th>
-      <td><span th:text="*{contactInfo}"></span></td>
-    </tr>
-    <tr>
-        <th scope="row">Količina:</th>
-        <td><span th:text="*{postQuantity}"></span></td>
-    </tr>
-    <tr>
-      <th scope="row">Active:</th>
-      <td><span th:text="*{active}"></span></td>
-    </tr>
-        <tr>
-      <th scope="row">Cijena:</th>
-      <td><span th:text="*{price}"></span></td>
-    </tr>
-    <tr>
-        <th scope="row">Objavljeno:</th>
-        <td th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}">Date</td>
+        <th scope="row">Poslano datuma:</th>
+        <td th:text="${#dates.format(request.created, 'dd-MM-yyyy HH:mm')}">Date</td>
     </tr>
     <tr>
        <td>

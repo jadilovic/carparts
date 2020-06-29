@@ -65,6 +65,10 @@ public class User {
          cascade = CascadeType.ALL)
  private Set<Transaction> transactions;
  
+ @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+         cascade = CascadeType.ALL)
+ private Set<Request> requests;
+ 
  public User() {
 	 
  }
