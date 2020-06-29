@@ -12,6 +12,7 @@ public class SampleInputs {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateField;
     private Long id;
+    private int postId;
     private Double doubleField;
     private Integer quantity;
     private String sifra;
@@ -239,6 +240,14 @@ public class SampleInputs {
 	 */
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+
+	public int getPostId() {
+		return postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 	
 	

@@ -34,7 +34,7 @@
   <a th:href="@{/user/userposts}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Vaši Oglasi</a>
   	</td>
   	<td scope="col">
-  <a th:href="@{/user/request}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Zahtjev za Dopunu Baze</a>
+  <a th:href="@{/user/searchposts}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Oglasa</a>
   	</td>
   	</tr>
   	<tr>
@@ -43,6 +43,14 @@
   	</td>
   	<td scope="col">
   <a th:href="@{/user/searchposts}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Pretraga Oglasa</a>
+  	</td>
+  	</tr>
+  	<tr>
+  	<td scope="col">
+  <a th:href="@{/user/userrequests}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Dostavljeni Zahtjevi Dopune Baze</a>
+  	</td>
+  	<td scope="col">
+  	  <a th:href="@{/user/request}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Zahtjev za Dopunu Baze</a>
   	</td>
   	</tr>
  </tbody>

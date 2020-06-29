@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,8 @@ import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
+
+import javassist.tools.reflect.Sample;
 
 @Controller
 public class MarketController {
@@ -60,6 +63,15 @@ public class MarketController {
 	 @Autowired
 	 private PostRepository postRepository;
 	 
+	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
+	 public ModelAndView postInfo()  {
+		 ModelAndView model = new ModelAndView();
+		 SampleInputs sampleInputs = new SampleInputs();
+		 model.addObject("sampleInputs", sampleInputs);
+		 model.setViewName("user/search_posts");
+	  	   return model;
+	 }
+	 
 	 @RequestMapping(value= {"/user/postinfo/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView postInfo(@PathVariable(name = "id") Integer id)  {
 		 Post post = postRepository.findById(id).get();
@@ -70,7 +82,35 @@ public class MarketController {
 		 model.setViewName("user/post_info");
 	  	   return model;
 	 }
- 
+	 
+	 @RequestMapping(value= {"/user/postinfo"}, method=RequestMethod.POST)
+	 public ModelAndView searchPost(@Valid SampleInputs sampleInputs) {
+		 ModelAndView model = new ModelAndView();
+		 Post postBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
+		 if(postBySifra == null) {
+			   model.setViewName("user/search_posts");
+			   model.addObject("msg", "Nije pronađen oglas sa unesenom šifrom. Pokušajte ponovo.");
+		 } else {
+	  	   model.addObject("post", postBySifra);
+	  	   model.setViewName("user/post_info");
+		 }
+	  	   return model;
+	 }
+	 
+	 @RequestMapping(value= {"/user/postinfo2"}, method=RequestMethod.POST)
+	 public ModelAndView searchPost2(@Valid SampleInputs sampleInputs) {
+		 ModelAndView model = new ModelAndView();
+		 try {
+			 Post postByID = postRepository.findById(sampleInputs.getPostId()).get();	
+		  	   model.addObject("post", postByID);
+		  	   model.setViewName("user/post_info");
+		 } catch(Exception e) {
+			   model.setViewName("user/search_posts");
+			   model.addObject("msg", "Nije pronađen oglas sa unesenim ID brojem. Pokušajte ponovo.");
+		 }
+	  	   return model;
+	 }
+	 
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
 	  ModelAndView model = new ModelAndView();

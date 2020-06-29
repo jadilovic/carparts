@@ -96,16 +96,9 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
-	 private User getCurrentUser() {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			User user = userService.findUserByEmail(auth.getName());
-			return user;
-	}
-
 	 
-	/* 
-	 @GetMapping(value= {"/user/userposts"})
-	 public ModelAndView listUserPosts(HttpServletRequest request) {
+	 @GetMapping(value= {"/user/userrequests"})
+	 public ModelAndView listUserRequests(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
 	  	   
 	       int page = 0; //default page number is 0
@@ -120,22 +113,21 @@ public class RequestController {
 	       }
 	       
 	       User user = getCurrentUser();
-	       int userId = user.getId();
-	       Page <Post> postsList = null;
-	   		postsList = postRepository.findByUserId(userId, PageRequest.of(page, size, Sort.by("created").descending()));
+	       Page <Request> requestsList = null;
+	   		requestsList = requestRepository.findByUser(user, PageRequest.of(page, size, Sort.by("created").descending()));
 
 	   		String message = null;
-	   		if(postsList == null) {
+	   		if(requestsList == null) {
 	   			message = "Nemate objavljenih oglasa";
 	   		}
 	   		
 	   		model.addObject("message", message);
-	  	   model.addObject("postsList", postsList);
-	  	   model.setViewName("user/user_posts");
+	  	   model.addObject("requestsList", requestsList);
+	  	   model.setViewName("user/user_requests");
 	  	   return model;
 	 }
 	 
-	 @GetMapping(value= {"/home/allposts"})
+	 @GetMapping(value= {"/admin/allrequests"})
 	 public ModelAndView listAllPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
 	  	   
@@ -150,20 +142,27 @@ public class RequestController {
 	           size = Integer.parseInt(request.getParameter("size"));
 	       }
 
-	       Page <Post> postsList = null;
-	   		postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+	       Page <Request> requestsList = null;
+	   		requestsList = requestRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
 
 	   		String message = null;
-	   		if(postsList == null) {
-	   			message = "Nema objavljenih oglasa";
+	   		if(requestsList == null) {
+	   			message = "Nema zahtjeva za dopunu sifri";
 	   		}
 	   		
 	   		model.addObject("message", message);
-	  	   model.addObject("postsList", postsList);
-	  	   model.setViewName("home/all_posts");
+	  	   model.addObject("requestsList", requestsList);
+	  	   model.setViewName("admin/all_requests");
 	  	   return model;
 	 }
-
+	 
+	 private User getCurrentUser() {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			User user = userService.findUserByEmail(auth.getName());
+			return user;
+	}
+	 
+/*
  @RequestMapping(value= {"/clientservices"}, method=RequestMethod.GET)
  public ModelAndView login() {
   ModelAndView model = new ModelAndView();
