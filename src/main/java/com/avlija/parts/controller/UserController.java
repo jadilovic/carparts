@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.model.Logins;
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductQuantity;
@@ -30,6 +31,7 @@ import com.avlija.parts.model.Role;
 import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
+import com.avlija.parts.repository.LoginsRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
@@ -52,8 +54,10 @@ public class UserController {
  private ProductRepository productRepository;
  
  @Autowired
- ProductQuantityRepository productQuantityRepository;
+ private ProductQuantityRepository productQuantityRepository;
  
+ @Autowired
+ private LoginsRepository loginsRepository;
  
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
  public ModelAndView login() {
@@ -365,6 +369,45 @@ public ModelAndView clientPage() {
 	  model.addObject("roles", roles);
 	  model.setViewName("user/profile_page");
  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/loggedUsers"}, method=RequestMethod.GET)
+ public ModelAndView loggedUsers() {
+  ModelAndView model = new ModelAndView();
+  List<Logins> users = (List<Logins>) loginsRepository.findAll();
+  if(users.size() == 0) {
+	  String message = "No users are logged in";
+	  model.addObject("message", message);
+  }
+  model.addObject("users", users);
+  model.setViewName("admin/users");
+  
+  return model;
+ }
+ 
+ @RequestMapping(value= {"/admin/deleteLoggedUsers"}, method=RequestMethod.GET)
+ public ModelAndView deleteLoggedUsers() {
+  ModelAndView model = new ModelAndView();
+  loginsRepository.deleteAll();
+  List<Logins> users = new ArrayList<>();
+  model.addObject("message", "All loggins were deleted");
+  model.addObject("users", users);
+  model.setViewName("admin/users");
+  return model;
+ }
+ 
+ @RequestMapping(value= {"admin/deleteLoggedUser/{id}"}, method=RequestMethod.GET)
+ public ModelAndView deleteLoggedUser(@PathVariable(name = "id") String id) {
+  ModelAndView model = new ModelAndView();
+  loginsRepository.deleteById(id);
+  List<Logins> users = (List<Logins>) loginsRepository.findAll();
+  if(users.size() == 0) {
+	  String message = "No users are logged in";
+	  model.addObject("message", message);
+  }
+  model.addObject("users", users);
+  model.setViewName("admin/users");
   return model;
  }
  
