@@ -87,7 +87,7 @@ public class MarketController {
 	 public ModelAndView searchPost(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 ModelAndView model = new ModelAndView();
 		 List<Post> postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
-		 if(postsBySifra == null) {
+		 if(postsBySifra.isEmpty()) {
 			   model.setViewName("user/search_posts");
 			   model.addObject("msg", "Nije pronađen oglas sa unesenom šifrom. Pokušajte ponovo.");
 		 } else {
@@ -110,6 +110,8 @@ public class MarketController {
 		   		if(postsList == null) {
 		   			message = "Nema objavljenih oglasa";
 		   		}
+		   	message = "Rezultat pretrage po šifri: '" + sampleInputs.getSifra() + "'";
+		   	model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
 	  	   model.setViewName("user/all_posts");
 		 }
@@ -122,6 +124,7 @@ public class MarketController {
 		 try {
 			 Post postByID = postRepository.findById(sampleInputs.getPostId()).get();	
 		  	   model.addObject("post", postByID);
+		  	   model.addObject("msg", "Rezultat pretrage po broju '" + sampleInputs.getPostId() + "' objavljenog oglasa");
 		  	   model.setViewName("user/post_info");
 		 } catch(Exception e) {
 			   model.setViewName("user/search_posts");
@@ -224,7 +227,7 @@ public class MarketController {
 	   		
 	   		model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
-	  	   model.setViewName("home/all_posts");
+	  	   model.setViewName("user/all_posts");
 	  	   return model;
 	 }
 	 

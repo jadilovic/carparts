@@ -86,7 +86,7 @@ public class UserController {
 	  user.setCreated(date);
    userService.saveUser(user);
    
-   model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost!");
+   model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost! --- Ako želite otvoriti 'Klijent' profil pošaljite poruku sa tekstom 'Želim otvoriti YAP Database klijent račun' na e-mail adresu: yap.webapp@gmail.com");
    model.addObject("user", new User());
    model.setViewName("user/login");
   }

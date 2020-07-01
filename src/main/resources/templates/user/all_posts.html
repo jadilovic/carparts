@@ -62,7 +62,7 @@
     </div>
     </div>
     
-    <!-- transactions pagination -->
+    <!-- market pagination -->
 <nav aria-label="Pagination" th:if="${postsList.totalPages gt 0}">
     <ul class="pagination justify-content-center font-weight-medium">
         <li class="page-item" th:classappend="${postsList.number eq 0} ? 'disabled'">
@@ -93,7 +93,11 @@
         </li>
     </ul>
 </nav>
-
+		    
+     	<div class="p-2" align="center">
+          <a class="btn btn-warning" th:href="@{/user/searchposts}">Nova pretraga oglasa</a>
+		</div>
+		
  <div th:replace="fragments/footer :: footer"/></div>
  
 </body>
