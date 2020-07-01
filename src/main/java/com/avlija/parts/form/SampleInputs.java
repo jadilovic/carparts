@@ -12,6 +12,7 @@ public class SampleInputs {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateField;
     private Long id;
+    private int userId;
     private int postId;
     private Double doubleField;
     private Integer quantity;
@@ -248,6 +249,14 @@ public class SampleInputs {
 
 	public void setPostId(int postId) {
 		this.postId = postId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 	

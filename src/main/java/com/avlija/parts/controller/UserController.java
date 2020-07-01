@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductQuantity;
 import com.avlija.parts.model.Role;
@@ -215,6 +216,46 @@ public ModelAndView clientPage() {
      Set <Role> roles = userProfile.getRoles();
      mav.addObject("roles", roles);
      mav.addObject("userProfile", userProfile);
+     return mav;
+ }
+ 
+ @RequestMapping("/admin/searchusers")
+ public ModelAndView searchUsers() {
+     ModelAndView mav = new ModelAndView("admin/search_users");
+     SampleInputs sampleInputs = new SampleInputs();
+     mav.addObject("sampleInputs", sampleInputs);
+     return mav;
+ }
+ 
+ @RequestMapping(value= {"admin/searchemail"}, method=RequestMethod.POST)
+ public ModelAndView searchUserByEmail(@Valid SampleInputs sampleInputs) {
+     ModelAndView mav = new ModelAndView();
+     try {
+    	 User userProfile = userRepository.findByEmail(sampleInputs.getEmail());
+    	 Set <Role> roles = userProfile.getRoles();
+    	 mav.addObject("roles", roles);
+    	 mav.addObject("userProfile", userProfile);
+    	 mav.setViewName("user/profile_page");
+     		} catch (Exception e) {
+     			mav.setViewName("admin/search_users");
+     			mav.addObject("msg", "Unesena email adresa klijenta ne postoji. Pokušajte ponovo.");
+     		}
+     return mav;
+ }
+ 
+ @RequestMapping(value= {"admin/searchid"}, method=RequestMethod.POST)
+ public ModelAndView searchUserById(@Valid SampleInputs sampleInputs) {
+     ModelAndView mav = new ModelAndView();
+     try {
+    	 User userProfile = userRepository.findById(sampleInputs.getUserId()).get();
+    	 Set <Role> roles = userProfile.getRoles();
+    	 mav.addObject("roles", roles);
+    	 mav.addObject("userProfile", userProfile);
+    	 mav.setViewName("user/profile_page");
+     		} catch (Exception e) {
+     			mav.setViewName("admin/search_users");
+     			mav.addObject("msg", "Uneseni ID broj klijenta ne postoji. Pokušajte ponovo.");
+     		}
      return mav;
  }
  

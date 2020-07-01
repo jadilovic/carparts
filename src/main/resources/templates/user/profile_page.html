@@ -38,9 +38,17 @@
       <th scope="row">First Name:</th>
       <td><span th:text="*{firstname}"></span></td>
     </tr>
-        <tr>
+    <tr>
       <th scope="row">Last Name:</th>
       <td><span th:text="*{lastname}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Država Korisnika:</th>
+      <td><span th:text="*{country}"></span></td>
+    </tr>
+    <tr>
+      <th scope="row">Datum Kreiran:</th>
+      <td><span th:text="${#dates.format(userProfile.created, 'dd-MM-yyyy HH:mm')}"></span></td>
     </tr>
     <tr th:each="role : ${roles}">
         <th scope="row">Role:</th>
@@ -50,8 +58,17 @@
       <th scope="row">Active:</th>
       <td><span th:text="*{active}"></span></td>
     </tr>
+    <tr>
+    	<td>
+    	    <a class="btn btn-success" th:href="@{'/admin/editprofile/' + ${userProfile.id}}">Edit Profile</a>
+    	</td>
+    	<td>
+    	    <a class="btn btn-danger" th:href="@{/admin/searchusers}">Search Users</a>
+    	</td>
+    </tr>
   </tbody>
 </table>
+
  </div>
  
  <div th:replace="fragments/footer :: footer"/></div>
