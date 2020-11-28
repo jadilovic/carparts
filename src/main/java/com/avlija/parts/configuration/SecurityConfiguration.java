@@ -72,4 +72,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
   
   return db;
  }
+ 
 }

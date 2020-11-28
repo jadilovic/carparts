@@ -1,9 +1,6 @@
 package com.avlija.parts.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -20,21 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.avlija.parts.form.SampleInputs;
-import com.avlija.parts.model.Post;
-import com.avlija.parts.model.Product;
-import com.avlija.parts.model.ProductQuantity;
 import com.avlija.parts.model.Request;
-import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
-import com.avlija.parts.model.UserProduct;
-import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.PostRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.RequestRepository;
 import com.avlija.parts.repository.TransactionRepository;
-import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 

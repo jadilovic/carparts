@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.menu-item {
+  display: grid;
+  gap: 1rem 2rem;
+  max-width: 25rem;
+}

@@ -1,6 +1,5 @@
 package com.avlija.parts.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,6 @@ import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductQuantity;
-import com.avlija.parts.model.Transaction;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.BrandRepository;
@@ -33,11 +30,8 @@ import com.avlija.parts.repository.PostRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
-import com.avlija.parts.repository.UserRepository;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
-
-import javassist.tools.reflect.Sample;
 
 @Controller
 public class MarketController {
