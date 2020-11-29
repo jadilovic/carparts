@@ -11,11 +11,11 @@ const menu = [
         				title: "Motorno ulje",
         			},
         			{
-        				id: 2,
+        				id: 41,
         				title: "Tehnicka maziva",
         			},
         			{
-        				id: 3,
+        				id: 51,
         				title: "Ulje za prijenos",
         			},
         		],
@@ -24,15 +24,15 @@ const menu = [
     		id: 0,
     		title: "Masti",
     		categories: [{
-    					id: 4,
+    					id: 61,
     					title: "Masti za lezajeve",
     				},
     				{
-    					id: 5,
+    					id: 71,
     					title: "Masti za podmazivanje centralnog sustava",
     				},
     				{
-    					id: 6,
+    					id: 81,
     					title: "Biorazgradiva mast",
     				}
     			],
@@ -41,11 +41,11 @@ const menu = [
     		id: 0,
     		title: "Rashladna tekucina protiv smrzavanja",
     		categories: [{
-    					id: 7,
+    					id: 91,
     					title: "Tekucina za hladjenje",
     				},
     				{
-    					id: 8,
+    					id: 101,
     					title: "Uredjaj za hladjenje",
     				},
     			],
@@ -60,11 +60,11 @@ const menu = [
       		id: 0,
       		title: "Elektricno kretanje",
       		categories: [{
-      					id: 9,
+      					id: 111,
       					title: "Elektricno kretanje", 
       				},
       				{
-      					id: 10,
+      					id: 121,
       					title: "Elementi elektricnog kretanja",
       				},
       			],
@@ -73,15 +73,15 @@ const menu = [
       		id: 0,
       		title: "Kvacilo",
       		categories: [{
-      					id: 11,
+      					id: 131,
       					title: "Otpusna piksna kvacila",
       				},
       				{
-      					id: 12,
+      					id: 141,
       					title: "Lezaj spojnicke osovine",
       				},
       				{
-      					id: 13,
+      					id: 151,
       					title: "Nosiva ploca lamele kvacila",
       				},
       			],
@@ -90,15 +90,15 @@ const menu = [
       		id: 0,
       		title: "Upravljanje kvacilom",
       		categories: [{
-      					id: 14,
+      					id: 161,
       					title: "Sajla kvacila",
       				},
       				{
-      					id: 15,
+      					id: 171,
       					title: "Crijeva / cijevi kvacila",
       				},
       				{
-      					id: 16,
+      					id: 181,
       					title: "Vilica kvacila",
       				},
       			],
@@ -110,51 +110,14 @@ const menu = [
 let tempMenu = menu;
 let prevMenu = [];
 
-const sectionCenter = document.querySelector(".section-center");
-
-const btnsContainer = document.querySelector(".btn-container");
+const btnsContainer = document.querySelector(".cardy");
 
 // load page
 window.addEventListener("DOMContentLoaded", function(){
-	displayMenuItems(menu);
-	
-//	const categories = menu.map(function(item){
-//		return item.category;
-//	})
 	displayMenuButtons(menu);
 });
 
-// display
-function displayMenuItems(menuItems){
-	// console.log("sake and bake");
-	/*
-	let displayMenu = menuItems.map(function(item){
-		// console.log(menuItem);
-
-		return `<article class="menu-item">
-				<img alt=${item.title} src=${item.img} class="photo">
-    			<div class="item-info">
-    				<header>
-    				   	<h4>${item.title}</h4>
-    					<h4 class="price">$${item.price}</h4>
-    				</header>
-					<p class="item-text">
-					${item.desc}
-					</p>
-    			</div>
-    		</article>`;
-	});
-	
-	displayMenu = displayMenu.join("");
-	
-	// console.log(displayMenu);
-	
-	sectionCenter.innerHTML = displayMenu;
-	
-//	console.log(menu);
-*/
-}
-
+//button display
 function displayMenuButtons(menuItems){
 	
 	const ids = [];
@@ -175,14 +138,24 @@ function displayMenuButtons(menuItems){
 	
 	if(ids.length === 0){
 		categoryBtns = categories.map(function(category){
-			return `<button class="filter-btn" type="button" data-id='${category}'>${category}</button>`
+			return `<div class="card-body">
+			<button type="button" class="btn btn-primary btn-block filter-btn" data-id='${category}'>${category}</button>
+			</div>`
 		}).join("");
 		//console.log(categoryBtns);
 	} else {
-		let count = -1;
+		let count = -2;
 		categoryBtns = categories.map(function(category){
 			count++;
-			return `<button class="filter-btn" type="button" data-id='${category}'>${category} - ${ids[count]}</button>`
+			if(count < 0 || count > ids.length - 1){
+				return `<div class="card-body">
+				<button type="button" class="btn btn-primary btn-block filter-btn" data-id='${category}'>${category}</button>
+				</div>`
+			} else {
+				return `<div class="card-body">
+    			<button onclick="window.location='/home/listproducts/ + ${ids[count]}';" class="btn btn-primary btn-block">${category}</button>
+    			</div>`
+			}
 		}).join("");
 		//console.log(categoryBtns);
 	}
@@ -196,27 +169,28 @@ function displayMenuButtons(menuItems){
 	// buttons
 	filterBtns.forEach(function(btn){
 		btn.addEventListener("click", function(e){
+
 		const titleName = e.currentTarget.dataset.id;
-		// console.log(titleName);
-		let menuCategories = [];
-		tempMenu.forEach(function(menuObject){
-			if(menuObject.title === titleName){
-				menuCategories = menuObject.categories;
-				prevMenu = tempMenu;
-				tempMenu = menuObject.categories;
+		
+			// console.log(titleName);
+			let menuCategories = [];
+			tempMenu.forEach(function(menuObject){
+				if(menuObject.title === titleName){
+					menuCategories = menuObject.categories;
+					prevMenu = tempMenu;
+					tempMenu = menuObject.categories;
+				}
+			});
+
+			if(titleName === "Pocetno"){
+				displayMenuButtons(menu);
+				tempMenu = menu;
+			} else if(titleName === "Prethodno"){
+				displayMenuButtons(prevMenu);
+				tempMenu = prevMenu;
+			} else {
+				displayMenuButtons(menuCategories);
 			}
-		});
-
-		if(titleName === "Pocetno"){
-			displayMenuButtons(menu);
-			tempMenu = menu;
-		} else if(titleName === "Prethodno"){
-			displayMenuButtons(prevMenu);
-			tempMenu = prevMenu;
-		} else {
-			displayMenuButtons(menuCategories);
-		}
-
 		});
 	});
 }

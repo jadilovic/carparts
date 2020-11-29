@@ -8,9 +8,7 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
- 
-     <!-- styles -->
-    <link rel="stylesheet" href="css/search.css" />
+
 </head>
 <body>
 
@@ -40,18 +38,11 @@
   		</div>
 	</div>
 
-      			<div class="menu-item">
-        			<a th:href="@{/home/ulja}" class="btn btn-primary btn-block">Ulja, masti, automobilske kemikalije</a>
-      			</div>
+    		<div class="cardy">
 
-      			<div class="menu-item">
-        			<a href="#" class="btn btn-info btn-block">Pogon</a>
-      			</div>
+    		</div>
+</div>
 
-      			<div class="menu-item">
-        			<a href="#" class="btn btn-secondary btn-block">Šasija</a>
-      			</div>
-	
 	<!-- 
 	<div class="row">
   		<div class="col-sm-4">
@@ -148,11 +139,11 @@
   		</div>
 	</div>
 	 -->
-</div>
+
  
       <div th:include="fragments/footer :: footer"/></div>
       
-          <!-- javascript -->
-    <script src="js/search.js"></script>
+         <!-- javascript -->
+		<script type="text/javascript" th:src="@{/js/search.js}"></script>
 </body>
 </html>
