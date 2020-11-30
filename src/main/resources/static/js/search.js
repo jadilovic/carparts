@@ -10,16 +10,25 @@ const menu = [
         				id: 1,
         				title: "Motorno ulje",
         			},
-        			{
-        				id: 41,
-        				title: "Tehnicka maziva",
-        			},
-        			{
-        				id: 51,
-        				title: "Ulje za prijenos",
-        			},
         		],
     		},
+			{
+			id: 0,
+			title: "Ulje za prijenos",
+			categories: [{
+						id: 51,
+						title: "Ulje servo upravljaca",
+					}, 
+					{
+						id: 221,
+						title: "Mineralno ulje za mjenjac",
+					}, 
+					{
+						id: 231,
+						title: "LHM tekucina za hidraulicne sisteme",
+					},
+				],
+			},
     		{
     		id: 0,
     		title: "Masti",
@@ -36,7 +45,28 @@ const menu = [
     					title: "Biorazgradiva mast",
     				}
     			],
-    		},
+    		},	
+			{
+			id: 0,
+			title: "Tehnicka maziva",
+			categories: [{
+						id: 41,
+						title: "Biorazgradivo ulje",
+					},
+					{
+						id: 191,
+						title: "Ulje za turbine",
+					},
+					{
+						id: 201,
+						title: "Ulje za hidrauliku",
+					},
+					{
+						id: 211,
+						title: "Ulja industrijske namjene / ostala",
+					},
+				],
+			},    		
     		{
     		id: 0,
     		title: "Rashladna tekucina protiv smrzavanja",
@@ -138,9 +168,15 @@ function displayMenuButtons(menuItems){
 	
 	if(ids.length === 0){
 		categoryBtns = categories.map(function(category){
-			return `<div class="card-body">
-			<button type="button" class="btn btn-primary btn-block filter-btn" data-id='${category}'>${category}</button>
-			</div>`
+			if(category === "Pocetno" || category === "Prethodno"){
+				return `<div class="card-body">
+				<button type="button" class="btn btn-success btn-block filter-btn" data-id='${category}'>${category}</button>
+				</div>`
+			} else {
+				return `<div class="card-body">
+				<button type="button" class="btn btn-primary btn-block filter-btn" data-id='${category}'>${category}</button>
+				</div>`
+			}
 		}).join("");
 		//console.log(categoryBtns);
 	} else {
@@ -149,7 +185,7 @@ function displayMenuButtons(menuItems){
 			count++;
 			if(count < 0 || count > ids.length - 1){
 				return `<div class="card-body">
-				<button type="button" class="btn btn-primary btn-block filter-btn" data-id='${category}'>${category}</button>
+				<button type="button" class="btn btn-success btn-block filter-btn" data-id='${category}'>${category}</button>
 				</div>`
 			} else {
 				return `<div class="card-body">
