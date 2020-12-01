@@ -319,6 +319,79 @@ const menu = [
       				},
       			],
       		},
+      		{
+          	id: 0,
+          	title: "Mjenjač",
+          	categories: [{
+          				id: 681,
+          				title: "Spojnička osovina mjenjača",
+          			},
+          			{
+          				id: 691,
+          				title: "Kučište mjenjača",
+          			},
+        			{
+          				id: 701,
+          				title: "Mjenjanje brzina",
+          			},
+         			{
+          				id: 711,
+          				title: "Brtva mjenjača",
+          			},
+         			{
+          				id: 721,
+          				title: "Sinhron",
+          			},
+         			{
+          				id: 731,
+          				title: "Planetarni zupčanik, mjenjač",
+          			},
+          			{
+          				id: 741,
+         				title: "Ručica mjenjača",
+          			},
+          			{
+          				id: 751,
+          				title: "Upravljanje automatiziranog mjenjača",
+         			},
+          			{
+          				id: 761,
+          				title: "Filter automatskog mjenjača",
+         			},
+          			{
+          				id: 771,
+          				title: "Zupčanici mjenjača",
+         			},
+          			{
+          				id: 781,
+          				title: "Viseći nosač mjenjača",
+         			},
+         			{
+          				id: 791,
+          				title: "Ručna kontrola mjenjača",
+          			},
+          			{
+          				id: 801,
+         				title: "Gearbox element",
+          			},
+          			{
+          				id: 811,
+          				title: "Automatic transmission",
+         			},
+          			{
+          				id: 821,
+          				title: "Gearbox cooling",
+         			},
+          			{
+          				id: 831,
+          				title: "Gearbox bearings",
+         			},
+          			{
+          				id: 841,
+          				title: "Gearbox assembly",
+         			},
+          		],
+          	},
       	],
     }, 
 ];
