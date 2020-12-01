@@ -17,15 +17,15 @@ const menu = [
 			title: "Ulje za prijenos",
 			categories: [{
 						id: 51,
-						title: "Ulje servo upravljaca",
+						title: "Ulje servo upravljača",
 					}, 
 					{
 						id: 221,
-						title: "Mineralno ulje za mjenjac",
+						title: "Mineralno ulje za mjenjač",
 					}, 
 					{
 						id: 231,
-						title: "LHM tekucina za hidraulicne sisteme",
+						title: "LHM tekućina za hidraulične sisteme",
 					},
 				],
 			},
@@ -34,7 +34,7 @@ const menu = [
     		title: "Masti",
     		categories: [{
     					id: 61,
-    					title: "Masti za lezajeve",
+    					title: "Masti za ležajeve",
     				},
     				{
     					id: 71,
@@ -43,12 +43,28 @@ const menu = [
     				{
     					id: 81,
     					title: "Biorazgradiva mast",
-    				}
+    				},
+    				{
+    					id: 241,
+    					title: "Specijalna mast",
+    				},
+    				{
+    					id: 251,
+    					title: "Univerzalna mast",
+    				},
+    				{
+    					id: 261,
+    					title: "Mast podvozja",
+    				},
+    				{
+    					id: 271,
+    					title: "Mast homokinetičkog zgloba",
+    				},
     			],
     		},	
 			{
 			id: 0,
-			title: "Tehnicka maziva",
+			title: "Tehnička maziva",
 			categories: [{
 						id: 41,
 						title: "Biorazgradivo ulje",
@@ -69,17 +85,107 @@ const menu = [
 			},    		
     		{
     		id: 0,
-    		title: "Rashladna tekucina protiv smrzavanja",
+    		title: "Rashladna tekućina protiv smrzavanja",
     		categories: [{
     					id: 91,
-    					title: "Tekucina za hladjenje",
+    					title: "Tekućina za hladnjak motora (tip G12++)",
     				},
     				{
     					id: 101,
-    					title: "Uredjaj za hladjenje",
+    					title: "Tekućina za hladnjak motora (tip G11)",
+    				},
+    				{
+    					id: 281,
+    					title: "Tekućina za hladnjak motora (tip G12+)",
+    				},
+    				{
+    					id: 291,
+    					title: "Rashladna tekućina (tip G13)",
+    				},
+    				{
+    					id: 301,
+    					title: "Tekućina za hladnjak motora (tip G12)",
+    				},
+    				{
+    					id: 311,
+    					title: "Rashladna tekućina (tip ECO)",
+    				},
+    				{
+    					id: 321,
+    					title: "Koncentrat za hlađenje (tip G11)",
+    				},
+    				{
+    					id: 331,
+    					title: "Koncentrat za hlađenje (tip G12++)",
+    				},
+    				{
+    					id: 341,
+    					title: "Koncentrat za hlađenje (tip G12+)",
+    				},
+    				{
+    					id: 351,
+    					title: "Koncentrat za hlađenje (tip G12)",
+    				},
+    				{
+    					id: 361,
+    					title: "Koncentrat za hlađenje (tip G13)",
     				},
     			],
     		},
+    		{
+        	id: 0,
+        	title: "Kočione tekućine",
+        	categories: [{
+        				id: 371,
+        				title: "Kočiona tekućina DOT4",
+        			},
+        			{
+        				id: 381,
+        				title: "DOT4 PLUS kočiona tekućina",
+        			},
+        			{
+        				id: 391,
+        				title: "R-3 kočiona tekućina",
+        			},
+        			{
+        				id: 401,
+        				title: "Kočiona tekućina",
+        			},
+        			{
+        				id: 411,
+        				title: "DOT3 kočiona tekućina",
+        			},
+        			{
+        				id: 421,
+        				title: "DOT5.1 kočiona tekućina",
+        			},
+        		],
+        	},
+    		{
+            id: 0,
+            title: "Kemikalije za automobile",
+            categories: [{
+            			id: 431,
+            			title: "Odleđivači",
+            		},
+            		{
+            			id: 441,
+            			title: "Ljepilo za fiksiranje stakla",
+            		},
+            		{
+            			id: 451,
+            			title: "Ljepila",
+            		},
+            		{
+            			id: 461,
+            			title: "Čišćenje/Održavanje/Pranje",
+            		},
+            		{
+            			id: 471,
+            			title: "Kemikalije za popravak i zaštitu",
+            		},
+            	],
+            },
     	],
     }, 
     {
@@ -88,48 +194,48 @@ const menu = [
       categories: [
       		{
       		id: 0,
-      		title: "Elektricno kretanje",
+      		title: "Električno kretanje",
       		categories: [{
       					id: 111,
-      					title: "Elektricno kretanje", 
+      					title: "Električno kretanje", 
       				},
       				{
       					id: 121,
-      					title: "Elementi elektricnog kretanja",
+      					title: "Elementi električnog kretanja",
       				},
       			],
       		},
       		{
       		id: 0,
-      		title: "Kvacilo",
+      		title: "Kvačilo",
       		categories: [{
       					id: 131,
-      					title: "Otpusna piksna kvacila",
+      					title: "Otpusna piksna kvačila",
       				},
       				{
       					id: 141,
-      					title: "Lezaj spojnicke osovine",
+      					title: "Ležaj spojničke osovine",
       				},
       				{
       					id: 151,
-      					title: "Nosiva ploca lamele kvacila",
+      					title: "Nosiva ploča lamele kvačila",
       				},
       			],
       		},
       		{
       		id: 0,
-      		title: "Upravljanje kvacilom",
+      		title: "Upravljanje kvačilom",
       		categories: [{
       					id: 161,
-      					title: "Sajla kvacila",
+      					title: "Sajla kvačila",
       				},
       				{
       					id: 171,
-      					title: "Crijeva / cijevi kvacila",
+      					title: "Crijeva / cijevi kvačila",
       				},
       				{
       					id: 181,
-      					title: "Vilica kvacila",
+      					title: "Vilica kvačila",
       				},
       			],
       		},
