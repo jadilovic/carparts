@@ -66,6 +66,7 @@ public class SearchController {
   return model;
  }
  
+ /*
  @RequestMapping(value= {"/home/ulja"}, method=RequestMethod.GET)
  public ModelAndView ulja() {
   ModelAndView model = new ModelAndView();
@@ -114,6 +115,7 @@ public class SearchController {
   model.setViewName("home/search_filteri_goriva");
   return model;
  }
+ */
  
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
  public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {

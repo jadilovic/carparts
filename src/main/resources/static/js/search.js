@@ -220,6 +220,54 @@ const menu = [
       					id: 151,
       					title: "Nosiva ploča lamele kvačila",
       				},
+      				{
+      					id: 481,
+      					title: "Potisna šipka kvačila",
+      				},
+      				{
+      					id: 491,
+      					title: "Sekundarni zamašnjak",
+      				},
+      				{
+      					id: 501,
+      					title: "Zamašnjak",
+      				},
+      				{
+      					id: 511,
+      					title: "Hidraulični ležaj",
+      				},
+      				{
+      					id: 521,
+      					title: "Set samopodešavajućih kvačila",
+      				},
+      				{
+      					id: 531,
+      					title: "Potisni ležaj kvačila",
+      				},
+      				{
+      					id: 541,
+      					title: "Set kvačila sa zamašnjakom",
+      				},
+      				{
+      					id: 551,
+      					title: "Pera potisne ploče",
+      				},
+      				{
+      					id: 561,
+      					title: "Set samopodesivog kvačila sa zamašnjakom",
+      				},
+      				{
+      					id: 571,
+      					title: "Ležaj vilice kvačila",
+      				},
+      				{
+      					id: 581,
+      					title: "Potisna ploča",
+      				},
+      				{
+      					id: 591,
+      					title: "Lamela kvačila",
+      				},
       			],
       		},
       		{
@@ -236,6 +284,38 @@ const menu = [
       				{
       					id: 181,
       					title: "Vilica kvačila",
+      				},
+      				{
+      					id: 601,
+      					title: "Osovina vilice mjenjača",
+      				},
+      				{
+      					id: 611,
+      					title: "Sekundarni cilindar kvačila",
+      				},
+      				{
+      					id: 621,
+      					title: "Vilica kvačila",
+      				},
+      				{
+      					id: 631,
+      					title: "Glavni cilindar kvačila",
+      				},
+      				{
+      					id: 641,
+      					title: "Sekundarni cilindar kvačila",
+      				},
+      				{
+      					id: 651,
+      					title: "Samoregulator kvačila",
+      				},
+      				{
+      					id: 661,
+      					title: "Nosač sajle kvačila",
+      				},
+      				{
+      					id: 671,
+      					title: "Glavni cilindar kvačila + set za reparaturu",
       				},
       			],
       		},
@@ -265,7 +345,7 @@ function displayMenuButtons(menuItems){
 			values.push(item.title);
 			return values;
 		}, 
-		["Pocetno"],
+		["Početno"],
 	);
 	
 	categories.push("Prethodno");
@@ -274,7 +354,7 @@ function displayMenuButtons(menuItems){
 	
 	if(ids.length === 0){
 		categoryBtns = categories.map(function(category){
-			if(category === "Pocetno" || category === "Prethodno"){
+			if(category === "Početno" || category === "Prethodno"){
 				return `<div class="card-body">
 				<button type="button" class="btn btn-success btn-block filter-btn" data-id='${category}'>${category}</button>
 				</div>`
@@ -324,7 +404,7 @@ function displayMenuButtons(menuItems){
 				}
 			});
 
-			if(titleName === "Pocetno"){
+			if(titleName === "Početno"){
 				displayMenuButtons(menu);
 				tempMenu = menu;
 			} else if(titleName === "Prethodno"){
