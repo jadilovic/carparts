@@ -15,6 +15,8 @@
 <div th:include="fragments/header :: header"/></div>
 
  <div class="container">
+ 
+ <!-- 
      <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
       <div class="row">
              <div class="col-md-3"></div>
@@ -44,13 +46,20 @@
     		</tr>
     		<tr>
       			<th scope="row"><label for="name">Odaberi grupu artikla:</label></th>
-      			<td>
-      	  			<select th:field="*{groupName}">
-              			<option th:each="group : ${productGroups}"
-              				th:value="${group.name}"
-              				th:utext="${group.name}"/>
-          			</select>
-      			</td>
+      			
+      	<td>
+      	
+      	    <select th:field="*{groupName}" class="groupName">
+      	  		<!--
+              		<option th:each="group : ${productGroups}"
+              		th:value="${group.name}"
+              		th:utext="${group.name}"/>
+              	--
+          	</select>
+      	
+
+      	  	
+      	</td>
       			<td></td>
       			<td></td>
       			<td></td>
@@ -66,15 +75,51 @@
          <div class="row">
              <div class="col-md-3"></div>
              <div class="col-md-6">
-                 <button type="submit" class="btn btn-success btn-lg btn-block"><i class="fa fa-user-plus"></i>Traži</button>
+                 <button type="submit" class="btn btn-danger btn-lg btn-block"><i class="fa fa-user-plus"></i>Traži</button>
              </div>
          </div>
      </form>
+      -->
+      
+<form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
+
+    <div class="form-group col-md-6">
+      <label for="brandName">Marka Automobila</label>
+      <input type="text"  th:field="*{brandName}" id="brandName">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="modelName">Model Automobila</label>
+      <input type="text" th:field="*{modelName}" id="modelName">
+    </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-md-4">
+      <label for="name">Odaberi Grupu Artikla:</label>
+		  	<select th:field="*{groupName}" class="groupName">
+      	  		<!--
+              		<option th:each="group : ${productGroups}"
+              		th:value="${group.name}"
+              		th:utext="${group.name}"/>
+              	-->	
+          	</select>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Traži</button>
+</form>
+     
+      	<div class="cardy">
+			<!-- Parts categories -->
+    	</div>
+     
  </div>
  
  <div class="footer">
       <div th:include="fragments/footer :: footer"/></div>
  </div>
+ 
+ <script type="text/javascript" th:src="@{/js/searchByModel.js}"></script>
  
 </body>
 </html>
