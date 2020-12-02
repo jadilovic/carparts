@@ -10,110 +10,33 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body class="text-center">
 
 <div th:include="fragments/header :: header"/></div>
 
- <div class="container">
- 
- <!-- 
-     <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
-      <div class="row">
-             <div class="col-md-3"></div>
-             <div class="col-md-6">
-              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
-     </div>
-             </div>
-         </div>
-         <div class="p-3 row">
-             <div class="col-md-3"></div>
-                 <h5>Pretraga po modelu automobila i grupi artikla</h5>
-         </div>
-
-       <table class="table table-striped">
-  		<tbody>
-  		    <tr>
-      			<th scope="row"><label for="brandName">Marka automobila:</label></th>
-      			<td>
-      				<input type="text" th:field="*{brandName}" id="brandName">
-      			</td>
-    		</tr>
-    		<tr>
-      			<th scope="row"><label for="modelName">Model automobila:</label></th>
-      			<td>
-      			     <input type="text" th:field="*{modelName}" id="modelName">
-      			</td>
-    		</tr>
-    		<tr>
-      			<th scope="row"><label for="name">Odaberi grupu artikla:</label></th>
-      			
-      	<td>
-      	
-      	    <select th:field="*{groupName}" class="groupName">
-      	  		<!--
-              		<option th:each="group : ${productGroups}"
-              		th:value="${group.name}"
-              		th:utext="${group.name}"/>
-              	--
-          	</select>
-      	
-
-      	  	
-      	</td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-      			<td></td>
-    		</tr>
-    	</tbody>
-    </table>
-    
-         <div class="row">
-             <div class="col-md-3"></div>
-             <div class="col-md-6">
-                 <button type="submit" class="btn btn-danger btn-lg btn-block"><i class="fa fa-user-plus"></i>Traži</button>
-             </div>
-         </div>
-     </form>
-      -->
+     <div class="container bg-light">
       
-<form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
-
-    <div class="form-group col-md-6">
-      <label for="brandName">Marka Automobila</label>
-      <input type="text"  th:field="*{brandName}" id="brandName">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="modelName">Model Automobila</label>
-      <input type="text" th:field="*{modelName}" id="modelName">
-    </div>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-4">
-      <label for="name">Odaberi Grupu Artikla:</label>
-		  	<select th:field="*{groupName}" class="groupName">
+          <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch4}" th:object="${inputs}">
+      <h5 class="mb-3 font-weight-normal">Pretraga po modelu auta</h5>
+                <label for="brand"><b>Marka: </b></label>
+      				<input type="text"  th:field="*{brandName}" id="brandName"></br>
+                <label for="model"><b>Model: </b></label>
+      				<input type="text" th:field="*{modelName}" id="modelName"></br>
+			<label for="group"><b>Group: </b></label>
+				<select th:field="*{groupName}" class="groupName">
       	  		<!--
               		<option th:each="group : ${productGroups}"
               		th:value="${group.name}"
               		th:utext="${group.name}"/>
               	-->	
-          	</select>
-    </div>
-
+          		</select> 
+				<div class="cardy">
+					<!-- Parts categories -->
+    			</div>
+            <hr class="mb-4">
+            <button class="btn btn-danger btn-lg btn-block" type="submit">Traži</button>
+    </form>
   </div>
-  <button type="submit" class="btn btn-primary btn-block">Traži</button>
-</form>
-     
-      	<div class="cardy">
-			<!-- Parts categories -->
-    	</div>
-     
- </div>
  
  <div class="footer">
       <div th:include="fragments/footer :: footer"/></div>
