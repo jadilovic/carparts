@@ -258,8 +258,8 @@ public class SearchController {
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
  public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  System.out.println("GROUP NAME " + inputs.getGroupName());
-  ProductGroup group = productGroupRepository.findByName(inputs.getGroupName());
+  System.out.println("GROUP NAME " + inputs.getId());
+  ProductGroup group = productGroupRepository.findById(inputs.getId()).get();
   
   System.out.println("BRAND NAME " + inputs.getBrandName());
   String carBrand = inputs.getBrandName();
@@ -269,16 +269,28 @@ public class SearchController {
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
   	List<Product> productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
+  	System.out.println("id grupe ID GRupe: " + group.getId());
+  	if(checkOils(group.getId())) {
+  		productList = productRepository.findByProductGroup(group);
+  	}
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
 	 productQuantitiyList = getProductQuantityList(productList);
-  model.addObject("message", inputs.getGroupName());
+  model.addObject("message", group.getName());
   model.addObject("productList", productList);
   model.addObject("productQuantityList", productQuantitiyList);
   model.setViewName("home/list_products");
   return model;
  }
  
- private User getCurrentUser() {
+ private boolean checkOils(Long id) {
+	if(id == 1 || id == 41 || id == 51 || id == 61 || id == 71 || id == 81 || id == 91 || id == 101 || id == 191 || id == 201 || id == 211 || id == 221 || id == 231 || id == 241 || id == 251 || id == 261 || id == 271 || id == 281 || id == 291 || id == 301 || id == 311 || id == 321 || id == 331 || id == 341 || id == 351 || id == 361 || id == 371 || id == 381 || id == 391 || id == 401 || id == 411 || id == 421 || id == 431 || id == 431 || id == 351 || id == 461 || id == 471) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+private User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		return user;

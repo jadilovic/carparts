@@ -392,6 +392,59 @@ const menu = [
          			},
           		],
           	},
+      		{
+            id: 0,
+            title: "Diferencijal",
+            categories: [{
+              			id: 851,
+              			title: "Osovina diferencijala",
+              		},
+              		{
+              			id: 861,
+              			title: "Pogon osovine diferencijala",
+              		},
+            		{
+             			id: 871,
+              			title: "Zupčanik diferencijala",
+              		},
+             		{
+              			id: 881,
+              			title: "Vijak tanjurastog zupčanika",
+              		},
+             		{
+              			id: 891,
+              			title: "Blokada diferencijala (špera)",
+              		},
+              		{
+             			id: 901,
+              			title: "Nosači diferencijala",
+              		},
+              		{
+             			id: 911,
+             			title: "Semering / brtvilo diferencijala",
+              		},
+              		{
+             			id: 921,
+              			title: "Garnitura za reparaturu diferencijala",
+             		},
+              		{
+             			id: 931,
+              			title: "Differential element",
+             		},
+              		{
+             			id: 941,
+              			title: "Filter ulja za diferencijal",
+             		},
+              		{
+              			id: 951,
+             			title: "Čep ispusta",
+            		},
+             		{
+              			id: 961,
+              			title: "Oil pressure pump 4x4 drive",
+              		},
+             	],
+            },          	
       	],
     }, 
 ];
