@@ -8,7 +8,7 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
-
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
 
@@ -32,8 +32,6 @@
   		<tbody>
     		<tr>
       			<th scope="row"><label for="brand">Odaberi marku automobila:</label></th>
-			</tr>
-			<tr>
       			<td>
       	  			<select th:field="*{brand}">
               			<option th:each="carBrand : ${brands}"
