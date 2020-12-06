@@ -447,7 +447,52 @@ const menu = [
               			title: "Oil pressure pump 4x4 drive",
               		},
              	],
-            },          	
+            },
+      		{
+            id: 0,
+            title: "Pogonska osovina",
+            categories: [{
+                 		id: 971,
+                  		title: "Semering poluosovine",
+                 	},
+                  	{
+                  		id: 981,
+                 		title: "Ležaj pogonske osovine",
+                  	},
+                	{
+                		id: 991,
+                  		title: "Zglob poluosovine",
+                 	},
+                 	{
+                  		id: 1001,
+                 		title: "Podupirač pogonske osovine",
+                  	},
+                 	{
+                 		id: 1011,
+                  		title: "Axle shaft main shaft",
+                 	},
+                  	{
+                 		id: 1021,
+                 		title: "Axle sprocket",
+                  	},
+                  	{
+                		id: 1031,
+                 		title: "Drive shaft cross-piece",
+                 	},
+                  	{
+                 		id: 1041,
+                 		title: "Sigurnosni prsten",
+                 	},
+                  	{
+                		id: 1051,
+                  		title: "Zeger poluosovine",
+                	},
+                  	{
+                 		id: 1061,
+                  		title: "Jezgra poluosovine",
+                 	},
+                ],
+      		},                
       	],
     }, 
 ];
@@ -472,4 +517,6 @@ var saveData = (function () {
 // var data = { x: 42, s: "hello, world", d: new Date() }, 
 let fileName = "groups.json"; 
  
-saveData(menu, fileName); 
+document.getElementById("clickMe").onclick = function(){
+	saveData(menu, fileName); 
+}

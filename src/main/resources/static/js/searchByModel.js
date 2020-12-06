@@ -1,15 +1,35 @@
 
+let menu;
+let tempMenu;
 
-let tempMenu = menu;
+function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
+
+readTextFile("/file/groups.json", function(text){
+	menu = JSON.parse(text);
+	tempMenu = menu;
+	displayMenuButtons(menu);
+});
+
+window.addEventListener("DOMContentLoaded", function(){
+	 console.log(menu);
+});
+
 let prevMenu = [];
 
 const btnsContainer = document.querySelector(".cardy");
 const categorySelection = document.querySelector(".groupName");
-
-// load page
-window.addEventListener("DOMContentLoaded", function(){
-	displayMenuButtons(menu);
-});
+const traziButton = document.getElementById("traziBtn");
+traziButton.disabled = true;
 
 //button display
 function displayMenuButtons(menuItems){
@@ -64,6 +84,7 @@ function displayMenuButtons(menuItems){
 		if(ids.length > 0){
 			categorySelection.innerHTML = categoryBtns;
 			btnsContainer.innerHTML = "";
+			traziButton.disabled = false;
 		} else {
 			
 			btnsContainer.innerHTML = categoryBtns;
