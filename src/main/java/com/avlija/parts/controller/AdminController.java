@@ -1,7 +1,5 @@
 package com.avlija.parts.controller;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -86,10 +84,8 @@ public class AdminController {
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.POST)
  public ModelAndView createGroup(@Valid ProductGroup productGroup, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  String newGroupName = decodeUTF8(productGroup.getName());
   
-  ProductGroup productGroupExists = productGroupRepository.findByName(newGroupName);
-  
+  ProductGroup productGroupExists = productGroupRepository.findByName(productGroup.getName());
   if(productGroupExists != null) {
    bindingResult.rejectValue("name", "error.productGroup", "Ova kategorija već postoji!");
   }
@@ -460,15 +456,6 @@ public class AdminController {
 	 }
 }
  
- 
- private String decodeUTF8(String rawString) {
-	  ByteBuffer buffer = StandardCharsets.UTF_8.encode(rawString); 
-
-	  String utf8EncodedString = StandardCharsets.UTF_8.decode(buffer).toString();
-
-	  System.out.println("TEST UTF string" + utf8EncodedString);
-	return utf8EncodedString;
-}
  /*
  @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {

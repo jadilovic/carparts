@@ -492,7 +492,56 @@ const menu = [
                   		title: "Jezgra poluosovine",
                  	},
                 ],
-      		},                
+      		},
+      		{
+            id: 0,
+            title: "Kardan",
+            categories: [{
+                     	id: 1071,
+                      	title: "Elementi za učvršćenje kardana",
+                    },
+                   	{
+                   		id: 1081,
+                   		title: "Elastična spojka kardana",
+                   	},
+                   	{
+                   		id: 1091,
+                   		title: "Kardan",
+                   	},
+                   	{
+                      	id: 1101,
+                     	title: "Među-ležaj, pogonska osovina",
+                   	},
+                    {
+                      	id: 1111,
+                   		title: "Zglob kardana",
+                   	},
+                   	{
+                   		id: 1121,
+                   		title: "Križ kardana",
+                   	},
+                  	{
+                    	id: 1131,
+                     	title: "Indirektna osovina",
+                    },
+                    {
+                     	id: 1141,
+                     	title: "Hardi zglob - nosač križa kardana",
+                   	},
+                    {
+                    	id: 1151,
+                     	title: "Vodilica rukavca osovine",
+                   	},
+                    {
+                     	id: 1161,
+                    	title: "Križ unutrašnjeg homokinetičkog zgloba",
+                    },
+                    {
+                     	id: 1171,
+                    	title: "Shaft flange nut",
+                    },
+                ],
+          	},                      		
       	],
     }, 
 ];
