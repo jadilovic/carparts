@@ -541,7 +541,24 @@ const menu = [
                     	title: "Shaft flange nut",
                     },
                 ],
-          	},                      		
+          	},
+      		{
+          	id: 0,
+            title: "Driveshaft joint",
+            categories: [{
+                       	id: 1181,
+                       	title: "Spoj pogonske osovine",
+                    },
+                    {
+                       	id: 1191,
+                       	title: "Garnitura za reparaturu zglobova",
+                    },
+                    {
+                       	id: 1201,
+                       	title: "Vijak zgloba pogonske osovine",
+                    },
+                ],
+            },          
       	],
     }, 
 ];
