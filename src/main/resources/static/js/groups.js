@@ -558,7 +558,20 @@ const menu = [
                        	title: "Vijak zgloba pogonske osovine",
                     },
                 ],
-            },          
+            },        
+      		{
+            id: 0,
+            title: "Manžeta",
+            categories: [{
+                        id: 1211,
+                        title: "Garnitura manžeta homokinetičkog zgloba",
+                    },
+                    {
+                        id: 1221,
+                        title: "Šelna manžete",
+                    },
+                ],
+      		},  
       	],
     }, 
 ];
