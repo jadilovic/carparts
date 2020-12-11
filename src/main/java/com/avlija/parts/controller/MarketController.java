@@ -107,7 +107,8 @@ public class MarketController {
 		   	message = "Rezultat pretrage po šifri: '" + sampleInputs.getSifra() + "'";
 		   	model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
-	  	   model.setViewName("user/all_posts");
+			 model.addObject("sampleInputs", sampleInputs);
+	  	   model.setViewName("user/all_product_posts");
 		 }
 	  	   return model;
 	 }

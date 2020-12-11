@@ -66,57 +66,6 @@ public class SearchController {
   return model;
  }
  
- /*
- @RequestMapping(value= {"/home/ulja"}, method=RequestMethod.GET)
- public ModelAndView ulja() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_ulja");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/uljamotorna"}, method=RequestMethod.GET)
- public ModelAndView uljaMotorna() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_ulje_motorno");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/motorfilteri"}, method=RequestMethod.GET)
- public ModelAndView motorFilteri() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_motor_filteri");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/filteri"}, method=RequestMethod.GET)
- public ModelAndView filteri() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_filteri");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/filterulja"}, method=RequestMethod.GET)
- public ModelAndView filterUlja() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_filteri_ulja");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/filterzraka"}, method=RequestMethod.GET)
- public ModelAndView filterZraka() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_filteri_zraka");
-  return model;
- }
- 
- @RequestMapping(value= {"/home/filtergoriva"}, method=RequestMethod.GET)
- public ModelAndView filterGoriva() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/search_filteri_goriva");
-  return model;
- }
- */
- 
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
  public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
 

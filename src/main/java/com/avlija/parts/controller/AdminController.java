@@ -454,32 +454,5 @@ public class AdminController {
 		 }
 		 productQuantitiyList.add(productQuantity);
 	 }
-}
- 
- /*
- @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
- public ModelAndView adminPage() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("admin/adminPage");
-  return model;
  }
- 
- @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
- public ModelAndView home() {
-  ModelAndView model = new ModelAndView();
-  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-  User user = userService.findUserByEmail(auth.getName());
-  
-  model.addObject("userName", user.getFirstname() + " " + user.getLastname());
-  model.setViewName("home/home");
-  return model;
- }
- 
- @RequestMapping(value= {"/access_denied"}, method=RequestMethod.GET)
- public ModelAndView accessDenied() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("errors/access_denied");
-  return model;
- }
- */
 }
