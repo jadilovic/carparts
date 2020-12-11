@@ -57,8 +57,14 @@
 		<dependency>
     		<groupId>commons-codec</groupId>
     		<artifactId>commons-codec</artifactId>
-    		<version>1.14</version>
-		</dependency>
+    		</dependency>
+    		
+    		<!-- Password validation  -->
+    		<dependency>
+    			<groupId>org.passay</groupId>
+    			<artifactId>passay</artifactId>
+    			<version>1.6.0</version>
+			</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>

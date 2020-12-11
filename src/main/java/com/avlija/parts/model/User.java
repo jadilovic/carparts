@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.avlija.parts.form.ValidPassword;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -34,6 +36,7 @@ public class User {
  @Column(name = "lastname")
  private String lastname;
  
+ @ValidPassword
  @Column(name = "password")
  private String password;
  

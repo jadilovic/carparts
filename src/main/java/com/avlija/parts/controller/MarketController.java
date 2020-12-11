@@ -149,6 +149,7 @@ public class MarketController {
 		  post.setUserName(user.getFirstname());
 		  post.setProductSifra(product.getSifra());
 		  post.setProductName(product.getName());
+		  post.setMaxAvailable(productQuantity.getQuantity());
 	  			model.addObject("post", post);
 	  			model.addObject("msg", "Objava oglasa. Popunite prazna polja!");
 	  			model.setViewName("user/publish_post");
@@ -221,7 +222,7 @@ public class MarketController {
 	   		
 	   		model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
-	  	   model.setViewName("user/all_posts");
+	  	   model.setViewName("home/all_posts");
 	  	   return model;
 	 }
 	 

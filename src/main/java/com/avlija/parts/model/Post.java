@@ -50,6 +50,8 @@ public class Post {
  @Column(name="created")
  private Date created;
  
+ private int maxAvailable;
+ 
  public Post() {
 	 
  }
@@ -233,6 +235,14 @@ public String getUserName() {
  */
 public void setUserName(String userName) {
 	this.userName = userName;
+}
+
+public int getMaxAvailable() {
+	return maxAvailable;
+}
+
+public void setMaxAvailable(int maxAvailable) {
+	this.maxAvailable = maxAvailable;
 }
 
  
