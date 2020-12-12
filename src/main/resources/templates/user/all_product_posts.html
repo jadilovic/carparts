@@ -67,7 +67,7 @@
     <ul class="pagination justify-content-center font-weight-medium">
         <li class="page-item" th:classappend="${postsList.number eq 0} ? 'disabled'">
             <a class="page-link svg-icon"
-               th:href="@{/user/postinfo?page={id}(id=${postsList.number lt 2 ? 1 : postsList.number})}"
+               th:href="@{/user/displayposts?page={id}(id=${postsList.number lt 2 ? 1 : postsList.number})}"
                aria-label="Previous"
                title="Previous Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>
@@ -75,7 +75,7 @@
         </li>
         <li class="page-item" th:classappend="${i eq postsList.number + 1} ? 'active'"
             th:each="i : ${#numbers.sequence( postsList.number + 1, postsList.totalPages > 10 + postsList.number ? postsList.number + 10 : postsList.totalPages, 1)}">
-            <a class="page-link" th:href="@{/user/postinfo?page={id}(id=${i})}" th:text="${i}"
+            <a class="page-link" th:href="@{/user/displayposts?page={id}(id=${i})}" th:text="${i}"
                th:title="${'Page '+ i}"
                rel="tooltip"></a>
         </li>
@@ -85,7 +85,7 @@
             </a>
         </li>
         <li class="page-item" th:classappend="${postsList.number + 1 eq postsList.totalPages} ? 'disabled'">
-            <a class="page-link svg-icon" th:href="@{/user/postinfo?page={id}(id=${postsList.number + 2})}"
+            <a class="page-link svg-icon" th:href="@{/user/displayposts?page={id}(id=${postsList.number + 2})}"
                aria-label="Next"
                title="Next Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>
@@ -95,6 +95,13 @@
 </nav>
 
  <div th:replace="fragments/footer :: footer"/></div>
+ 
+ <script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+</script>
  
 </body>
 </html>

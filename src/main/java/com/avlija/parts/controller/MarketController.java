@@ -57,6 +57,8 @@ public class MarketController {
 	 @Autowired
 	 private PostRepository postRepository;
 	 
+	 public static List<Post> postsBySifra;
+	 
 	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
 	 public ModelAndView postInfo()  {
 		 ModelAndView model = new ModelAndView();
@@ -77,11 +79,19 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
-	 @RequestMapping(value= {"/user/postinfo"}, method=RequestMethod.POST)
-	 public ModelAndView searchPost(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
+	 @RequestMapping(value= {"/user/postsearch"}, method=RequestMethod.POST)
+	 public String searchPostsBySifra(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
+		 postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
+		 System.out.println(postsBySifra);
+		 return "redirect:/user/displayposts";
+	 }
+	 
+	 @RequestMapping(value= {"/user/displayposts"}, method=RequestMethod.GET)
+	 public ModelAndView displayPosts(HttpServletRequest request) {
 		 ModelAndView model = new ModelAndView();
-		 List<Post> postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
 		 if(postsBySifra.isEmpty()) {
+			 SampleInputs sampleInputs = new SampleInputs();
+			 model.addObject("sampleInputs", sampleInputs);
 			   model.setViewName("user/search_posts");
 			   model.addObject("msg", "Nije pronađen oglas sa unesenom šifrom. Pokušajte ponovo.");
 		 } else {
@@ -96,18 +106,20 @@ public class MarketController {
 		       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
 		           size = Integer.parseInt(request.getParameter("size"));
 		       }
+		       
+		       String productSifra = postsBySifra.get(0).getProductSifra();
 
 		       Page <Post> postsList = null;
-		   		postsList = postRepository.findByProductSifra(sampleInputs.getSifra(), PageRequest.of(page, size, Sort.by("created").descending()));
-
+		   		postsList = postRepository.findByProductSifra(productSifra, PageRequest.of(page, size, Sort.by("created").descending()));
+		   	
 		   		String message = null;
 		   		if(postsList == null) {
 		   			message = "Nema objavljenih oglasa";
 		   		}
-		   	message = "Rezultat pretrage po šifri: '" + sampleInputs.getSifra() + "'";
+		   		
+		   	message = "Rezultat pretrage po šifri: '" + productSifra + "'";
 		   	model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
-			 model.addObject("sampleInputs", sampleInputs);
 	  	   model.setViewName("user/all_product_posts");
 		 }
 	  	   return model;

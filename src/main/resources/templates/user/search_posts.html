@@ -17,7 +17,7 @@
  
        <div class="row">
           <div class="col-md-12">
-              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+              <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}"></div>
          </div>
        </div>
 	
@@ -25,7 +25,7 @@
   		<div class="card-body">
     		<h5 class="card-title">Pretraga Oglasa po Šifri</h5>
     		
-		<form th:action="@{/user/postinfo}" th:object="${sampleInputs}" method="post">
+		<form th:action="@{/user/postsearch}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite šifru:</h5></label>
         		<input type="text" th:field="*{sifra}" placeholder="sifra" required autofocus/>
     			<input class="btn btn-primary btn-block" type="submit" value="Traži"/>
