@@ -82,7 +82,6 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/postsearch"}, method=RequestMethod.POST)
 	 public String searchPostsBySifra(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
-		 System.out.println(postsBySifra);
 		 return "redirect:/user/displayposts";
 	 }
 	 

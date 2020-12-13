@@ -20,9 +20,9 @@ readTextFile("/file/groups.json", function(text){
 	displayMenuButtons(menu);
 });
 
-window.addEventListener("DOMContentLoaded", function(){
-	 console.log(menu);
-});
+//window.addEventListener("DOMContentLoaded", function(){
+//	 console.log(menu);
+//});
 
 let prevMenu = [];
 

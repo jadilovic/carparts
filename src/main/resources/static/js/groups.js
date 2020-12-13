@@ -571,9 +571,430 @@ const menu = [
                         title: "Šelna manžete",
                     },
                 ],
-      		},  
+      		},
+      		{
+            id: 0,
+            title: "Getriba",
+            categories: [{
+                        id: 1231,
+                        title: "Nosač kućišta prijenosa",
+                    },
+                    {
+                        id: 1241,
+                        title: "Semering radilice",
+                    },
+                ],
+          	},       		
       	],
-    }, 
+    },
+    {
+    id: 0,
+    title: "Šasija",
+    categories: [
+        	{
+        	id: 0,
+        	title: "Amortizacija vozila",
+        	categories: [{
+        				id: 1251,
+        				title: "Opruge amortizera / dijelovi", 
+        			},
+        			{
+        				id: 1261,
+        				title: "Odbojna guma / manžeta amortizera",
+        			},
+        			{
+        				id: 1271,
+        				title: "Amortizeri ovjesa",
+        			},
+        			{
+        				id: 1281,
+        				title: "Dijelovi sklopa amortizer / opruga",
+        			},
+        			{
+        				id: 1291,
+        				title: "Lisnate opruge / dijelovi",
+        			},        		        			
+        		],
+        	},
+        	{
+        	id: 0,
+        	title: "Kvačilo",
+        	categories: [{
+        				id: 131,
+        				title: "Otpusna piksna kvačila",
+        			},
+        				{
+        					id: 141,
+        					title: "Ležaj spojničke osovine",
+        				},
+        				{
+        					id: 151,
+        					title: "Nosiva ploča lamele kvačila",
+        				},
+        				{
+        					id: 481,
+        					title: "Potisna šipka kvačila",
+        				},
+        				{
+        					id: 491,
+        					title: "Sekundarni zamašnjak",
+        				},
+        				{
+        					id: 501,
+        					title: "Zamašnjak",
+        				},
+        				{
+        					id: 511,
+        					title: "Hidraulični ležaj",
+        				},
+        				{
+        					id: 521,
+        					title: "Set samopodešavajućih kvačila",
+        				},
+        				{
+        					id: 531,
+        					title: "Potisni ležaj kvačila",
+        				},
+        				{
+        					id: 541,
+        					title: "Set kvačila sa zamašnjakom",
+        				},
+        				{
+        					id: 551,
+        					title: "Pera potisne ploče",
+        				},
+        				{
+        					id: 561,
+        					title: "Set samopodesivog kvačila sa zamašnjakom",
+        				},
+        				{
+        					id: 571,
+        					title: "Ležaj vilice kvačila",
+        				},
+        				{
+        					id: 581,
+        					title: "Potisna ploča",
+        				},
+        				{
+        					id: 591,
+        					title: "Lamela kvačila",
+        				},
+        			],
+        		},
+        		{
+        		id: 0,
+        		title: "Upravljanje kvačilom",
+        		categories: [{
+        					id: 161,
+        					title: "Sajla kvačila",
+        				},
+        				{
+        					id: 171,
+        					title: "Crijeva / cijevi kvačila",
+        				},
+        				{
+        					id: 181,
+        					title: "Vilica kvačila",
+        				},
+        				{
+        					id: 601,
+        					title: "Osovina vilice mjenjača",
+        				},
+        				{
+        					id: 611,
+        					title: "Sekundarni cilindar kvačila",
+        				},
+        				{
+        					id: 621,
+        					title: "Vilica kvačila",
+        				},
+        				{
+        					id: 631,
+        					title: "Glavni cilindar kvačila",
+        				},
+        				{
+        					id: 641,
+        					title: "Sekundarni cilindar kvačila",
+        				},
+        				{
+        					id: 651,
+        					title: "Samoregulator kvačila",
+        				},
+        				{
+        					id: 661,
+        					title: "Nosač sajle kvačila",
+        				},
+        				{
+        					id: 671,
+        					title: "Glavni cilindar kvačila + set za reparaturu",
+        				},
+        			],
+        		},
+        		{
+            	id: 0,
+            	title: "Mjenjač",
+            	categories: [{
+            				id: 681,
+            				title: "Spojnička osovina mjenjača",
+            			},
+            			{
+            				id: 691,
+            				title: "Kučište mjenjača",
+            			},
+          			{
+            				id: 701,
+            				title: "Mjenjanje brzina",
+            			},
+           			{
+            				id: 711,
+            				title: "Brtva mjenjača",
+            			},
+           			{
+            				id: 721,
+            				title: "Sinhron",
+            			},
+           			{
+            				id: 731,
+            				title: "Planetarni zupčanik, mjenjač",
+            			},
+            			{
+            				id: 741,
+           				title: "Ručica mjenjača",
+            			},
+            			{
+            				id: 751,
+            				title: "Upravljanje automatiziranog mjenjača",
+           			},
+            			{
+            				id: 761,
+            				title: "Filter automatskog mjenjača",
+           			},
+            			{
+            				id: 771,
+            				title: "Zupčanici mjenjača",
+           			},
+            			{
+            				id: 781,
+            				title: "Viseći nosač mjenjača",
+           			},
+           			{
+            				id: 791,
+            				title: "Ručna kontrola mjenjača",
+            			},
+            			{
+            				id: 801,
+           				title: "Gearbox element",
+            			},
+            			{
+            				id: 811,
+            				title: "Automatic transmission",
+           			},
+            			{
+            				id: 821,
+            				title: "Gearbox cooling",
+           			},
+            			{
+            				id: 831,
+            				title: "Gearbox bearings",
+           			},
+            			{
+            				id: 841,
+            				title: "Gearbox assembly",
+           			},
+            		],
+            	},
+        		{
+              id: 0,
+              title: "Diferencijal",
+              categories: [{
+                			id: 851,
+                			title: "Osovina diferencijala",
+                		},
+                		{
+                			id: 861,
+                			title: "Pogon osovine diferencijala",
+                		},
+              		{
+               			id: 871,
+                			title: "Zupčanik diferencijala",
+                		},
+               		{
+                			id: 881,
+                			title: "Vijak tanjurastog zupčanika",
+                		},
+               		{
+                			id: 891,
+                			title: "Blokada diferencijala (špera)",
+                		},
+                		{
+               			id: 901,
+                			title: "Nosači diferencijala",
+                		},
+                		{
+               			id: 911,
+               			title: "Semering / brtvilo diferencijala",
+                		},
+                		{
+               			id: 921,
+                			title: "Garnitura za reparaturu diferencijala",
+               		},
+                		{
+               			id: 931,
+                			title: "Differential element",
+               		},
+                		{
+               			id: 941,
+                			title: "Filter ulja za diferencijal",
+               		},
+                		{
+                			id: 951,
+               			title: "Čep ispusta",
+              		},
+               		{
+                			id: 961,
+                			title: "Oil pressure pump 4x4 drive",
+                		},
+               	],
+              },
+        		{
+              id: 0,
+              title: "Pogonska osovina",
+              categories: [{
+                   		id: 971,
+                    		title: "Semering poluosovine",
+                   	},
+                    	{
+                    		id: 981,
+                   		title: "Ležaj pogonske osovine",
+                    	},
+                  	{
+                  		id: 991,
+                    		title: "Zglob poluosovine",
+                   	},
+                   	{
+                    		id: 1001,
+                   		title: "Podupirač pogonske osovine",
+                    	},
+                   	{
+                   		id: 1011,
+                    		title: "Axle shaft main shaft",
+                   	},
+                    	{
+                   		id: 1021,
+                   		title: "Axle sprocket",
+                    	},
+                    	{
+                  		id: 1031,
+                   		title: "Drive shaft cross-piece",
+                   	},
+                    	{
+                   		id: 1041,
+                   		title: "Sigurnosni prsten",
+                   	},
+                    	{
+                  		id: 1051,
+                    		title: "Zeger poluosovine",
+                  	},
+                    	{
+                   		id: 1061,
+                    		title: "Jezgra poluosovine",
+                   	},
+                  ],
+        		},
+        		{
+              id: 0,
+              title: "Kardan",
+              categories: [{
+                       	id: 1071,
+                        	title: "Elementi za učvršćenje kardana",
+                      },
+                     	{
+                     		id: 1081,
+                     		title: "Elastična spojka kardana",
+                     	},
+                     	{
+                     		id: 1091,
+                     		title: "Kardan",
+                     	},
+                     	{
+                        	id: 1101,
+                       	title: "Među-ležaj, pogonska osovina",
+                     	},
+                      {
+                        	id: 1111,
+                     		title: "Zglob kardana",
+                     	},
+                     	{
+                     		id: 1121,
+                     		title: "Križ kardana",
+                     	},
+                    	{
+                      	id: 1131,
+                       	title: "Indirektna osovina",
+                      },
+                      {
+                       	id: 1141,
+                       	title: "Hardi zglob - nosač križa kardana",
+                     	},
+                      {
+                      	id: 1151,
+                       	title: "Vodilica rukavca osovine",
+                     	},
+                      {
+                       	id: 1161,
+                      	title: "Križ unutrašnjeg homokinetičkog zgloba",
+                      },
+                      {
+                       	id: 1171,
+                      	title: "Shaft flange nut",
+                      },
+                  ],
+            	},
+        		{
+            	id: 0,
+              title: "Driveshaft joint",
+              categories: [{
+                         	id: 1181,
+                         	title: "Spoj pogonske osovine",
+                      },
+                      {
+                         	id: 1191,
+                         	title: "Garnitura za reparaturu zglobova",
+                      },
+                      {
+                         	id: 1201,
+                         	title: "Vijak zgloba pogonske osovine",
+                      },
+                  ],
+              },        
+        		{
+              id: 0,
+              title: "Manžeta",
+              categories: [{
+                          id: 1211,
+                          title: "Garnitura manžeta homokinetičkog zgloba",
+                      },
+                      {
+                          id: 1221,
+                          title: "Šelna manžete",
+                      },
+                  ],
+        		},
+        		{
+              id: 0,
+              title: "Getriba",
+              categories: [{
+                          id: 1231,
+                          title: "Nosač kućišta prijenosa",
+                      },
+                      {
+                          id: 1241,
+                          title: "Semering radilice",
+                      },
+                  ],
+            	},       		
+        	],
+      },     
 ];
 
 // var myJSON = JSON.stringify(menu);

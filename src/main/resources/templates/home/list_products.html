@@ -53,6 +53,12 @@
     	 <a th:href="@{/home/homesearch}" class="btn-warning btn-lg" role="button" aria-pressed="true">Pretraga Autodijelova</a>
   		</div>
  <div th:replace="fragments/footer :: footer"/></div>
+  
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
  
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,10 @@ public class SearchController {
  
  @Autowired
  private UserService userService;
+ 
+ private static List<Product> productList;
+ 
+ private static List<ProductQuantity> productQuantityList;
  
 
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
@@ -178,6 +183,11 @@ public class SearchController {
   return model;
  }
  
+ @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.GET)
+ public String redirectToBrandSearch(HttpServletRequest request) {
+	 return "redirect:/home/modelsearch";
+ }
+ 
  @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.POST)
  public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -188,18 +198,23 @@ public class SearchController {
   return model;
  }
  
+ @RequestMapping(value= {"/home/modelsearch3"}, method=RequestMethod.GET)
+ public String redirectBackToBrandSearch(HttpServletRequest request) {
+	 return "redirect:/home/modelsearch";
+ }
+ 
  @RequestMapping(value= {"/home/modelsearch3"}, method=RequestMethod.POST)
  public ModelAndView modelSearch3(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   CarModel selectedCarModel = carModelRepository.findByName(carModel.getName());
   System.out.println("SELECTED CAR Model " + selectedCarModel + carModel.getName());
-  List<ProductGroup> productGroups = productGroupRepository.findAll();
-  productGroups.remove(0);
+  // List<ProductGroup> productGroups = productGroupRepository.findAll();
+  // productGroups.remove(0);
   SampleInputs inputs = new SampleInputs();
   inputs.setBrandName(selectedCarModel.getBrand().getName());
   inputs.setModelName(selectedCarModel.getName());
   model.addObject("inputs", inputs);
-  model.addObject("productGroups", productGroups);
+ // model.addObject("productGroups", productGroups);
   model.setViewName("home/select_group");
   return model;
  }
@@ -217,18 +232,28 @@ public class SearchController {
   String carModel = inputs.getModelName();
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
-  	List<Product> productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
+  	productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
   	System.out.println("id grupe ID GRupe: " + group.getId());
   	if(checkOils(group.getId())) {
   		productList = productRepository.findByProductGroup(group);
   	}
-	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
-	 productQuantitiyList = getProductQuantityList(productList);
+	 productQuantityList = new ArrayList<ProductQuantity>();
+	 productQuantityList = getProductQuantityList(productList);
   model.addObject("message", group.getName());
   model.addObject("productList", productList);
-  model.addObject("productQuantityList", productQuantitiyList);
+  model.addObject("productQuantityList", productQuantityList);
   model.setViewName("home/list_products");
   return model;
+ }
+ 
+ @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.GET)
+ public ModelAndView redirectBackToProductsList() {
+	  ModelAndView model = new ModelAndView();
+	  model.addObject("message", productList.get(0).getProductGroup().getName());
+	  model.addObject("productList", productList);
+	  model.addObject("productQuantityList", productQuantityList);
+	  model.setViewName("home/list_products");
+	  return model;
  }
  
  private boolean checkOils(Long id) {
