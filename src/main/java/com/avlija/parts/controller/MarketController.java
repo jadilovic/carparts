@@ -1,5 +1,6 @@
 package com.avlija.parts.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,11 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
+import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.PostRepository;
+import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
@@ -57,7 +62,12 @@ public class MarketController {
 	 @Autowired
 	 private PostRepository postRepository;
 	 
-	 public static List<Post> postsBySifra;
+	 @Autowired
+	 private ProductGroupRepository productGroupRepository;
+	 
+	 private static List<Post> postsBySifra;
+	 private static List<Post> listOfPostsWithProductGroup;
+
 	 
 	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
 	 public ModelAndView postInfo()  {
@@ -68,6 +78,7 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Displaying info about the post by ID
 	 @RequestMapping(value= {"/user/postinfo/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView postInfo(@PathVariable(name = "id") Integer id)  {
 		 Post post = postRepository.findById(id).get();
@@ -79,12 +90,14 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Searching for post by sifra
 	 @RequestMapping(value= {"/user/postsearch"}, method=RequestMethod.POST)
 	 public String searchPostsBySifra(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
 		 return "redirect:/user/displayposts";
 	 }
 	 
+	 // Displaying found posts by sifra
 	 @RequestMapping(value= {"/user/displayposts"}, method=RequestMethod.GET)
 	 public ModelAndView displayPosts(HttpServletRequest request) {
 		 ModelAndView model = new ModelAndView();
@@ -124,6 +137,7 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Searching for post by ID
 	 @RequestMapping(value= {"/user/postinfo2"}, method=RequestMethod.POST)
 	 public ModelAndView searchPost2(@Valid SampleInputs sampleInputs) {
 		 ModelAndView model = new ModelAndView();
@@ -139,6 +153,76 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Searching for posts by product group
+	 @RequestMapping(value= {"/user/postgroupsearch/{productGroupId}"}, method=RequestMethod.GET)
+	 public String searchPostsByProductGroup(@PathVariable(name = "productGroupId") Long productGroupId) {
+		 List<Post> listOfAllPosts = postRepository.findAll();
+		 
+		 listOfPostsWithProductGroup = new ArrayList<>();
+		 for(Post post: listOfAllPosts) {
+			 Product product = productRepository.findById(post.getProductId()).get();
+			 Long prdGroupId = product.getProductGroup().getId();
+			 if(prdGroupId == productGroupId) {
+				 listOfPostsWithProductGroup.add(post);
+			 }
+		 }
+
+		 return "redirect:/user/displaypostsgroup";
+	 }
+	 
+	 // Displaying found posts by product group ID
+	 @RequestMapping(value= {"/user/displaypostsgroup"}, method=RequestMethod.GET)
+	 public ModelAndView displayPostsByProductGroup(HttpServletRequest request) {
+		 ModelAndView model = new ModelAndView();
+		 if(listOfPostsWithProductGroup.isEmpty()) {
+			 SampleInputs sampleInputs = new SampleInputs();
+			 model.addObject("sampleInputs", sampleInputs);
+			   model.setViewName("user/search_posts");
+			   model.addObject("msg", "Nisu pronađeni oglasi odabrane kategorije. Pokušajte ponovo.");
+		 } else {
+		  	   
+		       int page = 0; //default page number is 0
+		       int size = 10; //default page size is 10
+		       
+		       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+		           page = Integer.parseInt(request.getParameter("page")) - 1;
+		       }
+
+		       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+		           size = Integer.parseInt(request.getParameter("size"));
+		       }
+		       
+		       Long producId = listOfPostsWithProductGroup.get(0).getProductId();
+		       Product product = productRepository.findById(producId).get();
+		       Long productGroupId = product.getProductGroup().getId();
+		       
+		       Page <Post> postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+				 List<Post> postsListL = postsList.toList();
+		       for(Post post: postsListL) {
+					 Product postProduct = productRepository.findById(post.getProductId()).get();
+					 Long prdGroupId = postProduct.getProductGroup().getId();
+					 if(prdGroupId != productGroupId) {
+						 postsListL.remove(post);
+					 }
+				 }
+	
+		       final Page<Post> pageList = new PageImpl<>(postsListL);
+
+		   		String message = null;
+		   		if(postsList.isEmpty()) {
+		   			message = "Nema objavljenih oglasa";
+		   		}
+		   		
+		   	message = "Rezultat pretrage po grupi.";
+		   	model.addObject("message", message);
+	  	   model.addObject("postsList", pageList);
+	  	   model.setViewName("user/all_product_posts");
+		 }
+	  	   return model;
+	 }
+
+
+	// Publishing new post on the market
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
 	  ModelAndView model = new ModelAndView();
@@ -169,6 +253,7 @@ public class MarketController {
 	  return model;
 	 }
 	 
+	 // Saving new published post on the market
 	 @RequestMapping(value= {"/user/market"}, method=RequestMethod.POST)
 	 public String publishPost(@Valid Post post, HttpServletRequest request) {
 	  	   post.setCreated(new Date());
@@ -178,6 +263,7 @@ public class MarketController {
 	  	   return "redirect:/user/postinfo/" + id;
 	 }
 	 
+	 // Display all user posts
 	 @GetMapping(value= {"/user/userposts"})
 	 public ModelAndView listUserPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
@@ -209,6 +295,7 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Displaying all posts on the market
 	 @GetMapping(value= {"/home/allposts"})
 	 public ModelAndView listAllPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
@@ -243,20 +330,4 @@ public class MarketController {
 			User user = userService.findUserByEmail(auth.getName());
 			return user;
 	}
-	/*
- @RequestMapping(value= {"/clientservices"}, method=RequestMethod.GET)
- public ModelAndView login() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/clientServices");
-  return model;
- }
- 
- @RequestMapping(value= {"/becomeclient"}, method=RequestMethod.GET)
- public ModelAndView signup() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/becomeClient");
-  
-  return model;
- }
- */
 }

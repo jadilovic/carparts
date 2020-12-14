@@ -12,7 +12,7 @@ import com.avlija.parts.model.Post;
 @Repository("postRepository")
 public interface PostRepository extends JpaRepository<Post, Integer> {
  
- Post findByUserId(Integer id);
+ //Post findByUserId(Integer id);
  
  // Post findByProductId(Long id);
  

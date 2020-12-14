@@ -45,9 +45,21 @@
   		</div>
 	</div>
 	
+	<div class="card text-center">
+  		<div class="card-body card-footer text-dark">
+    		<h5 class="card-title">Pretraga Oglasa po Grupi</h5>
+    		
+   			<div class="cardy">
+				<!-- Filled by JavaScript code search.js -->
+   			</div>
+    		
+  		</div>
+	</div>
+	
 	</div>
 	
       <div th:include="fragments/footer :: footer"/></div>
-      
+               <!-- javascript         --> 
+		<script type="text/javascript" th:inline="javascript" th:src="@{/js/searchPosts.js}"></script> 
 </body>
 </html>
