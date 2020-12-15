@@ -1,6 +1,7 @@
 package com.avlija.parts.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -166,7 +167,6 @@ public class MarketController {
 				 listOfPostsWithProductGroup.add(post);
 			 }
 		 }
-
 		 return "redirect:/user/displaypostsgroup";
 	 }
 	 
@@ -191,23 +191,9 @@ public class MarketController {
 		       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
 		           size = Integer.parseInt(request.getParameter("size"));
 		       }
-		       
-		       Long producId = listOfPostsWithProductGroup.get(0).getProductId();
-		       Product product = productRepository.findById(producId).get();
-		       Long productGroupId = product.getProductGroup().getId();
-		       
-		       Page <Post> postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
-				 List<Post> postsListL = postsList.toList();
-		       for(Post post: postsListL) {
-					 Product postProduct = productRepository.findById(post.getProductId()).get();
-					 Long prdGroupId = postProduct.getProductGroup().getId();
-					 if(prdGroupId != productGroupId) {
-						 postsListL.remove(post);
-					 }
-				 }
+		              
+		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("created").descending()));
 	
-		       final Page<Post> pageList = new PageImpl<>(postsListL);
-
 		   		String message = null;
 		   		if(postsList.isEmpty()) {
 		   			message = "Nema objavljenih oglasa";
@@ -215,12 +201,31 @@ public class MarketController {
 		   		
 		   	message = "Rezultat pretrage po grupi.";
 		   	model.addObject("message", message);
-	  	   model.addObject("postsList", pageList);
-	  	   model.setViewName("user/all_product_posts");
+	  	   model.addObject("postsList", postsList);
+	  	   model.setViewName("user/all_group_posts");
 		 }
 	  	   return model;
 	 }
 
+	 // Converting Array List of group posts to Page Pageable
+     public Page<Post> findPaginated(Pageable pageable) {
+         int pageSize = pageable.getPageSize();
+         int currentPage = pageable.getPageNumber();
+         int startItem = currentPage * pageSize;
+         List<Post> list;
+
+         if (listOfPostsWithProductGroup.size() < startItem) {
+             list = Collections.emptyList();
+         } else {
+             int toIndex = Math.min(startItem + pageSize, listOfPostsWithProductGroup.size());
+             list = listOfPostsWithProductGroup.subList(startItem, toIndex);
+         }
+
+         Page<Post> postsPage
+           = new PageImpl<Post>(list, PageRequest.of(currentPage, pageSize), listOfPostsWithProductGroup.size());
+
+         return postsPage;
+     }
 
 	// Publishing new post on the market
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
