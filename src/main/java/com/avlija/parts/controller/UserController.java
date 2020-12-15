@@ -377,6 +377,7 @@ public ModelAndView clientPage() {
   changedUser.setRole(user.getRole());
   changedUser.setCountry(user.getCountry());
   changedUser.setActive(user.getActive());
+  changedUser.setPassword(user.getPassword());
   userService.updateUser(changedUser);
   
   Set<Role> roles = changedUser.getRoles();

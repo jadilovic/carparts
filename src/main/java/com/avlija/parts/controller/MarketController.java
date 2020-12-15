@@ -155,18 +155,10 @@ public class MarketController {
 	 }
 	 
 	 // Searching for posts by product group
-	 @RequestMapping(value= {"/user/postgroupsearch/{productGroupId}"}, method=RequestMethod.GET)
-	 public String searchPostsByProductGroup(@PathVariable(name = "productGroupId") Long productGroupId) {
-		 List<Post> listOfAllPosts = postRepository.findAll();
-		 
-		 listOfPostsWithProductGroup = new ArrayList<>();
-		 for(Post post: listOfAllPosts) {
-			 Product product = productRepository.findById(post.getProductId()).get();
-			 Long prdGroupId = product.getProductGroup().getId();
-			 if(prdGroupId == productGroupId) {
-				 listOfPostsWithProductGroup.add(post);
-			 }
-		 }
+	 @RequestMapping(value= {"/user/postgroupsearch/{groupId}"}, method=RequestMethod.GET)
+	 public String searchPostsByProductGroup(@PathVariable(name = "groupId") Long groupId) {
+
+		 listOfPostsWithProductGroup = postRepository.findByGroupId(groupId);
 		 return "redirect:/user/displaypostsgroup";
 	 }
 	 
@@ -199,7 +191,9 @@ public class MarketController {
 		   			message = "Nema objavljenih oglasa";
 		   		}
 		   		
-		   	message = "Rezultat pretrage po grupi.";
+		   		Long groupId = listOfPostsWithProductGroup.get(0).getGroupId();
+		   		ProductGroup productGroup = productGroupRepository.findById(groupId).get();
+		   	message = "Rezultat pretrage po grupi: " + productGroup.getName();
 		   	model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
 	  	   model.setViewName("user/all_group_posts");
@@ -227,7 +221,7 @@ public class MarketController {
          return postsPage;
      }
 
-	// Publishing new post on the market
+	// Creating - Publishing new post on the market
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
 	  ModelAndView model = new ModelAndView();
@@ -246,6 +240,7 @@ public class MarketController {
 		  Post post = new Post();
 		  post.setActive(1);
 		  post.setProductId(product.getId());
+		  post.setGroupId(product.getProductGroup().getId());
 		  post.setUserId(user.getId());
 		  post.setUserName(user.getFirstname());
 		  post.setProductSifra(product.getSifra());

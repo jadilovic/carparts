@@ -23,6 +23,9 @@ public class Post {
  @Column(name = "product_id")
  private Long productId;
  
+ @Column(name = "group_id")
+ private Long groupId;
+ 
  @Column(name = "product_sifra")
  private String productSifra;
  
@@ -56,10 +59,11 @@ public class Post {
 	 
  }
 
-public Post(int userId, Long productId, String productSifra, String contactOption, String contactInfo, int postQuantity,
+public Post(int userId, Long productId, Long groupId, String productSifra, String contactOption, String contactInfo, int postQuantity,
 		int active, double price, Date created) {
 	this.userId = userId;
 	this.productId = productId;
+	this.groupId = groupId;
 	this.productSifra = productSifra;
 	this.contactOption = contactOption;
 	this.contactInfo = contactInfo;
@@ -109,6 +113,20 @@ public Long getProductId() {
  */
 public void setProductId(Long productId) {
 	this.productId = productId;
+}
+
+/**
+ * @return the groupId
+ */
+public Long getGroupId() {
+	return groupId;
+}
+
+/**
+ * @param groupId the groupId to set
+ */
+public void setGroupId(Long groupId) {
+	this.groupId = groupId;
 }
 
 /**
