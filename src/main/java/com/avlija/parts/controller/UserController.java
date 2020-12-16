@@ -208,7 +208,14 @@ public ModelAndView clientPage() {
   }
   
   model.addObject("userName", user.getFirstname() + " " + user.getLastname());
-  model.setViewName("home/home");
+  Set<Role> roles = user.getRoles();
+  for(Role role: roles) {
+	   if(role.getRole().equals("GUEST")) {
+			 model.setViewName("user/guestPage");
+	   } else {
+			 model.setViewName("home/home");
+	   }
+  }
   return model;
  }
  

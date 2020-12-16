@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Lista transakcija proizvoda</title>
+ <title>Lista transakcija odabranog proizvoda</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -12,7 +12,7 @@
 <body>
 
 <div th:replace="fragments/header :: header"/></div>
-
+<!-- List of transactions for one product -->
  <div class="p-2" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>    
     <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>

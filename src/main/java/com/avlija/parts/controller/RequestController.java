@@ -85,6 +85,23 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
+	 @RequestMapping(value= {"/admin/requestcompleted/{id}"}, method=RequestMethod.GET)
+	 public ModelAndView changingCompletedStatusOfRequest(@PathVariable(name = "id") Long id)  {
+		 Request request = requestRepository.findById(id).get();
+		 if(request.getCompleted() == 0) {
+			 request.setCompleted(1);
+		 } else {
+			 request.setCompleted(0);
+		 }
+		 requestRepository.save(request);
+		 ModelAndView model = new ModelAndView();
+	   		
+		 model.addObject("msg", "Info o poslanom zahtjevu za dopunu sifri");
+		 model.addObject("request", request);
+		 model.setViewName("user/request_info");
+	  	   return model;
+	 }
+	 
 	 
 	 @GetMapping(value= {"/user/userrequests"})
 	 public ModelAndView listUserRequests(HttpServletRequest request) {
@@ -116,6 +133,7 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
+	 // List of all requests by users / Admin only access
 	 @GetMapping(value= {"/admin/allrequests"})
 	 public ModelAndView listAllPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();

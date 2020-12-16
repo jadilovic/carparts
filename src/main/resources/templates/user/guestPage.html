@@ -32,7 +32,7 @@
   	 	<a th:href="@{/home/homesearch}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
 	</div>
 	<div class="col">
-  	 	<a th:href="@{/clientservices}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pregled Usluga za Klijente</a>
+  		<a th:href="@{/user/searchposts}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pretraga Svih Oglasa</a>
  	</div>
  </div>
 
@@ -41,9 +41,18 @@
   		<a th:href="@{/becomeclient}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Kako Postati YAP Klijent?</a>
 	</div>
 	<div class="col">
-  		<a th:href="@{/home/allposts}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Pregled Oglasa Autodijelova</a>
+  	 	<a th:href="@{/clientservices}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Pregled Usluga za Klijente</a>
  	</div>
  </div>
+
+  <div class="row p-2">
+	<div class="col">
+  		<a th:href="@{/home/allposts}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pregled Oglasa Autodijelova</a>
+ 	</div>
+ 	<div class="col">
+  		<a th:href="@{/home/profile}" class="btn-info btn-lg btn-block" role="button" aria-pressed="true">Vaš Profil</a>
+	</div>
+ </div> 
 
  </div>
  

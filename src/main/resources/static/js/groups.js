@@ -801,6 +801,32 @@ const menu = [
         					},
         				],
         			},
+        			{
+        				id: 0,
+        				title: "Sustav pomoći kočenju",
+        				categories:[{
+        						id: 1731,
+        						title: "Servo uređaj kočnica",
+        					},
+        					{
+        						id: 1741,
+        						title: "Vakum pumpe",
+        					},
+        				],
+        			},
+        			{
+        				id: 0,
+        				title: "Spremnik kočione tekućine",
+        				categories:[{
+        						id: 1751,
+        						title: "Spremnik kočione tekućine",
+        					},
+        					{
+        						id: 1761,
+        						title: "Čep posude za kočionu tekućinu",
+        					},
+        				],
+        			},
         		],
         	},    		
         ],

@@ -47,8 +47,13 @@
                 <td th:text="${request.sifra2}">Šifra</td>   
                 <td th:text="${request.sifra3}">Šifra</td>   
                 <td th:text="${request.sifra4}">Šifra</td> 
-                <td th:text="${request.sifra5}">Šifra</td>    
-                <td th:text="${request.completed}">Izvršeno</td>                                            
+                <td th:text="${request.sifra5}">Šifra</td> 
+                <!-- 
+                <td th:text="${request.completed}">Izvršeno</td>  
+                 -->   
+                <td>
+                	<a th:href="@{'/user/requestinfo/' + ${request.id}}" class="btn " th:classappend="${request.completed} == 0 ? btn-danger : btn-success" th:text="${request.completed} == 0 ? 'NE' : 'DA'">Osvježi</a>
+                </td>                           
                 <td>
                 	<a class="btn btn-warning" th:href="@{/admin/createproduct}">Dodaj nove proizvode</a>
                 </td>       

@@ -18,7 +18,7 @@
       <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
      </div>
      
-  <table th:object="${request}" class="table">
+  <table th:object="${request}"  class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Title</th>
@@ -56,7 +56,12 @@
     </tr>
     <tr>
       <th scope="row">Status zahtjeva:</th>
-      <td><span th:text="*{completed}"></span></td>
+      <td>
+         <a th:href="@{'/admin/requestcompleted/' + *{id}}" class="btn " th:classappend="*{completed} == 0 ? btn-danger : btn-success" th:text="*{completed} == 0 ? 'NE - klikni za izmjenu]' : 'DA - klikni za izmjenu'">Osvježi</a>
+      <!-- 
+      <span th:text="*{completed}"></span>
+       -->
+      </td>
     </tr>
     <tr>
         <th scope="row">Poslano datuma:</th>
