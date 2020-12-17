@@ -26,24 +26,29 @@
         <thead>
             <tr>
                 <th scope="col">Šifra</th>
+                <th scope="col">Naziv</th>                
                 <th scope="col">Stanje</th>
                 <th scope="col">Proizvođač</th>
-                <th scope="col">Dodatni</th>                
-                <th scope="col">Zamjenski</th>
+                <th scope="col">Lista</th>
             </tr>
         </thead>
         <tbody>
             <tr scope="row" th:each="product, productStat : ${productList}">
                 <td th:text="${product.sifra}">Sifra</td>
+                <td th:object="${product}">
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-secondary" th:text="*{name}">Naziv</a>
+                </td>    
                 <td>
 					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>
 				</td>
                 <td th:text="${product.getProductMaker().getName()}">Proizvodjac</td>   
+                <!--  
                 <td th:object="${product}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Info</a>
                 </td>       
+                -->
                 <td th:object="${product}">
-                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Lista</a>
+                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Zamjenski</a>
                 </td>
             </tr>
         </tbody>
