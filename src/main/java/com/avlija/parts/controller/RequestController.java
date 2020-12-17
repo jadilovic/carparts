@@ -96,7 +96,7 @@ public class RequestController {
 		 requestRepository.save(request);
 		 ModelAndView model = new ModelAndView();
 	   		
-		 model.addObject("msg", "Info o poslanom zahtjevu za dopunu sifri");
+		 model.addObject("msg", "Zahtjev za dopunu sifri u bazi je izvršen");
 		 model.addObject("request", request);
 		 model.setViewName("user/request_info");
 	  	   return model;

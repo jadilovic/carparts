@@ -70,7 +70,7 @@ public class AdminController {
  @Autowired
  private UserRepository userRepository;
  
-
+// Creating product group or category
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.GET)
  public ModelAndView createGroup() {
   ModelAndView model = new ModelAndView();
@@ -81,10 +81,10 @@ public class AdminController {
   return model;
  }
  
+ // Creating product group and downloading and saving JSON file for display of groups in JavaScript
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.POST)
  public ModelAndView createGroup(@Valid ProductGroup productGroup, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  
   ProductGroup productGroupExists = productGroupRepository.findByName(productGroup.getName());
   if(productGroupExists != null) {
    bindingResult.rejectValue("name", "error.productGroup", "Ova kategorija već postoji!");
@@ -100,6 +100,7 @@ public class AdminController {
   return model;
  }
 
+ // Creating product maker / producer name
 @RequestMapping(value= {"admin/createmaker"}, method=RequestMethod.GET)
  public ModelAndView createMaker() {
   ModelAndView model = new ModelAndView();
@@ -110,6 +111,7 @@ public class AdminController {
   return model;
  }
  
+// Creating product maker / producer name
  @RequestMapping(value= {"admin/createmaker"}, method=RequestMethod.POST)
  public ModelAndView createMaker(@Valid ProductMaker productMaker, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();

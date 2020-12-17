@@ -834,7 +834,7 @@ const menu = [
 ];
 
 // var myJSON = JSON.stringify(menu);
-
+// Saving the list to JSON file
 var saveData = (function () { 
     var a = document.createElement("a"); 
     document.body.appendChild(a); 
@@ -849,10 +849,10 @@ var saveData = (function () {
         window.URL.revokeObjectURL(url); 
     }; 
 }()); 
- 
-// var data = { x: 42, s: "hello, world", d: new Date() }, 
+  
 let fileName = "groups.json"; 
  
+// Download button in html create_group
 document.getElementById("clickMe").onclick = function(){
 	saveData(menu, fileName); 
 }

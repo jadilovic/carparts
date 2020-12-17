@@ -46,8 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .antMatchers("/reset").permitAll()
    .antMatchers("/clientservices").permitAll()
    .antMatchers("/becomeclient").permitAll()
-   //.antMatchers("/home/**", "/user/**").permitAll()
-   //.antMatchers("/admin/**").permitAll().anyRequest()
    .antMatchers("/home/**").hasAnyAuthority("ADMIN", "CLIENT", "GUEST")
    .antMatchers("/user/**").hasAnyAuthority("ADMIN", "CLIENT")
    .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
@@ -61,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .logoutSuccessUrl("/")
    .and().rememberMe().alwaysRemember(true)
    .tokenRepository(persistentTokenRepository())
-   .tokenValiditySeconds(60*60)
+   .tokenValiditySeconds(60*60*8)
    .and().exceptionHandling().accessDeniedPage("/access_denied");
  }
  
