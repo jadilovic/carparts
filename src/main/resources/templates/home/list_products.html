@@ -36,7 +36,7 @@
             <tr scope="row" th:each="product, productStat : ${productList}">
                 <td th:text="${product.sifra}">Sifra</td>
                 <td th:object="${product}">
-                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-secondary" th:text="*{name}">Naziv</a>
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success" th:text="*{name}">Naziv</a>
                 </td>    
                 <td>
 					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>

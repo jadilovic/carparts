@@ -13,6 +13,7 @@
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- Edit product - auto part - adding replacement parts - in AdminController, line 221 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/editproduct2}" th:object="${product}">
       		<input type="hidden" th:field="*{id}" th:value="${productId}" />

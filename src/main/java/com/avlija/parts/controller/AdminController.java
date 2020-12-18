@@ -131,6 +131,7 @@ public class AdminController {
   return model;
  }
  
+ // Creating product - auto part in the database
  @RequestMapping(value= {"admin/createproduct"}, method=RequestMethod.GET)
  public ModelAndView createProduct() {
   ModelAndView model = new ModelAndView();
@@ -145,6 +146,7 @@ public class AdminController {
   return model;
  }
  
+ // Creating product - auto part in the database - entering data
  @RequestMapping(value= {"admin/createproduct1"}, method=RequestMethod.POST)
  public ModelAndView createProduct(@Valid Product product, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -176,6 +178,7 @@ public class AdminController {
   return model;
  }
  
+ // Creating product - auto part in the database - adding replacement parts and finalizing the product in the database
  @RequestMapping(value= {"admin/createproduct2"}, method=RequestMethod.POST)
  public ModelAndView createProduct2(@Valid Product product, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -205,7 +208,7 @@ public class AdminController {
   return model;
  }
  
-
+// Editing database product - auto part
 @RequestMapping(value= {"admin/editproduct/{id}"}, method=RequestMethod.GET)
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
@@ -215,6 +218,7 @@ public class AdminController {
   return model;
  }
  
+//Editing database product - auto part - adding and changing data
  @RequestMapping(value= {"admin/editproduct1"}, method=RequestMethod.POST)
  public ModelAndView editProduct(@Valid Product product, ProductGroup productGroup) {
   ModelAndView model = new ModelAndView();
@@ -236,6 +240,7 @@ public class AdminController {
   return model;
  }
  
+// Editing database product - auto part - adding or changing replacement products
  @RequestMapping(value= {"admin/editproduct2"}, method=RequestMethod.POST)
  public ModelAndView editProduct2(@Valid Product product) {
   ModelAndView model = new ModelAndView();

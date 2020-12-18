@@ -13,6 +13,7 @@
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- Creating product - auto part - in AdminController, line 181 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/createproduct2}" th:object="${product}">
       		<input type="hidden" th:field="*{id}" th:value="${productId}" />

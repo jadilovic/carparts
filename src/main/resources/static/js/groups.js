@@ -595,23 +595,73 @@ const menu = [
         	id: 0,
         	title: "Amortizacija vozila",
         	categories: [{
-        				id: 1251,
-        				title: "Opruge amortizera / dijelovi", 
+        				id: 0,
+        				title: "Opruge amortizera / dijelovi",
+        				categories: [{
+        						id: 1251,
+        						title: "Set opruga",
+        					},
+        					{
+        						id: 1261,
+        						title: "Opruga amortizera, stražnja osovina",
+        					},
+        					{
+        						id: 1271,
+        						title: "Opruga amortizera, prednja osovina",
+        					},
+        					{
+        						id: 1281,
+        						title: "Podložna pločica amortizera",
+        					},
+        					{
+        						id: 1291,
+        						title: "Opruga ovjesa naprijed / straga",
+        					},  
+        					{
+        						id: 1771,
+        						title: "Tanjur opruga prednji/stražnji",
+        					},  
+        				], 
         			},
         			{
-        				id: 1261,
+        				id: 0,
         				title: "Odbojna guma / manžeta amortizera",
+        				categories: [{
+        						id: 1251,
+        						title: "Set opruga",
+        					},
+        					{
+        						id: 1261,
+        						title: "Opruga amortizera, stražnja osovina",
+        					},
+        					{
+        						id: 1271,
+        						title: "Opruga amortizera, prednja osovina",
+        					},
+        					{
+        						id: 1281,
+        						title: "Podložna pločica amortizera",
+        					},
+        					{
+        						id: 1291,
+        						title: "Opruga ovjesa naprijed / straga",
+        					},  
+        					{
+        						id: 1771,
+        						title: "Tanjur opruga prednji/stražnji",
+        					},  
+        				], 
         			},
         			{
-        				id: 1271,
+        				id: 0,
         				title: "Amortizeri ovjesa",
         			},
         			{
-        				id: 1281,
+        				id: 0,
         				title: "Dijelovi sklopa amortizer / opruga",
         			},
         			{
-        				id: 1291,
+        				id: 0,
         				title: "Lisnate opruge / dijelovi",
         			},        		        			
         		],
