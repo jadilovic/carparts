@@ -1,6 +1,5 @@
 package com.avlija.parts.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -30,13 +29,10 @@ import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
-import com.avlija.parts.repository.BrandRepository;
 import com.avlija.parts.repository.PostRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
-import com.avlija.parts.repository.TransactionRepository;
-import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
 @Controller
@@ -46,16 +42,7 @@ public class MarketController {
 	 private ProductRepository productRepository;
 	 
 	 @Autowired
-	 private ProductServiceImpl productServiceImpl;
-	 
-	 @Autowired
-	 private BrandRepository brandRepository;
-	 
-	 @Autowired
 	 private UserService userService;
-	 
-	 @Autowired
-	 private TransactionRepository transactionRepository;
 	 
 	 @Autowired
 	 private ProductQuantityRepository productQuantityRepository;

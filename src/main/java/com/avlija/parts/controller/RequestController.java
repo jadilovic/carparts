@@ -19,37 +19,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.avlija.parts.model.Request;
 import com.avlija.parts.model.User;
-import com.avlija.parts.repository.PostRepository;
-import com.avlija.parts.repository.ProductQuantityRepository;
-import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.RequestRepository;
-import com.avlija.parts.repository.TransactionRepository;
-import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
 @Controller
 public class RequestController {
-	
-	 @Autowired
-	 private ProductRepository productRepository;
-	 
-	 @Autowired
-	 private ProductServiceImpl productServiceImpl;
 	 
 	 @Autowired
 	 private RequestRepository requestRepository;
 	 
 	 @Autowired
 	 private UserService userService;
-	 
-	 @Autowired
-	 private TransactionRepository transactionRepository;
-	 
-	 @Autowired
-	 private ProductQuantityRepository productQuantityRepository;
-	 
-	 @Autowired
-	 private PostRepository postRepository;
  
 	 @RequestMapping(value= {"/user/request"}, method=RequestMethod.GET)
 	 public ModelAndView requestSifra() {
@@ -168,21 +148,4 @@ public class RequestController {
 			User user = userService.findUserByEmail(auth.getName());
 			return user;
 	}
-	 
-/*
- @RequestMapping(value= {"/clientservices"}, method=RequestMethod.GET)
- public ModelAndView login() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/clientServices");
-  return model;
- }
- 
- @RequestMapping(value= {"/becomeclient"}, method=RequestMethod.GET)
- public ModelAndView signup() {
-  ModelAndView model = new ModelAndView();
-  model.setViewName("home/becomeClient");
-  
-  return model;
- }
- */
 }
