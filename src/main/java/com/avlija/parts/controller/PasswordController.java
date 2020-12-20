@@ -1,5 +1,6 @@
 package com.avlija.parts.controller;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,16 +63,17 @@ public class PasswordController {
 			// Save token to database
 			userService.resetUpdate(user);
 
-			String appUrl = request.getScheme() + "://" + request.getServerName();
+			// String appUrl = request.getScheme() + "://" + request.getServerName();
 			
 			// Email message
 			SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
 			passwordResetEmail.setFrom("yap.webapp@gmail.com");
 			passwordResetEmail.setTo(user.getEmail());
-			passwordResetEmail.setSubject("Zahtjev za izmjenu lozinke - Password Reset Request");
-			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
-					//+ ":8080/reset?token=" + user.getResetToken());
-			+ "/reset?token=" + user.getResetToken());
+			passwordResetEmail.setSubject("Zahtjev za izmjenu lozinke - Password Reset Request" + new Date().toString());
+			// passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
+			//		+ ":8080/reset?token=" + user.getResetToken());
+			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n"
+			+ "https://yapauto.herokuapp.com/reset?token=" + user.getResetToken());
 
 			emailService.sendEmail(passwordResetEmail);
 
