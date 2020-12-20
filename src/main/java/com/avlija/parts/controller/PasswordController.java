@@ -72,6 +72,7 @@ public class PasswordController {
 			passwordResetEmail.setSubject("Zahtjev za izmjenu lozinke - Password Reset Request" + new Date().toString());
 			// passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
 			//		+ ":8080/reset?token=" + user.getResetToken());
+			
 			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n"
 			+ "https://yapauto.herokuapp.com/reset?token=" + user.getResetToken());
 
