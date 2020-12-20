@@ -70,8 +70,9 @@ public class PasswordController {
 			passwordResetEmail.setTo(user.getEmail());
 			passwordResetEmail.setSubject("Zahtjev za izmjenu lozinke - Password Reset Request");
 			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
-					+ ":8080/reset?token=" + user.getResetToken());
-			
+					//+ ":8080/reset?token=" + user.getResetToken());
+			+ "/reset?token=" + user.getResetToken());
+
 			emailService.sendEmail(passwordResetEmail);
 
 			// Add success message to view

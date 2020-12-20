@@ -8,7 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
- 
+	
+// Display of client services
  @RequestMapping(value= {"/clientservices"}, method=RequestMethod.GET)
  public ModelAndView login() {
   ModelAndView model = new ModelAndView();
@@ -16,6 +17,7 @@ public class HomeController {
   return model;
  }
  
+ // Instructions and description of how to become a client
  @RequestMapping(value= {"/becomeclient"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();

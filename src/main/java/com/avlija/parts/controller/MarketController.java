@@ -53,10 +53,13 @@ public class MarketController {
 	 @Autowired
 	 private ProductGroupRepository productGroupRepository;
 	 
+	 // List of market posts by Sifra
 	 private static List<Post> postsBySifra;
+	 
+	 // List market posts which belong to a certain product group
 	 private static List<Post> listOfPostsWithProductGroup;
 
-	 
+	 // Starting page for searching market posts
 	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
 	 public ModelAndView postInfo()  {
 		 ModelAndView model = new ModelAndView();
@@ -85,7 +88,7 @@ public class MarketController {
 		 return "redirect:/user/displayposts";
 	 }
 	 
-	 // Displaying found posts by sifra
+	 // Displaying posts found by sifra
 	 @RequestMapping(value= {"/user/displayposts"}, method=RequestMethod.GET)
 	 public ModelAndView displayPosts(HttpServletRequest request) {
 		 ModelAndView model = new ModelAndView();
@@ -127,7 +130,7 @@ public class MarketController {
 	 
 	 // Searching for post by ID
 	 @RequestMapping(value= {"/user/postinfo2"}, method=RequestMethod.POST)
-	 public ModelAndView searchPost2(@Valid SampleInputs sampleInputs) {
+	 public ModelAndView searchPostById(@Valid SampleInputs sampleInputs) {
 		 ModelAndView model = new ModelAndView();
 		 try {
 			 Post postByID = postRepository.findById(sampleInputs.getPostId()).get();	
@@ -188,7 +191,7 @@ public class MarketController {
 	  	   return model;
 	 }
 
-	 // Converting Array List of group posts to Page Pageable
+	 // Converting Array List of posts by product group to Page Pageable
      public Page<Post> findPaginated(Pageable pageable) {
          int pageSize = pageable.getPageSize();
          int currentPage = pageable.getPageNumber();
@@ -208,7 +211,7 @@ public class MarketController {
          return postsPage;
      }
 
-	// Creating - Publishing new post on the market
+	// Creating - Publishing new post on the market based on product ID
 	 @RequestMapping(value= {"/user/market/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView marketPost(@PathVariable(name = "id") Long id) {
 	  ModelAndView model = new ModelAndView();
@@ -246,11 +249,11 @@ public class MarketController {
 	  	   post.setCreated(new Date());
 	  	   postRepository.save(post);
 	  	   int id = post.getId();
-
+	  	   // Redirecting to line 72 of this Controller
 	  	   return "redirect:/user/postinfo/" + id;
 	 }
 	 
-	 // Display all user posts
+	 // Display all posts by certain user
 	 @GetMapping(value= {"/user/userposts"})
 	 public ModelAndView listUserPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
@@ -312,6 +315,7 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // Finding out user for the purpose of displaying user posts
 	 private User getCurrentUser() {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findUserByEmail(auth.getName());

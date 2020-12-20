@@ -197,7 +197,7 @@ public class AdminController {
   	   Product newProduct = productRepository.findById(savedProduct.getId()).get();
   	   List<User> usersList = userRepository.findAll();
   	   
-  	   usersAddedToTheNewProduct(newProduct, usersList);
+  	   newProductAddedToExistingUsers(newProduct, usersList);
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
@@ -266,6 +266,7 @@ public class AdminController {
   	   return model;
  }
  
+ // Starting page for adding or subtracting product quantity in the database
  @RequestMapping(value= {"/user/addremove/{id}"}, method=RequestMethod.GET)
  public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
@@ -289,6 +290,7 @@ public class AdminController {
   return model;
  }
  
+ // Adding product quantity
  @RequestMapping(value= {"/user/add"}, method=RequestMethod.POST)
  public ModelAndView addProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -336,7 +338,7 @@ public class AdminController {
   return model;
  }
  
- 
+ // Subtracting product quantity
  @RequestMapping(value= {"/user/remove"}, method=RequestMethod.POST)
  public ModelAndView removeProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -379,7 +381,7 @@ public class AdminController {
   	return model;
  }
  
- 
+ // Creating car brand
  @RequestMapping(value= {"admin/createbrand"}, method=RequestMethod.GET)
  public ModelAndView createBrand() {
   ModelAndView model = new ModelAndView();
@@ -390,6 +392,7 @@ public class AdminController {
   return model;
  }
  
+ // Entering car brand name
  @RequestMapping(value= {"admin/createbrand"}, method=RequestMethod.POST)
  public ModelAndView createBrand(@Valid Brand brand, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -409,6 +412,7 @@ public class AdminController {
   return model;
  }
  
+ // Creating car model GET
  @RequestMapping(value= {"admin/createcarmodel"}, method=RequestMethod.GET)
  public ModelAndView createCarModel() {
   ModelAndView model = new ModelAndView();
@@ -421,6 +425,7 @@ public class AdminController {
   return model;
  }
  
+ // Creating car model POST
  @RequestMapping(value= {"admin/createcarmodel"}, method=RequestMethod.POST)
  public ModelAndView createCarModel(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -443,13 +448,15 @@ public class AdminController {
   return model;
  }
  
+ // Identification of user for different purposes
  private User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		return user;
 }
 
- private void usersAddedToTheNewProduct(Product newProduct, List<User> usersList) {
+ // Adding new created product to existing users
+ private void newProductAddedToExistingUsers(Product newProduct, List<User> usersList) {
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
 	 for(User user: usersList) {
 		 ProductQuantity productQuantity;
