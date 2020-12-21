@@ -13,6 +13,7 @@
 
 <div th:include="fragments/header :: header"/></div>
 
+<!--Admin page for registration of new user for all three categories - UserController lines 106 and 117 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/signup}" th:object="${user}">
       <div class="row">

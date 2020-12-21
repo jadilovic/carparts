@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+/**
+ * USER ROLE  MODEL WITH ID and NAME OF the ROLE
+ */
 
 @Entity
 @Table(name="role")

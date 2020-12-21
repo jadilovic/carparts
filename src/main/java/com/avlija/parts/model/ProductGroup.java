@@ -11,7 +11,8 @@ import java.util.Set;
 public class ProductGroup implements Serializable {
 
     /**
-	 * 
+	 *  
+	 * PRODUCT GROUP MODEL with ID, NAME and a list of products that it includes
 	 */
 	private static final long serialVersionUID = 1L;
 

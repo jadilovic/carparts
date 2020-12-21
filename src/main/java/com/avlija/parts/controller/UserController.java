@@ -103,7 +103,7 @@ public class UserController {
   return model;
  }
  
- 
+ // Starting registration of new user by Admin, which allows registration for GUEST, CLIENT and ADMIN
  @RequestMapping(value= {"/admin/signup"}, method=RequestMethod.GET)
  public ModelAndView adminSignup() {
   ModelAndView model = new ModelAndView();
@@ -114,6 +114,9 @@ public class UserController {
   return model;
  }
  
+ // Submitting data for any user account by ADMIN, registration of new user and checking if email exists
+ // Checking if password is valid
+ // Creating GUEST, CLIENT or ADMIN user and saving data in the database
  @RequestMapping(value= {"/admin/signup"}, method=RequestMethod.POST)
  public ModelAndView createUser(@Valid User user, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -136,7 +139,6 @@ public class UserController {
 		   productsAddedToNewUser(productsList, user);
 	   }
    }
-   
    model.addObject("msg", "User has been registered successfully!");
    model.addObject("user", new User());
    model.setViewName("admin/signup");
@@ -144,6 +146,7 @@ public class UserController {
   return model;
  }
 
+ // Admin page for ADMIN users only
 @RequestMapping(value= {"/admin/admin"}, method=RequestMethod.GET)
  public ModelAndView adminPage() {
   ModelAndView model = new ModelAndView();
@@ -161,6 +164,7 @@ public class UserController {
   return model;
  }
 
+// Client page, only ADMIN and CLIENT users can access this page
 @RequestMapping(value= {"/user/client"}, method=RequestMethod.GET)
 public ModelAndView clientPage() {
  ModelAndView model = new ModelAndView();
@@ -178,6 +182,8 @@ public ModelAndView clientPage() {
  return model;
 }
 
+// Home page for ADMIN and CLIENT users
+// Guest users are redirected to guest page automatically
 @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
  public ModelAndView home() {
   ModelAndView model = new ModelAndView();
@@ -202,6 +208,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+// Displaying access denied page every time the user clicks on the link to the page for which he has no access
  @RequestMapping(value= {"/access_denied"}, method=RequestMethod.GET)
  public ModelAndView accessDenied() {
   ModelAndView model = new ModelAndView();
@@ -209,6 +216,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Displaying guest page for the user
  @RequestMapping(value= {"/home/guest"}, method=RequestMethod.GET)
  public ModelAndView guestPage() {
   ModelAndView model = new ModelAndView();
@@ -226,6 +234,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Display user profile
  @RequestMapping("/home/profile")
  public ModelAndView profilePage() {
      ModelAndView mav = new ModelAndView("user/profile_page");
@@ -236,6 +245,7 @@ public ModelAndView clientPage() {
      return mav;
  }
  
+ // Start searching for users by ADMIN
  @RequestMapping("/admin/searchusers")
  public ModelAndView searchUsers() {
      ModelAndView mav = new ModelAndView("admin/search_users");
@@ -244,6 +254,7 @@ public ModelAndView clientPage() {
      return mav;
  }
  
+ // Entering user email to search users by ADMIN
  @RequestMapping(value= {"admin/searchemail"}, method=RequestMethod.POST)
  public ModelAndView searchUserByEmail(@Valid SampleInputs sampleInputs) {
      ModelAndView mav = new ModelAndView();
@@ -260,6 +271,7 @@ public ModelAndView clientPage() {
      return mav;
  }
  
+ // Searching for user by entered user ID by ADMIN
  @RequestMapping(value= {"admin/searchid"}, method=RequestMethod.POST)
  public ModelAndView searchUserById(@Valid SampleInputs sampleInputs) {
      ModelAndView mav = new ModelAndView();
@@ -276,6 +288,7 @@ public ModelAndView clientPage() {
      return mav;
  }
  
+ // Display of user transactions for certain product, for ADMIN display of all transactions by all users
  @RequestMapping(value= {"/user/prodtransactions/{id}"}, method=RequestMethod.GET)
  public ModelAndView productTransactions(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
@@ -304,6 +317,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Display of all user transactions / for ADMIN display of all transactions for all users
  @GetMapping("/user/alltransactions")
  public String customersPage(HttpServletRequest request, Model model) {
      
@@ -333,6 +347,7 @@ public ModelAndView clientPage() {
      return "user/list_transactions2";
  }
  
+ // Display of all users, only accessible by ADMIN
  @RequestMapping(value= {"/admin/allusers"}, method=RequestMethod.GET)
  public ModelAndView showAllUsers() {
   ModelAndView model = new ModelAndView();
@@ -345,8 +360,9 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Selecting certain user to edit its profile
  @RequestMapping(value= {"admin/editprofile/{id}"}, method=RequestMethod.GET)
- public ModelAndView editProfile(@PathVariable(name = "id") Integer id) {
+ public ModelAndView editUserProfile(@PathVariable(name = "id") Integer id) {
   ModelAndView model = new ModelAndView();
   User user = userRepository.findById(id).get();
   Set<Role> roles = user.getRoles();
@@ -357,6 +373,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Entering new values for the selected user profile to be edited and updating edits
  @RequestMapping(value= {"admin/editprofile"}, method=RequestMethod.POST)
  public ModelAndView editProduct(@Valid User user) {
   ModelAndView model = new ModelAndView();
@@ -377,15 +394,14 @@ public ModelAndView clientPage() {
 		   productsAddedToNewUser(productsList, changedUser);
 	   }
   }
-  
 	  model.addObject("msg", "Izmjena podataka profila korisnika izvrsena");
 	  model.addObject("userProfile", changedUser);
 	  model.addObject("roles", roles);
 	  model.setViewName("user/profile_page");
- 
   return model;
  }
  
+ // Display of currently logged users for ADMIN only
  @RequestMapping(value= {"/admin/loggedUsers"}, method=RequestMethod.GET)
  public ModelAndView loggedUsers() {
   ModelAndView model = new ModelAndView();
@@ -400,6 +416,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Deleting all logged users in the app by ADMIN
  @RequestMapping(value= {"/admin/deleteLoggedUsers"}, method=RequestMethod.GET)
  public ModelAndView deleteLoggedUsers() {
   ModelAndView model = new ModelAndView();
@@ -411,6 +428,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Deleting one selected logged user in the app by ADMIN
  @RequestMapping(value= {"admin/deleteLoggedUser/{id}"}, method=RequestMethod.GET)
  public ModelAndView deleteLoggedUser(@PathVariable(name = "id") String id) {
   ModelAndView model = new ModelAndView();
@@ -425,6 +443,7 @@ public ModelAndView clientPage() {
   return model;
  }
  
+ // Adding product quantity to the user with CLIENT permission, line 394 of this controller
  private void productsAddedToNewUser(List<Product> productsList, @Valid User user) {
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
 	 for(Product product: productsList) {
@@ -439,6 +458,7 @@ public ModelAndView clientPage() {
 	 }
  	}
  
+ // Finding current user for different purposes
  private User getCurrentUser() {
 	  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	  User user = userService.findUserByEmail(auth.getName());

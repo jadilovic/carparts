@@ -11,7 +11,7 @@ import java.util.Set;
 public class ProductMaker implements Serializable {
 
     /**
-	 * 
+	 * PRODUCT MAKER - PRODUCER MODEL WITH ID, NAME and list of products it makes
 	 */
 	private static final long serialVersionUID = 1L;
 

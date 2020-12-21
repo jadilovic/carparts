@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * TRANSACTION MODEL TO RECORD CHANGES IN QUANTITY OF PRODUCTS FOR CERTAIN USERS
+ */
 @Entity
 @Table(name="transactions")
 public class Transaction implements Serializable{

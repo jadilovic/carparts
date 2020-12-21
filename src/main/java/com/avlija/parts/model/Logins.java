@@ -10,7 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "persistent_logins")
 public class Logins {
-	 
+    /**
+	 * USER LOGINS
+	 */
 	 @Id
 	 @Column(name="series")
 	 private String series;

@@ -11,7 +11,7 @@ import java.util.Set;
 public class Brand implements Serializable {
 
     /**
-	 * 
+	 * CAR BRAND MODEL WITH ID, NAME and list of CAR MODELS
 	 */
 	private static final long serialVersionUID = 1L;
 

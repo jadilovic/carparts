@@ -18,7 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.avlija.parts.form.ValidPassword;
-
+/**
+ * USER MODEL with properties and ROLES, TRANSACTIONS and REQUESTS
+ */
 @Entity
 @Table(name = "user")
 public class User {

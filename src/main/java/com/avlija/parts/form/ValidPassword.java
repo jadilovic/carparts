@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+// Password validator for guest registration
 @Documented
 @Constraint(validatedBy = PasswordConstraintValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })

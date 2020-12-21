@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * CAR PART PRODUCT MODEL with list of replacement PRODUCTS and description
+ */
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -36,17 +38,6 @@ public class Product implements Serializable {
     private String description;
     private double price;
     
-    // private int quantity;
-
-   // @ManyToMany(cascade = CascadeType.MERGE)
-   // @JoinTable(name = "part_hierarchy", 
-   //             joinColumns = { @JoinColumn(name = "part_id")}, 
-   //             inverseJoinColumns={@JoinColumn(name="child_part_id")})  
-   // private List<Product> products;
-
-    //@ManyToMany(cascade = CascadeType.MERGE, mappedBy = "products")
-    //private List<Product> children;  
-    
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "part_hierarchy",
             joinColumns = {
@@ -60,16 +51,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    
-    
 	/**
 	 * @return the transactions
 	 */
 	public Set<Transaction> getTransactions() {
 		return transactions;
 	}
-
-
 
 	/**
 	 * @param transactions the transactions to set

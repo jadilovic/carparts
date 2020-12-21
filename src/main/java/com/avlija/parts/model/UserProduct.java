@@ -7,7 +7,9 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-
+/**
+ * USER PRODUCT PRIMARY KEY MODEL TO KEEP TRACK OF PRODUCT QUANTITY FOR EACH USER
+ */
 @Embeddable
 public class UserProduct implements Serializable{
 

@@ -7,7 +7,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "carmodels")
 public class CarModel implements Serializable {
-
+    /**
+	 * CAR MODEL - MODEL WITH ID, NAME and BRAND it belongs to
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

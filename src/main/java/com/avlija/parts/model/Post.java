@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * MARKET POSTS BY USERS CONTAINING USER AND PRODUCT INFO
+ */
 @Entity
 @Table(name = "post")
 public class Post {

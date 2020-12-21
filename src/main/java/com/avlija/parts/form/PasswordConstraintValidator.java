@@ -24,6 +24,7 @@ import org.passay.WhitespaceRule;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
+	// PASSWORD validator guest for registration
     @Override
     public void initialize(ValidPassword arg0) {
     }

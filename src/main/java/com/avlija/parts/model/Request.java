@@ -4,7 +4,10 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * REQUEST MODEL to enter new products with listed sifras,  WITH ID, Date created, list of
+ * requested sifras and completion status
+ */
 @Entity
 @Table(name="requests")
 public class Request implements Serializable{

@@ -25,6 +25,7 @@ import com.avlija.parts.service.UserService;
 @Controller
 public class PasswordController {
 
+	// Includes password validation for PASSWORD RESET ACTIVITY
 	@Autowired
 	private UserService userService;
 

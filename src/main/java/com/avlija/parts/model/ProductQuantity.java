@@ -4,7 +4,10 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+/**
+ * PRODUCT QUANTITY  MODEL WITH ID composed of USER and PRODUCT
+ * IT DEFINES Quantity for each USER of each PRODUCT
+ */
 @Entity
 @Table(name = "product_quantity")
 public class ProductQuantity {

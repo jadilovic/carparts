@@ -12,7 +12,8 @@
 <body>
 
 <div th:replace="fragments/header :: header"/></div>
-<!-- List of transactions for one product -->
+<!-- List of transactions for ONE product by user or by all users for ADMIN account-->
+<!-- UserController line 291 -->
  <div class="p-2" align="center">
     <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>    
     <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>
@@ -61,13 +62,5 @@
   
  <div th:replace="fragments/footer :: footer"/></div>
  
- <!--  
- <script type="text/javascript">
- 	window.history.forward();
- 	function noBack() {
-     	window.history.forward();
- 	}
- </script>
- -->
 </body>
 </html>
