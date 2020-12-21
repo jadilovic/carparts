@@ -10,6 +10,8 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 </head>
 
+<!-- Search by product group following selection of car bran and model, SearchControler line 217 -->
+<!-- JavaScript is used to display groups available for selection -->
 <body class="text-center">
 
 <div th:include="fragments/header :: header"/></div>
@@ -42,8 +44,10 @@
       <div th:include="fragments/footer :: footer"/></div>
  </div>
  
+ <!-- JavaScript to display product groups to be selected -->
  <script type="text/javascript" th:src="@{/js/searchByModel.js}"></script>
  
+ <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of search -->
  <script type="text/javascript">
  	if ( window.history.replaceState ) {
 	 	 window.history.replaceState( null, null, window.location.href );

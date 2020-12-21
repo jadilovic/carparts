@@ -14,6 +14,7 @@
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- Starting search by auto brand and model, SearchController in line 182 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch2}" th:object="${carModel}">
       <div class="row">

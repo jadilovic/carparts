@@ -58,11 +58,13 @@ public class SearchController {
  @Autowired
  private UserService userService;
  
+ // Finding list of auto parts
  private static List<Product> productList;
  
+ // Finding quantity for each product in some list
  private static List<ProductQuantity> productQuantityList;
  
-
+// Search page for starting searches by sifra and group
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView search() {
   ModelAndView model = new ModelAndView();
@@ -71,6 +73,7 @@ public class SearchController {
   return model;
  }
  
+ // Displaying list of products by group
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
  public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
 
@@ -87,6 +90,7 @@ public class SearchController {
 	 return model;
  	}
 
+ // Displaying replacement products for selected product - auto part
 @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
  public ModelAndView listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
@@ -108,6 +112,7 @@ public class SearchController {
   return model;
  }
  
+// Displaying selected product profile by ID
  @RequestMapping(value= {"/home/productprofile/{id}"}, method=RequestMethod.GET)
  public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
@@ -137,6 +142,7 @@ public class SearchController {
   return model;
  }
  
+ // Displaying product profile after search by sifra
  @RequestMapping(value= {"/home/productprofile"}, method=RequestMethod.POST)
  public ModelAndView productProfile(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -165,6 +171,7 @@ public class SearchController {
   return model;
  }
  
+ // Main page for starting different searches for auto parts products
  @RequestMapping(value= {"/home/homesearch"}, method=RequestMethod.GET)
  public ModelAndView homeSearch() {
   ModelAndView model = new ModelAndView();
@@ -172,6 +179,7 @@ public class SearchController {
   return model;
  }
  
+ // Starting search by auto brand and model - first selecting the brand
  @RequestMapping(value= {"/home/modelsearch"}, method=RequestMethod.GET)
  public ModelAndView modelSearch() {
   ModelAndView model = new ModelAndView();
@@ -183,11 +191,13 @@ public class SearchController {
   return model;
  }
  
+ // Redirecting user if browser back button is clicked in order to start from the beginning (brand)
  @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.GET)
  public String redirectToBrandSearch(HttpServletRequest request) {
 	 return "redirect:/home/modelsearch";
  }
  
+ // Displaying car models of certain auto brand to be selected by user
  @RequestMapping(value= {"/home/modelsearch2"}, method=RequestMethod.POST)
  public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -198,42 +208,42 @@ public class SearchController {
   return model;
  }
  
+ // Redirecting user to the beginning to select the brand first if browser back button is used
  @RequestMapping(value= {"/home/modelsearch3"}, method=RequestMethod.GET)
  public String redirectBackToBrandSearch(HttpServletRequest request) {
 	 return "redirect:/home/modelsearch";
  }
  
+ // Display product groups and electing product group after brand and model were selected 
  @RequestMapping(value= {"/home/modelsearch3"}, method=RequestMethod.POST)
  public ModelAndView modelSearch3(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   CarModel selectedCarModel = carModelRepository.findByName(carModel.getName());
-  System.out.println("SELECTED CAR Model " + selectedCarModel + carModel.getName());
-  // List<ProductGroup> productGroups = productGroupRepository.findAll();
-  // productGroups.remove(0);
   SampleInputs inputs = new SampleInputs();
   inputs.setBrandName(selectedCarModel.getBrand().getName());
   inputs.setModelName(selectedCarModel.getName());
   model.addObject("inputs", inputs);
- // model.addObject("productGroups", productGroups);
   model.setViewName("home/select_group");
   return model;
  }
  
+ // Conducting search based on selected parameters of brand, model and group
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
  public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  System.out.println("GROUP NAME " + inputs.getId());
-  ProductGroup group = productGroupRepository.findById(inputs.getId()).get();
   
-  System.out.println("BRAND NAME " + inputs.getBrandName());
+  // System.out.println("GROUP NAME " + inputs.getId());
+  ProductGroup group = productGroupRepository.findById(inputs.getId()).get();
+ 
+  // System.out.println("BRAND NAME " + inputs.getBrandName());
   String carBrand = inputs.getBrandName();
   
-  System.out.println("MODEL NAME " + inputs.getModelName());
+  // System.out.println("MODEL NAME " + inputs.getModelName());
   String carModel = inputs.getModelName();
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
   	productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
-  	System.out.println("id grupe ID GRupe: " + group.getId());
+  	// System.out.println("id group ID GRupe: " + group.getId());
   	if(checkOils(group.getId())) {
   		productList = productRepository.findByProductGroup(group);
   	}
@@ -246,6 +256,7 @@ public class SearchController {
   return model;
  }
  
+ // If browser back button is clicked display last list of product from the last search results
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.GET)
  public ModelAndView redirectBackToProductsList() {
 	  ModelAndView model = new ModelAndView();
@@ -256,6 +267,7 @@ public class SearchController {
 	  return model;
  }
  
+ // Checking if the selected product group are liquids or oils. If yes all are returned in line 247
  private boolean checkOils(Long id) {
 	if(id == 1 || id == 41 || id == 51 || id == 61 || id == 71 || id == 81 || id == 91 || id == 101 || id == 191 || id == 201 || id == 211 || id == 221 || id == 231 || id == 241 || id == 251 || id == 261 || id == 271 || id == 281 || id == 291 || id == 301 || id == 311 || id == 321 || id == 331 || id == 341 || id == 351 || id == 361 || id == 371 || id == 381 || id == 391 || id == 401 || id == 411 || id == 421 || id == 431 || id == 431 || id == 351 || id == 461 || id == 471) {
 		return true;
@@ -264,13 +276,14 @@ public class SearchController {
 	}
 }
 
+ // Getting current user for different purposes
 private User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		return user;
  }
  
- 
+ // Getting current quantity for current user for each product in the list
  private List<ProductQuantity> getProductQuantityList(List<Product> productList) {
 	 User user = getCurrentUser();
 	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();

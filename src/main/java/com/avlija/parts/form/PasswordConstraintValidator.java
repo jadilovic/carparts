@@ -27,8 +27,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     @Override
     public void initialize(ValidPassword arg0) {
     }
-    
-    
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {

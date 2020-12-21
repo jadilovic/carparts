@@ -45,6 +45,7 @@ public class PasswordController {
     }
     
     // Process form submission from forgotPassword page
+	// It only works on LOCALHOST
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public ModelAndView processForgotPasswordForm(ModelAndView modelAndView, SampleInputs sampleInputs, HttpServletRequest request) {
 
@@ -73,7 +74,6 @@ public class PasswordController {
 			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
 					+ ":8080/reset?token=" + user.getResetToken());
 			
-
 			emailService.sendEmail(passwordResetEmail);
 
 			// Add success message to view

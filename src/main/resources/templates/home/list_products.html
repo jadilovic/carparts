@@ -13,6 +13,8 @@
 
 <div th:replace="fragments/header :: header"/></div>
 
+<!-- Displaying list of products / parts for different kind of searches - SearchController lines 76, 93 -->
+ <!-- Pagination possibly needed - Also, SearchController lines 230 and 259 -->
  <div class="p-2" align="center">
    <h5>Lista proizvoda:</h5>
    <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>  
@@ -35,6 +37,7 @@
         <tbody>
             <tr scope="row" th:each="product, productStat : ${productList}">
                 <td th:text="${product.sifra}">Sifra</td>
+                <!-- Displaying product name in the button and link to product profile-->
                 <td th:object="${product}">
                 	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success" th:text="*{name}">Naziv</a>
                 </td>    
@@ -42,6 +45,7 @@
 					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>
 				</td>
                 <td th:text="${product.getProductMaker().getName()}">Proizvodjac</td>   
+                <!-- Link to product profile only -->
                 <!--  
                 <td th:object="${product}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Info</a>
@@ -59,6 +63,7 @@
   		</div>
  <div th:replace="fragments/footer :: footer"/></div>
   
+  <!-- JavaScript to enable use of browser back button which returns user to the beginning of the search -->
  <script type="text/javascript">
  	if ( window.history.replaceState ) {
 	 	 window.history.replaceState( null, null, window.location.href );

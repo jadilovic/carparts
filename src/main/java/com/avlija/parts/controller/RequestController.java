@@ -31,6 +31,7 @@ public class RequestController {
 	 @Autowired
 	 private UserService userService;
  
+	 // Staring request for adding new auto parts sifras
 	 @RequestMapping(value= {"/user/request"}, method=RequestMethod.GET)
 	 public ModelAndView requestSifra() {
 	  ModelAndView model = new ModelAndView();
@@ -41,6 +42,7 @@ public class RequestController {
 	  return model;
 	 }
 	 
+	 // Submitting the sifra values
 	 @RequestMapping(value= {"/user/request"}, method=RequestMethod.POST)
 	 public String publishPost(@Valid Request newRequest) {
 		  User user = getCurrentUser();
@@ -50,10 +52,11 @@ public class RequestController {
 	  	   newRequest.setUser(user);
 	  	   requestRepository.save(newRequest);
 	  	   Long id = newRequest.getId();
-
+	  	   // Redirecting saved sifra values of the request to display request info line 60
 	  	   return "redirect:/user/requestinfo/" + id;
 	 }
 	 
+	 // Displaying the info about the request containing new sifras
 	 @RequestMapping(value= {"/user/requestinfo/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView requestInfo(@PathVariable(name = "id") Long id)  {
 		 Request request = requestRepository.findById(id).get();
@@ -65,6 +68,7 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
+	 // Changing the status of the request if new sifras were added or not
 	 @RequestMapping(value= {"/admin/requestcompleted/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView changingCompletedStatusOfRequest(@PathVariable(name = "id") Long id)  {
 		 Request request = requestRepository.findById(id).get();
@@ -82,7 +86,7 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
-	 
+	 // Display of requests for new sifras by the user
 	 @GetMapping(value= {"/user/userrequests"})
 	 public ModelAndView listUserRequests(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
@@ -113,7 +117,7 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
-	 // List of all requests by users / Admin only access
+	 // List of all requests for new sifras / Admin only access
 	 @GetMapping(value= {"/admin/allrequests"})
 	 public ModelAndView listAllPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
@@ -143,6 +147,7 @@ public class RequestController {
 	  	   return model;
 	 }
 	 
+	 // Getting current user for different purposes
 	 private User getCurrentUser() {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findUserByEmail(auth.getName());

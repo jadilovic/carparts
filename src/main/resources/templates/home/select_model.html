@@ -9,12 +9,12 @@
  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
-
 </head>
 <body>
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- Displaying and selecting model for certain auto brand, SearchController line 200 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/home/modelsearch3}" th:object="${carModel}">
       <div class="row">
@@ -63,6 +63,7 @@
        <div th:include="fragments/footer :: footer"/></div>
  </div>
 
+<!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of search -->
 <script type="text/javascript">
 	if ( window.history.replaceState ) {
 	  	window.history.replaceState( null, null, window.location.href );

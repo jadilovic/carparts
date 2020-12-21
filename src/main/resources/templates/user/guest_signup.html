@@ -13,6 +13,8 @@
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- Guest sign up page to enter personal information to great guest user, UserController line 71 -->
+<!-- If entered data is not valid this page is displayed again, UserController line 82 -->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/guestsignup}" th:object="${user}">
       <div class="row">

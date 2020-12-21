@@ -59,6 +59,7 @@ public class UserController {
  @Autowired
  private LoginsRepository loginsRepository;
  
+ // Starting page of the application
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
  public ModelAndView login() {
   ModelAndView model = new ModelAndView();
@@ -67,6 +68,7 @@ public class UserController {
   return model;
  }
  
+ // Displaying page for the guest to sign up
  @RequestMapping(value= {"/guestsignup"}, method=RequestMethod.GET)
  public ModelAndView signup() {
   ModelAndView model = new ModelAndView();
@@ -77,6 +79,9 @@ public class UserController {
   return model;
  }
  
+ // Submitting data for guest account registration and checking if email exists
+ // Checking if password is valid
+ // Creating guest user and saving data in the database
  @RequestMapping(value= {"/guestsignup"}, method=RequestMethod.POST)
  public ModelAndView createGuestUser(@Valid User user, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -98,28 +103,6 @@ public class UserController {
   return model;
  }
  
- /*
- @RequestMapping(value= {"/guestsignup"}, method=RequestMethod.POST)
- public ModelAndView createGuestUser(@Valid User user, BindingResult bindingResult) {
-  ModelAndView model = new ModelAndView();
-  User userExists = userService.findUserByEmail(user.getEmail());
-  
-  if(userExists != null) {
-   bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
-  } if(bindingResult.hasErrors()) {
-   model.setViewName("user/guest_signup");
-  } else {
-	  Date date = new Date();
-	  user.setCreated(date);
-   userService.saveUser(user);
-   
-   model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost! --- Ako želite otvoriti 'Klijent' profil pošaljite poruku sa tekstom 'Želim otvoriti YAP Database klijent račun' na e-mail adresu: yap.webapp@gmail.com");
-   model.addObject("user", new User());
-   model.setViewName("user/login");
-  }
-  return model;
- }
- */
  
  @RequestMapping(value= {"/admin/signup"}, method=RequestMethod.GET)
  public ModelAndView adminSignup() {

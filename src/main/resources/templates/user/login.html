@@ -9,11 +9,12 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
-
 </head>
 
 <div th:include="fragments/header :: header"/></div>
 
+<!-- First page that is opened when the application is started - UserController line 62 -->
+<!-- This page is displayed after guest account is created, UserController line 82 -->
 <body>
  <div class="container">
      <div class="alert alert-success" role="alert"  th:if="${message}">
