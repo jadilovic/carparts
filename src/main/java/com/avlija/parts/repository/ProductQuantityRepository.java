@@ -8,6 +8,7 @@ import com.avlija.parts.model.UserProduct;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+// Used in UserController, SearchController, MarketController and AdminController
 
 @Repository
 public interface ProductQuantityRepository extends JpaRepository<ProductQuantity, UserProduct>{

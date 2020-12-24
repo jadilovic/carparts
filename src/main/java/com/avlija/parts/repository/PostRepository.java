@@ -11,24 +11,22 @@ import com.avlija.parts.model.Post;
 
 @Repository("postRepository")
 public interface PostRepository extends JpaRepository<Post, Integer> {
- 
- //Post findByUserId(Integer id);
- 
- // Post findByProductId(Long id);
- 
+/*
+ * Market Posts Repository saving info about users posts in the market section
+ */
+// MarketController line 84
  List<Post> findByProductSifra(String sifra);
- 
- List<Post> findByProductId(Long id);
- 
+
+ // MarketController line 147
  List<Post> findByGroupId(Long id);
 
-Page<Post> findByUserId(int userId, Pageable pageable);
+ // MarketController line 256
+ Page<Post> findByUserId(int userId, Pageable pageable);
 
-Page<Post> findAll(Pageable pageable);
+ // MarketController 288
+ Page<Post> findAll(Pageable pageable);
 
+// MarketController line 91
 Page<Post> findByProductSifra(String sifra, Pageable pageable);
 
-Page<Post> findByProductId(Long id, Pageable pageable);
-
-Page<Post> findByGroupId(Long id, Pageable pageable);
 }

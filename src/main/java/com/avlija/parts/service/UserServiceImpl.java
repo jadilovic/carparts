@@ -24,11 +24,14 @@ public class UserServiceImpl implements UserService {
  @Autowired
  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+ // PasswordController line 48
+ // UserController lines 82, 117, 185, 219 and 361
  @Override
  public User findUserByEmail(String email) {
   return userRepository.findByEmail(email);
  }
 
+//UserController 82 and 117
  @Override
  public void saveUser(User user) {
   user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -38,11 +41,13 @@ public class UserServiceImpl implements UserService {
   userRepository.save(user);
  }
 
+ // UserController line 350
 @Override
 public List<User> findAllUsers() {
 	return userRepository.findAll();
 }
 
+//UserController line 376
 @Override
 public void updateUser(User user) {
 	  Role userRole = roleRespository.findByRole(user.getRole());
@@ -50,12 +55,15 @@ public void updateUser(User user) {
 	  userRepository.save(user);
 }
 
+// UserRepository
+// PasswordController lines 89 and 107
 @Override
 public
 User findUserByResetToken(String resetToken) {
 	return userRepository.findByResetToken(resetToken);
 }
 
+// PasswordController
 @Override
 public void resetUpdate(User user) {
 	  userRepository.save(user);

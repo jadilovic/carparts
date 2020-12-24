@@ -8,5 +8,6 @@ import com.avlija.parts.model.Role;
 @Repository("roleRepository")
 public interface RoleRespository extends JpaRepository<Role, Integer> {
 
+	// Used in UserServiceImpl in services
  Role findByRole(String role);
 }

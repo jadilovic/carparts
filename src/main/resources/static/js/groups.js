@@ -193,12 +193,44 @@ const menu = [
     }, 
     {
       id: 0,
-      title: "Pogon",
+      title: "Pogon i punjenje",
       categories: [
       		{
       		id: 0,
-      		title: "Električno kretanje",
+      		title: "Pokretanje i punjenje",
       		categories: [{
+      					id: 1781,
+      					title: "Akumulatori",
+      				},
+      				{
+      					id: 1791,
+      					title: "Alternatori",
+      				},
+      				{
+      					id: 1801,
+      					title: "Starteri",
+      				},
+      				{
+      					id: 1811,
+      					title: "Regulatori napona",
+      				},
+      				{
+      					id: 1821,
+      					title: "Releji, senzori i ožičenje",
+      				},
+      				{
+      					id: 1831,
+      					title: "Instalacije akumulatora",
+      				},
+      				{
+      					id: 1841,
+      					title: "Nosač za montažu",
+      				},
+      				{
+      					id: 1851,
+      					title: "Klinasti,kanalni i rebrasti remeni",
+      				},
+      				{
       					id: 111,
       					title: "Električno kretanje", 
       				},
@@ -596,30 +628,62 @@ const menu = [
         	title: "Amortizacija vozila",
         	categories: [{
         				id: 0,
-        				title: "Opruge amortizera / dijelovi",
+        				title: "Dijelovi ovjesa",
         				categories: [{
-        						id: 1251,
-        						title: "Set opruga",
+        						id: 1861,
+        						title: "Amortizeri",
+        					},
+        					        					{
+        						id: 1871,
+        						title: "Opruge amortizera",
         					},
         					{
-        						id: 1261,
-        						title: "Opruga amortizera, stražnja osovina",
-        					},
-        					{
-        						id: 1271,
-        						title: "Opruga amortizera, prednja osovina",
-        					},
-        					{
-        						id: 1281,
-        						title: "Podložna pločica amortizera",
-        					},
-        					{
-        						id: 1291,
-        						title: "Opruga ovjesa naprijed / straga",
+        						id: 1881,
+        						title: "Lisnate opruge",
         					},  
         					{
-        						id: 1771,
-        						title: "Tanjur opruga prednji/stražnji",
+        						id: 1891,
+        						title: "Zračni ovijes",
+        					},
+        					{
+        						id: 1901,
+        						title: "Hidraulički ovijes",
+        					},
+        					{
+        						id: 1911,
+        						title: "Vilice",
+        					},
+        					{
+        						id: 1921,
+        						title: "Stabilizatori",
+        					},
+        					{
+        						id: 1931,
+        						title: "Kugle vilice",
+        					},  
+        					{
+        						id: 1941,
+        						title: "Nosači i zaštita amortizera",
+        					},  
+        					{
+        						id: 1951,
+        						title: "Rukavci i glavčine",
+        					},
+        					{
+        						id: 1961,
+        						title: "Seleni ovjesa i dijelovi za popravak",
+        					},  
+        					{
+        						id: 1971,
+        						title: "Most",
+        					},  
+        					{
+        						id: 1981,
+        						title: "Gibanj",
+        					},
+        					{
+        						id: 1991,
+        						title: "Dijelovi za montažu i komponente",
         					},  
         				], 
         			},
@@ -651,19 +715,7 @@ const menu = [
         						title: "Tanjur opruga prednji/stražnji",
         					},  
         				], 
-        			},
-        			{
-        				id: 0,
-        				title: "Amortizeri ovjesa",
-        			},
-        			{
-        				id: 0,
-        				title: "Dijelovi sklopa amortizer / opruga",
-        			},
-        			{
-        				id: 0,
-        				title: "Lisnate opruge / dijelovi",
-        			},        		        			
+        			},      		        			
         		],
         	},
         	{

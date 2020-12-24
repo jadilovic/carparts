@@ -1,6 +1,12 @@
 package com.avlija.parts.service;
 import java.util.Properties;
 
+/*
+ * NOT USED
+ * USED ONLY FORE EXPERIMENTAL PURPOSES / NOT PART OF THE WORKING APPLICATION
+ * ONLY EXPERIMENTAL
+ */
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;

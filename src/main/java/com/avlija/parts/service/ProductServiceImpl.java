@@ -15,6 +15,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
+	  // AdminController lines 149 and 221
+	// SearchController line 76
 	@Override
 	public List<Product> findProductsByGroup(ProductGroup productGroup) {
 		return productRepository.findByProductGroup(productGroup);

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.avlija.parts.model.Transaction;
 import com.avlija.parts.repository.TransactionRepository;
 
+/*
+ * UserController line 320
+ */
 @Service
 public class TransactionServiceImpl implements TransactionService {
 	
