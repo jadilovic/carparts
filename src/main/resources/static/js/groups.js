@@ -13,12 +13,7 @@ const menu = [
         				id: 1,
         				title: "Motorno ulje",
         			},
-        		],
-    		},
-			{
-			id: 0,
-			title: "Ulje za prijenos",
-			categories: [{
+        			{
 						id: 51,
 						title: "Ulje servo upravljača",
 					}, 
@@ -437,47 +432,47 @@ const menu = [
               		{
               			id: 861,
               			title: "Pogon osovine diferencijala",
-              	},
+              		},
             		{
-             			  id: 871,
+             			id: 871,
               			title: "Zupčanik diferencijala",
-              	},
+              		},
              		{
               			id: 881,
               			title: "Vijak tanjurastog zupčanika",
-              	},
+              		},
              		{
               			id: 891,
               			title: "Blokada diferencijala (špera)",
-              	},
-              	{
-             			  id: 901,
+              		},
+              		{
+             			id: 901,
               			title: "Nosači diferencijala",
-              	},
-              	{
-             			  id: 911,
-             			  title: "Semering / brtvilo diferencijala",
-              	},
-              	{
-             			  id: 921,
-              		  title: "Garnitura za reparaturu diferencijala",
+              		},
+              		{
+             			id: 911,
+             			title: "Semering / brtvilo diferencijala",
+              		},
+              		{
+             			id: 921,
+              		  	title: "Garnitura za reparaturu diferencijala",
              		},
-              	{
-             			  id: 931,
+              		{
+             			id: 931,
               			title: "Differential element",
              		},
-              	{
-             			  id: 941,
+              		{
+             			id: 941,
               			title: "Filter ulja za diferencijal",
              		},
-              	{
+              		{
               			id: 951,
-             			  title: "Čep ispusta",
+             			title: "Čep ispusta",
             		},
              		{
               			id: 961,
               			title: "Oil pressure pump 4x4 drive",
-              	},
+              		},
              	],
             },
       		{
@@ -487,41 +482,41 @@ const menu = [
                  		id: 971,
                   		title: "Semering poluosovine",
                  	},
-                  {
-                  	id: 981,
+                  	{
+                  		id: 981,
                  		title: "Ležaj pogonske osovine",
-                  },
+                  	},
                 	{
                 		id: 991,
-                  	title: "Zglob poluosovine",
+                  		title: "Zglob poluosovine",
                  	},
                  	{
-                  	id: 1001,
+                  		id: 1001,
                  		title: "Podupirač pogonske osovine",
-                  },
+                  	},
                  	{
                  		id: 1011,
                   		title: "Ležajevi kotača",
                  	},
-                  {
+                  	{
                  		id: 1021,
                  		title: "Homokinetički zglobovi",
-                  },
-                  {
+                  	},
+                  	{
                 		id: 1031,
                  		title: "Manžete poluosovine",
                  	},
-                  {
+                  	{
                  		id: 1041,
                  		title: "Sigurnosni prsten",
                  	},
-                  {
+                  	{
                 		id: 1051,
-                  	title: "Zeger poluosovine",
+                  		title: "Zeger poluosovine",
                 	},
-                  {
+                  	{
                  		id: 1061,
-                  	title: "Jezgra poluosovine",
+                  		title: "Jezgra poluosovine",
                  	},
                 ],
       		},
@@ -633,7 +628,7 @@ const menu = [
         						id: 1861,
         						title: "Amortizeri",
         					},
-        					        					{
+        					{
         						id: 1871,
         						title: "Opruge amortizera",
         					},
@@ -725,21 +720,21 @@ const menu = [
         				id: 0,
         				title: "Disk kočnica",
         				categories:[{
-                    id: 2001,
-                    title: "Kočione pakne",
-                  },
-                  {
-                    id: 2011,
-                    title: "Kočione cijevi i crijeva",
-                  },
-                  {
-                    id: 2021,
-                    title: "Ručna kočnica",
-                  },
-                  {
-                    id: 1301,
-                    title: "Vijak vodilice kočionih čeljusti",
-                  },
+                    			id: 2001,
+                    			title: "Kočione pakne",
+                  			},
+                  			{
+                    			id: 2011,
+                    			title: "Kočione cijevi i crijeva",
+                  			},
+                  			{
+                    			id: 2021,
+                    			title: "Ručna kočnica",
+                  			},
+                  			{
+                    			id: 1301,
+                    			title: "Vijak vodilice kočionih čeljusti",
+                  			},
         					{
         						id: 1311,
         						title: "Garnitura za reparaturu kočionih čeljusti",
@@ -926,26 +921,26 @@ const menu = [
         						id: 1741,
         						title: "Vakum pumpe",
         					},
-                  {
-                    id: 2031,
-                    title: "ABS sistem",
-                  },
-                  {
-                    id: 2041,
-                    title: "Regulator sile kočenja",
-                  },
-                  {
-                    id: 2051,
-                    title: "Senzori kočionog sustava",
-                  },
-                  {
-                    id: 2061,
-                    title: "Dijelovi za montažu i komponente",
-                  },
-                  {
-                    id: 2071,
-                    title: "Pedala kočnice",
-                  },
+                  			{
+                    			id: 2031,
+                    			title: "ABS sistem",
+                  			},
+                  			{
+                    			id: 2041,
+                    			title: "Regulator sile kočenja",
+                  			},
+                  			{
+                    			id: 2051,
+                    			title: "Senzori kočionog sustava",
+                  			},
+                  			{
+                    			id: 2061,
+                    			title: "Dijelovi za montažu i komponente",
+                  			},
+                  			{
+                    			id: 2071,
+                    			title: "Pedala kočnice",
+                  			},
         				],
         			},
         			{
@@ -966,275 +961,372 @@ const menu = [
         ],
     },
     {
-      id: 0,
-      title: "Dijelovi motora",
-      categories: [{
-              id: 2081,
-              title: "Motori",
+      	id: 0,
+      	title: "Dijelovi motora",
+      	categories: [{
+              	id: 2081,
+              	title: "Motori",
             },
             {
-              id: 2091,
-              title: "Blokovi motora",
+              	id: 2091,
+              	title: "Blokovi motora",
             },
             {
-              id: 2101,
-              title: "Ventili i komponente",
+              	id: 2101,
+              	title: "Ventili i komponente",
             },
             {
-              id: 2111,
-              title: "Klipovi i klipnjače",
+              	id: 2111,
+              	title: "Klipovi i klipnjače",
             },
             {
-              id: 2121,
-              title: "Bregasta osovina",
+              	id: 2121,
+              	title: "Bregasta osovina",
             },
             {
-              id: 2131,
-              title: "Lančani prijenos",
+              	id: 2131,
+              	title: "Lančani prijenos",
             },
             {
-              id: 2141,
-              title: "Radilica motora",
+              	id: 2141,
+              	title: "Radilica motora",
             },
             {
-              id: 2151,
-              title: "Glave cilindara",
+              	id: 2151,
+              	title: "Glave cilindara",
             },
             {
-              id: 2161,
-              title: "Ležajevi motora",
+              	id: 2161,
+              	title: "Ležajevi motora",
             },
             {
-              id: 2171,
-              title: "Nosači motora",
+              	id: 2171,
+              	title: "Nosači motora",
             },
             {
-              id: 2181,
-              title: "Filter ulja",
+              	id: 2181,
+              	title: "Filter ulja",
             },
             {
-              id: 2191,
-              title: "Pumpe za ulje",
+              	id: 2191,
+              	title: "Pumpe za ulje",
             },
             {
-              id: 2201,
-              title: "Poklopci ventila",
+              	id: 2201,
+              	title: "Poklopci ventila",
             },
             {
-              id: 2211,
-              title: "Karteri",
+              	id: 2211,
+              	title: "Karteri",
             },
             {
-              id: 2221,
-              title: "Senzori motora, releji, prekidači",
+              	id: 2221,
+              	title: "Senzori motora, releji, prekidači",
             },
             {
-              id: 2231,
-              title: "Zupčasti remen",
+              	id: 2231,
+              	title: "Zupčasti remen",
             },
             {
-              id: 2241,
-              title: "Poklopci motora",
+              	id: 2241,
+              	title: "Poklopci motora",
             },
             {
-              id: 2251,
-              title: "Hladnjaci ulja",
+              	id: 2251,
+              	title: "Hladnjaci ulja",
             },
             {
-              id: 2261,
-              title: "Bubanj kočnica",
+              	id: 2261,
+              	title: "Bubanj kočnica",
             },
             {
-              id: 2271,
-              title: "Remenice i zupčanici motora",
+              	id: 2271,
+              	title: "Remenice i zupčanici motora",
             },
             {
-              id: 2281,
-              title: "Dijelovi za reparaciju motora",
+              	id: 2281,
+              	title: "Dijelovi za reparaciju motora",
             },
             {
-              id: 2291,
-              title: "Dijelovi za usis zraka",
+              	id: 2291,
+              	title: "Dijelovi za usis zraka",
             },
             {
-              id: 2301,
-              title: "Odušak motora, crijeva ulja",
+              	id: 2301,
+              	title: "Odušak motora, crijeva ulja",
             },
             {
-              id: 2311,
-              title: "Upravljačko kućište",
+              	id: 2311,
+              	title: "Upravljačko kućište",
             },
         ],
     },
     {
-      id: 0,
-      title: "Ispušni sustav",
-      categories: [{
-              id: 2321,
-              title: "Ispušne grane",
+      	id: 0,
+      	title: "Ispušni sustav",
+      	categories: [{
+              	id: 2321,
+              	title: "Ispušne grane",
             },
             {
-              id: 2331,
-              title: "Katalizatori i DPF filteri",
+              	id: 2331,
+              	title: "Katalizatori i DPF filteri",
             },
             {
-              id: 2341,
-              title: "Ispušni lonci",
+              	id: 2341,
+              	title: "Ispušni lonci",
             },
             {
-              id: 2351,
-              title: "Ispušne cijevi",
+              	id: 2351,
+              	title: "Ispušne cijevi",
             },
             {
-              id: 2361,
-              title: "Obujmice, brtve, nosači",
+              	id: 2361,
+              	title: "Obujmice, brtve, nosači",
             },
             {
-              id: 2371,
-              title: "Sistem za kontrolu ispušnih plinova",
+              	id: 2371,
+              	title: "Sistem za kontrolu ispušnih plinova",
             },
         ],
     },
     {
-      id: 0,
-      title: "Hlađenje motora",
-      categories: [{
-              id: 2381,
-              title: "Hladnjaci vode",
+      	id: 0,
+      	title: "Hlađenje motora",
+      	categories: [{
+              	id: 2381,
+              	title: "Hladnjaci vode",
             },
             {
-              id: 2391,
-              title: "Poklopci hladnjaka",
+              	id: 2391,
+              	title: "Poklopci hladnjaka",
             },
             {
-              id: 2401,
-              title: "Ventilatori motora",
+              	id: 2401,
+              	title: "Ventilatori motora",
             },
             {
-              id: 2411,
-              title: "Vodene pumpe",
+              	id: 2411,
+              	title: "Vodene pumpe",
             },
             {
-              id: 2421,
-              title: "Ekspanzione posude",
+              	id: 2421,
+              	title: "Ekspanzione posude",
             },
             {
-              id: 2431,
-              title: "Crijeva i obujmice",
+              	id: 2431,
+              	title: "Crijeva i obujmice",
             },
             {
-              id: 2441,
-              title: "Termostati",
+              	id: 2441,
+              	title: "Termostati",
             },
             {
-              id: 2451,
-              title: "Prekidači, senzori i releji sistema za hlađenje",
+              	id: 2451,
+              	title: "Prekidači, senzori i releji sistema za hlađenje",
             },
             {
-              id: 2461,
-              title: "Ventili",
+              	id: 2461,
+              	title: "Ventili",
             },
             {
-              id: 2471,
-              title: "Interkuleri",
+              	id: 2471,
+              	title: "Interkuleri",
             },
         ],
     },
     {
-      id: 0,
-      title: "Sistem za dovod goriva",
-      categories: [{
-              id: 2481,
-              title: "Pumpe goriva i plovci",
+      	id: 0,
+      	title: "Sistem za dovod goriva",
+      	categories: [{
+              	id: 2481,
+              	title: "Pumpe goriva i plovci",
             },
             {
-              id: 2491,
-              title: "Rezervari goriva",
+              	id: 2491,
+              	title: "Rezervari goriva",
             },
             {
-              id: 2501,
-              title: "Filteri goriva",
+              	id: 2501,
+              	title: "Filteri goriva",
             },
             {
-              id: 2511,
-              title: "Injektori i rail",
+              	id: 2511,
+              	title: "Injektori i rail",
             },
             {
-              id: 2521,
-              title: "Hladnjaci goriva i grijači goriva",
+              	id: 2521,
+              	title: "Hladnjaci goriva i grijači goriva",
             },
             {
-              id: 2531,
-              title: "Grijači i svjećice",
+              	id: 2531,
+              	title: "Grijači i svjećice",
             },
             {
-              id: 2541,
-              title: "Crijeva za gorivo",
+              	id: 2541,
+              	title: "Crijeva za gorivo",
             },
             {
-              id: 2551,
-              title: "Senzori i ventili goriva",
+              	id: 2551,
+              	title: "Senzori i ventili goriva",
             },
             {
-              id: 2561,
-              title: "Posuda para",
+              	id: 2561,
+              	title: "Posuda para",
             },
             {
-              id: 2571,
-              title: "Poklopci rezervara i dijelovi",
+              	id: 2571,
+              	title: "Poklopci rezervara i dijelovi",
             },
             {
-              id: 2581,
-              title: "Aditiv za gorivo",
+              	id: 2581,
+              	title: "Aditiv za gorivo",
             },
         ],
     },
     {
-      id: 0,
-      title: "Dijelovi upravljanja",
-      categories: [{
-              id: 2591,
-              title: "Letva volana",
+      	id: 0,
+      	title: "Dijelovi upravljanja",
+      	categories: [{
+              	id: 2591,
+              	title: "Letva volana",
             },
             {
-              id: 2601,
-              title: "Stupovi volana",
+              	id: 2601,
+              	title: "Stupovi volana",
             },
             {
-              id: 2611,
-              title: "Spone i krajnici",
+              	id: 2611,
+              	title: "Spone i krajnici",
             },
             {
-              id: 2621,
-              title: "Amortizeri volana",
+              	id: 2621,
+              	title: "Amortizeri volana",
             },
             {
-              id: 2631,
-              title: "Servo pumpe",
+              	id: 2631,
+              	title: "Servo pumpe",
             },
             {
-              id: 2641,
-              title: "Posude za servo ulje",
+              	id: 2641,
+              	title: "Posude za servo ulje",
             },
             {
-              id: 2651,
-              title: "Hladnjaci upravljačkog mehanizma",
+              	id: 2651,
+              	title: "Hladnjaci upravljačkog mehanizma",
             },
             {
-              id: 2661,
-              title: "Crijeva i cijevi upravljačkog mehanizma",
+              	id: 2661,
+              	title: "Crijeva i cijevi upravljačkog mehanizma",
             },
             {
-              id: 2671,
-              title: "Manžete letve volana",
+              	id: 2671,
+              	title: "Manžete letve volana",
             },
             {
-              id: 2681,
-              title: "Moduli, ventili, releji i senzori upravljanja",
+              	id: 2681,
+              	title: "Moduli, ventili, releji i senzori upravljanja",
             },
             {
-              id: 2691,
-              title: "Volani",
+              	id: 2691,
+              	title: "Volani",
+            },
+        ],
+    },
+    {
+      	id: 0,
+      	title: "Dijelovi elektrike",
+      	categories: [{
+              	id: 2701,
+              	title: "Kontrola brzine (tempomat)",
+            },
+            {
+              	id: 2711,
+              	title: "Klapne za prebacivanje grijanja, hlađenja",
+            },
+            {
+              	id: 2721,
+              	title: "Brave i prekidači",
+            },
+            {
+              	id: 2731,
+              	title: "Sustav za parkiranje",
+            },
+            {
+              	id: 2741,
+              	title: "Instrumenti",
+            },
+            {
+              	id: 2751,
+              	title: "Zavojnice volana",
+            },
+            {
+              	id: 2761,
+              	title: "Trube",
+            },
+            {
+              	id: 2771,
+              	title: "Prekidač za svjetla i ostali prekidači",
+            },
+            {
+              	id: 2781,
+              	title: "Moduli, releji i senzori za svjetla",
+            },
+            {
+              	id: 2791,
+              	title: "Grijanje i regulacija sjedenja",
+            },
+            {
+              	id: 2801,
+              	title: "Pokretni krov i šiber",
+            },
+            {
+              	id: 2811,
+              	title: "Brave i prekidači za poklopce rezervara i zadnje haube",
+            },
+            {
+              	id: 2821,
+              	title: "Ožičenje, kablovi i instalacije",
+            },
+            {
+              	id: 2831,
+              	title: "Sijalice",
+            },
+            {
+              	id: 2841,
+              	title: "Moduli, releji i prekidači za klimu",
+            },
+            {
+              	id: 2851,
+              	title: "Senzori za niveliranje vozila",
+            },
+            {
+              	id: 2861,
+              	title: "Releji, Senzori, Prekidači",
+            },
+            {
+              	id: 2871,
+              	title: "Sustav za upravljanje motorom (EMS)",
+            },
+            {
+              	id: 2881,
+              	title: "Moduli i kontrolne jedinice",
+            },
+            {
+              	id: 2891,
+              	title: "Osigurači i kutije osigurača",
+            },
+            {
+              	id: 2901,
+              	title: "Sigurnosni sistem",
+            },
+            {
+              	id: 2911,
+              	title: "Senzori unutarnje i vanjske temperature",
+            },
+            {
+              	id: 2921,
+              	title: "Dijelovi za reparaciju i montažu",
             },
         ],
     },                                                                                     
