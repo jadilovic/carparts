@@ -243,6 +243,26 @@ const menu = [
       					title: "Otpusna piksna kvačila",
       				},
       				{
+          				id: 3091,
+          				title: "Set kvačila",
+          			},
+          			{
+          				id: 3101,
+          				title: "Lamele",
+          			},
+          			{
+          				id: 3111,
+          				title: "Potisne ploče",
+          			},
+          			{
+          				id: 3121,
+          				title: "Aktiviranje mjenjača, kvačila, sajle i poluge mjenjača",
+          			},
+          			{
+          				id: 3131,
+          				title: "Papučica kvačila",
+          			},
+      				{
       					id: 141,
       					title: "Ležaj spojničke osovine",
       				},
@@ -355,6 +375,42 @@ const menu = [
           	categories: [{
           				id: 681,
           				title: "Spojnička osovina mjenjača",
+          			},
+          			{
+          				id: 3141,
+          				title: "Mjenjač",
+          			},
+          			{
+          				id: 3151,
+          				title: "Hidraulika mjenjača i kvačila",
+          			},
+          			{
+          				id: 3161,
+          				title: "Brtve mjenjača",
+          			},
+          			{
+          				id: 3171,
+          				title: "Dijelovi mjenjača",
+          			},
+          			{
+          				id: 3181,
+          				title: "Hladnjaci mjenjača",
+          			},
+          			{
+          				id: 3191,
+          				title: "Filteri mjenjača",
+          			},
+          			{
+          				id: 3201,
+          				title: "Karteri mjenjača",
+          			},
+          			{
+          				id: 3211,
+          				title: "Nosači mjenjača",
+          			},
+          			{
+          				id: 3221,
+          				title: "Selenoidi, senzori, prekidači, upravljačke jedinice",
           			},
           			{
           				id: 691,
@@ -1004,7 +1060,7 @@ const menu = [
               	title: "Nosači motora",
             },
             {
-              	id: 2181,
+              	id: 11,
               	title: "Filter ulja",
             },
             {
@@ -1147,8 +1203,8 @@ const menu = [
               	title: "Rezervari goriva",
             },
             {
-              	id: 2501,
-              	title: "Filteri goriva",
+              	id: 31,
+              	title: "Filter goriva",
             },
             {
               	id: 2511,
@@ -1329,7 +1385,167 @@ const menu = [
               	title: "Dijelovi za reparaciju i montažu",
             },
         ],
-    },                                                                                     
+    },
+    {
+      	id: 0,
+      	title: "Klima i grijanje",
+      	categories: [{
+              	id: 2931,
+              	title: "Kompresori klime",
+            },
+            {
+              	id: 2941,
+              	title: "Dijelovi kompresora klime",
+            },
+            {
+              	id: 2951,
+              	title: "Hladnjaci klime",
+            },
+            {
+              	id: 2961,
+              	title: "Ventilatori klime",
+            },
+            {
+              	id: 2971,
+              	title: "Filteri kabine",
+            },
+            {
+              	id: 2981,
+              	title: "Isparivač klime",
+            },
+            {
+              	id: 2991,
+              	title: "Hladnjaci grijanja",
+            },
+            {
+              	id: 3001,
+              	title: "Isušivači klime",
+            },
+            {
+              	id: 3011,
+              	title: "Ventilator kabine",
+            },
+            {
+              	id: 3021,
+              	title: "Ekspanzioni ventili klime",
+            },
+            {
+              	id: 3031,
+              	title: "Ventili za kontrolu grijanja i pomoćne pumpe za vodu",
+            },
+            {
+              	id: 3041,
+              	title: "Kontrolne jedinice za klimu/grijanje",
+            },
+            {
+              	id: 3051,
+              	title: "Prekidači i releji za klimu",
+            },
+            {
+              	id: 3061,
+              	title: "Crijeva i lajtunzi za klimu",
+            },
+            {
+              	id: 3071,
+              	title: "Kutija ventilacije i dodatno grijanje",
+            },
+            {
+              	id: 3081,
+              	title: "Crijeva grijanja",
+            },
+        ],
+    }, 
+    {
+      	id: 0,
+      	title: "Dijelovi za paljenje",
+      	categories: [{
+              	id: 2181,
+              	title: "Kablovi za svjećice",
+            },
+            {
+              	id: 2531,
+              	title: "Grijači i svjećice",
+            },
+            {
+              	id: 2501,
+              	title: "Bobine",
+            },
+            {
+              	id: 3231,
+              	title: "Razvodnici paljenja",
+            },
+            {
+              	id: 3241,
+              	title: "Brave za paljenje",
+            },
+        ],
+    },    
+    {
+      	id: 0,
+      	title: "Sistem za kontrolu ispušnih plinova",
+      	categories: [{
+              	id: 3251,
+              	title: "Lambada sonde",
+            },
+            {
+              	id: 3261,
+              	title: "EGR ventili, hladnjaci",
+            },
+            {
+              	id: 3271,
+              	title: "Pumpe za upuhivanje zraka",
+            },
+            {
+              	id: 3281,
+              	title: "Vakuum pumpe, vakuum ventili",
+            },
+        ],
+    }, 
+    {
+      	id: 0,
+      	title: "Dijelovi za usis zraka",
+      	categories: [{
+              	id: 3291,
+              	title: "Kućište filtera zraka",
+            },
+            {
+              	id: 21,
+              	title: "Filter zraka",
+            },
+            {
+              	id: 3301,
+              	title: "Mjerači protoka zraka (MAF)",
+            },
+            {
+              	id: 3311,
+              	title: "Usisne grane",
+            },
+            {
+              	id: 3321,
+              	title: "Filteri kabine",
+            },
+            {
+              	id: 3331,
+              	title: "Turbo punjenje",
+            },
+            {
+              	id: 3341,
+              	title: "Rasplinjači, sajle gasa",
+            },
+            {
+              	id: 3351,
+              	title: "Zaklopke gasa",
+            },
+            {
+              	id: 3361,
+              	title: "Ventili",
+            },
+            {
+              	id: 3371,
+              	title: "Cijevi i crijeva",
+            },
+        ],
+    },                                                                                
 ];
 
 // var myJSON = JSON.stringify(menu);
