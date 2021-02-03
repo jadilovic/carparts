@@ -54,7 +54,7 @@ public class PasswordController {
 		User user = userService.findUserByEmail(sampleInputs.getEmail());
 
 		if (user == null) {
-			modelAndView.addObject("message", "Nije pronađen uneseni e-mail.");
+			modelAndView.addObject("error", "Nije pronađen uneseni e-mail.");
 			modelAndView.setViewName("user/forgotPassword");
 		} else {
 			
@@ -83,9 +83,9 @@ public class PasswordController {
 				modelAndView.setViewName("user/login");
 			} catch(Exception e) {
 				// In case exception
-				modelAndView.addObject("message", "Nije moguće poslati mail zbog nepostojanja konekcije"
+				modelAndView.addObject("error", "Nije moguće poslati mail zbog nepostojanja konekcije"
 						+ " ili nekog drugog problema na mreži ili sigurnosne blokade gmaila. "
-						+ "Pošaljite e-mail na j.adilovic@gmail.com za dodatne informacije i podršku.");
+						+ "Pošaljite e-mail na 'j.adilovic@gmail.com' za dodatne informacije i podršku.");
 				modelAndView.setViewName("user/forgotPassword");
 			}
 		}
