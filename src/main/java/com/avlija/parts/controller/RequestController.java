@@ -71,16 +71,16 @@ public class RequestController {
 	 // Changing the status of the request if new sifras were added or not
 	 @RequestMapping(value= {"/admin/requestcompleted/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView changingCompletedStatusOfRequest(@PathVariable(name = "id") Long id)  {
+		 ModelAndView model = new ModelAndView();
 		 Request request = requestRepository.findById(id).get();
 		 if(request.getCompleted() == 0) {
 			 request.setCompleted(1);
+			 model.addObject("msg", "Zahtjev za dopunu sifri u bazi je izvršen");
 		 } else {
 			 request.setCompleted(0);
+			 model.addObject("err", "Zahtjev za dopunu sifri u bazi na čekanju");
 		 }
 		 requestRepository.save(request);
-		 ModelAndView model = new ModelAndView();
-	   		
-		 model.addObject("msg", "Zahtjev za dopunu sifri u bazi je izvršen");
 		 model.addObject("request", request);
 		 model.setViewName("user/request_info");
 	  	   return model;

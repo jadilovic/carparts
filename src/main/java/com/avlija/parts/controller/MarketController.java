@@ -174,7 +174,7 @@ public class MarketController {
 		           size = Integer.parseInt(request.getParameter("size"));
 		       }
 		              
-		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("created").descending()));
+		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("id").descending()));
 	
 		   		String message = null;
 		   		if(postsList.isEmpty()) {

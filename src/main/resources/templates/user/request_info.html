@@ -16,8 +16,8 @@
 <!-- Displaying request info about new sifras to be added - RequestController lines 45, 59 and 71 -->
  <div class="container">
  
-      <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
-     </div>
+      <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+      <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
      
   <table th:object="${request}"  class="table table-striped">
   <thead>
@@ -58,7 +58,7 @@
     <tr>
       <th scope="row">Status zahtjeva:</th>
       <td>
-         <a th:href="@{'/admin/requestcompleted/' + *{id}}" class="btn " th:classappend="*{completed} == 0 ? btn-danger : btn-success" th:text="*{completed} == 0 ? 'NE - klikni za izmjenu]' : 'DA - klikni za izmjenu'">Osvježi</a>
+         <a th:href="@{'/admin/requestcompleted/' + *{id}}" class="btn " th:classappend="*{completed} == 0 ? btn-danger : btn-success" th:text="*{completed} == 0 ? 'NE - klikni za izmjenu' : 'DA - klikni za izmjenu'">Osvježi</a>
       <!-- 
       <span th:text="*{completed}"></span>
        -->
@@ -70,10 +70,10 @@
     </tr>
     <tr>
        <td>
-          <a class="btn btn-success" th:href="@{/user/userrequests}">Svi zahtjevi korisnika</a>
+          <a class="btn btn-info" th:href="@{/user/userrequests}">Svi zahtjevi korisnika</a>
        </td>       
        <td>
-          <a class="btn btn-warning" th:href="@{/home/homesearch}">Pretraga oglasa</a>
+          <a class="btn btn-warning" th:href="@{/home/homesearch}">Pretraga autodijelova</a>
        </td>
     </tr>
   </tbody>
