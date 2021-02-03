@@ -14,7 +14,12 @@
 <div th:replace="fragments/header :: header"/></div>
 <!-- List of transactions for all products by user or for ADMIN for all users, UserController line 320 -->
  <div class="p-2" align="center">
-   <h5>Lista transakcija -> <img alt="no image" src="/yapicons.png" width="80" height="70"><span th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></span></h5>
+     <div>
+         <img alt="no image" th:src="@{/images/yapicons.png}" width="80" height="70">
+    </div>
+   	<h5>Lista transakcija ->
+   	<span th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></span>
+   	</h5>
  </div>
   
   <div class="container table-responsive" align="center">

@@ -18,7 +18,11 @@
             </span>
           </div>
             <div class="p-2 mb-2 bg-light text-dark">
-                 &copy; 2020 Avlija Code by j.adilovic@gmail.com
+                 &copy;
+                 <span id="copyright">
+        			<script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+    			</span>
+                Avlija Code by j.adilovic@gmail.com
             </div>
       </footer>
     </div>

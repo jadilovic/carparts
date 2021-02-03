@@ -16,17 +16,9 @@ import com.avlija.parts.model.User;
 
 @Repository("transactionRepository")
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
-    
-    //List<Transaction> findByProduct(Product product);
-    
+ 
 	// UserController line 320
     List<Transaction> findByUser(User user);
-    
-    //List<Transaction> findByProductOrderByCreatedDesc(Product product);
-    
-    //List<Transaction> findByOrderByCreatedDesc(PageRequest pageRequest);
-
-	// List<Transaction> findByOrderByCreatedDesc();
 	
     // UserController line 320
 	Page<Transaction> findAll(Pageable pageable);

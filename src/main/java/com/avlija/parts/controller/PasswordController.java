@@ -75,15 +75,21 @@ public class PasswordController {
 			passwordResetEmail.setText("Za izmjenu lozinke kliknite na donji link:\n" + appUrl
 					+ ":8080/reset?token=" + user.getResetToken());
 			
-			emailService.sendEmail(passwordResetEmail);
-
-			// Add success message to view
-			modelAndView.addObject("message", "Link za izmjenu lozinke je poslan na " + sampleInputs.getEmail()
-										+ ".\n Otvorite vaš e-mail i kliknite na link.");
-			modelAndView.setViewName("user/login");
+			try {
+				emailService.sendEmail(passwordResetEmail);
+				// Add success message to view
+				modelAndView.addObject("message", "Link za izmjenu lozinke je poslan na " + sampleInputs.getEmail()
+											+ ".\n Otvorite vaš e-mail i kliknite na link.");
+				modelAndView.setViewName("user/login");
+			} catch(Exception e) {
+				// In case exception
+				modelAndView.addObject("message", "Nije moguće poslati mail zbog nepostojanja konekcije"
+						+ " ili nekog drugog problema na mreži ili sigurnosne blokade gmaila. "
+						+ "Pošaljite e-mail na j.adilovic@gmail.com za dodatne informacije i podršku.");
+				modelAndView.setViewName("user/forgotPassword");
+			}
 		}
 		return modelAndView;
-
 	}
 
 	// Display form to reset password

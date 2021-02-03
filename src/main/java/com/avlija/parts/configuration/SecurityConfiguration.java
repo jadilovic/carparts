@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,17 +36,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .dataSource(dataSource)
    .passwordEncoder(bCryptPasswordEncoder);
  }
+
+     String[] staticResources  =  {
+    		 "/static/",
+             "/css/**",
+             "/images/**",
+             "/fonts/**",
+             "/js/**",
+             "/favicon.ico",
+         };
  
  @Override
  protected void configure(HttpSecurity http) throws Exception{
   http.authorizeRequests()
-   .antMatchers("/").permitAll()
-   .antMatchers("/login").permitAll()
-   .antMatchers("/guestsignup").permitAll()
-   .antMatchers("/forgot").permitAll()
-   .antMatchers("/reset").permitAll()
-   .antMatchers("/clientservices").permitAll()
-   .antMatchers("/becomeclient").permitAll()
+   .antMatchers("/", "/login", "/guestsignup", "/forgot", "/reset", "/clientservices", "/becomeclient").permitAll()
+   .antMatchers(staticResources).permitAll()
    .antMatchers("/home/**").hasAnyAuthority("ADMIN", "CLIENT", "GUEST")
    .antMatchers("/user/**").hasAnyAuthority("ADMIN", "CLIENT")
    .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
@@ -61,6 +66,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .tokenRepository(persistentTokenRepository())
    .tokenValiditySeconds(60*60*8)
    .and().exceptionHandling().accessDeniedPage("/access_denied");
+ }
+ 
+
+ @Override
+ public void configure(WebSecurity web) throws Exception {
+     web
+             .ignoring()
+             .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
  }
  
  @Bean

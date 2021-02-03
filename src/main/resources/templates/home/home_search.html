@@ -12,11 +12,14 @@
 <body>
 
 <div th:include="fragments/header :: header"/></div>
-
+<!-- HOME SEARCH -->
 <!--Main page for starting different kinds of searches for auto parts products - SearchController line 174 -->
  <div class="container">
  <div class="p-3 bg-light" align="center">
-   <h5><img alt="no image" src="/yapicons.png" width="80" height="70">Odaberite način pretrage</h5>
+     <div>
+         <img alt="no image" th:src="@{/images/yapicons.png}" width="80" height="70">
+    </div>
+   <h5>Odaberite način pretrage</h5>
  </div>
     
     <a th:href="@{/home/modelsearch}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">
