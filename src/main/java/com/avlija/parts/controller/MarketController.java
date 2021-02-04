@@ -144,6 +144,12 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // After back button is clicked return back to post search
+	 @RequestMapping(value= {"/user/postinfo2"}, method=RequestMethod.GET)
+	 public String backSearchPosts() {
+		 return "redirect:/user/searchposts";
+	 }
+	 
 	 // Searching for posts by product group
 	 @RequestMapping(value= {"/user/postgroupsearch/{groupId}"}, method=RequestMethod.GET)
 	 public String searchPostsByProductGroup(@PathVariable(name = "groupId") Long groupId) {
@@ -174,8 +180,8 @@ public class MarketController {
 		           size = Integer.parseInt(request.getParameter("size"));
 		       }
 		              
-		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("id").descending()));
-	
+		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("created").descending()));
+		       
 		   		String message = null;
 		   		if(postsList.isEmpty()) {
 		   			message = "Nema objavljenih oglasa";
@@ -207,7 +213,7 @@ public class MarketController {
 
          Page<Post> postsPage
            = new PageImpl<Post>(list, PageRequest.of(currentPage, pageSize), listOfPostsWithProductGroup.size());
-
+         //, Sort.by("created").descending()
          return postsPage;
      }
 

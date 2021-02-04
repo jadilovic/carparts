@@ -62,5 +62,13 @@
       <div th:include="fragments/footer :: footer"/></div>
                <!-- javascript         --> 
 		<script type="text/javascript" th:inline="javascript" th:src="@{/js/searchPosts.js}"></script> 
+
+ <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of search -->
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
+
 </body>
 </html>
