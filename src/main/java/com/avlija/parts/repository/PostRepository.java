@@ -17,13 +17,13 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 // MarketController line 84
  List<Post> findByProductSifra(String sifra);
 
- // MarketController line 147
+ // MarketController line 153
  List<Post> findByGroupId(Long id);
 
- // MarketController line 256
+ // MarketController line 262
  Page<Post> findByUserId(int userId, Pageable pageable);
 
- // MarketController 288
+ // MarketController 294
  Page<Post> findAll(Pageable pageable);
 
 // MarketController line 91

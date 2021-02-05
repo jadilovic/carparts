@@ -171,6 +171,12 @@ public class SearchController {
   return model;
  }
  
+ // After back button is clicked return back beginning of creating a product
+ @RequestMapping(value= {"home/productprofile"}, method=RequestMethod.GET)
+ public String backToSearchProduct() {
+	 return "redirect:/home/search";
+ }
+ 
  // Main page for starting different searches for auto parts products
  @RequestMapping(value= {"/home/homesearch"}, method=RequestMethod.GET)
  public ModelAndView homeSearch() {

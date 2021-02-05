@@ -155,6 +155,7 @@ public class MarketController {
 	 public String searchPostsByProductGroup(@PathVariable(name = "groupId") Long groupId) {
 
 		 listOfPostsWithProductGroup = postRepository.findByGroupId(groupId);
+		 Collections.sort(listOfPostsWithProductGroup, Collections.reverseOrder());
 		 return "redirect:/user/displaypostsgroup";
 	 }
 	 
@@ -180,7 +181,7 @@ public class MarketController {
 		           size = Integer.parseInt(request.getParameter("size"));
 		       }
 		              
-		       Page <Post> postsList = findPaginated(PageRequest.of(page, size, Sort.by("created").descending()));
+		       Page <Post> postsList = findPaginated(PageRequest.of(page, size));
 		       
 		   		String message = null;
 		   		if(postsList.isEmpty()) {

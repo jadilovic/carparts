@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "post")
-public class Post {
+public class Post implements Comparable<Post> {
  
  @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
@@ -265,6 +265,12 @@ public void setMaxAvailable(int maxAvailable) {
 	this.maxAvailable = maxAvailable;
 }
 
+@Override
+public int compareTo(Post o) {
+	Integer num1 = new Integer(this.getId());
+	Integer num2 = new Integer(o.getId());
+    return num1.compareTo(num2);
+}
  
 
 }

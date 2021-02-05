@@ -70,6 +70,8 @@ public class AdminController {
  @Autowired
  private UserRepository userRepository;
  
+ private static Product savedProduct;
+ 
 // Creating product group or category
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.GET)
  public ModelAndView createGroup() {
@@ -169,13 +171,22 @@ public class AdminController {
 	  
 	  productRepository.save(product);
 	  Long productId = product.getId();
-	  Product savedProduct = productRepository.findById(productId).get();
+	  savedProduct = productRepository.findById(productId).get();
+ 	  // ADDING NEW PRODUCT TO EXISTING USERS
+	  List<User> usersList = userRepository.findAll();
+ 	  newProductAddedToExistingUsers(savedProduct, usersList);
 	  
 	  model.addObject("productList", productList);
 	  model.addObject("product", savedProduct);
 	  model.setViewName("admin/create_product2");
   }
   return model;
+ }
+ 
+ // After back button is clicked return back beginning of creating a product
+ @RequestMapping(value= {"admin/createproduct1"}, method=RequestMethod.GET)
+ public String backToCreateProductBeginning() {
+	 return "redirect:/admin/createproduct";
  }
  
  // Creating product - auto part in the database - adding replacement parts and finalizing the product in the database
@@ -188,16 +199,10 @@ public class AdminController {
   	} else {
   		replaceProducts = product.getProducts();
   	}
-  	   Product savedProduct = productRepository.findById(product.getId()).get();
-  	   
+  	
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Novi auto dio je uspješno kreiran!");
-  	   
-  	   Product newProduct = productRepository.findById(savedProduct.getId()).get();
-  	   List<User> usersList = userRepository.findAll();
-  	   
-  	   newProductAddedToExistingUsers(newProduct, usersList);
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
@@ -208,12 +213,18 @@ public class AdminController {
   return model;
  }
  
+ // After back button is clicked return back beginning of creating a product
+ @RequestMapping(value= {"admin/createproduct2"}, method=RequestMethod.GET)
+ public String backToCreateProduct() {
+	 return "redirect:/admin/createproduct";
+ }
+ 
 // Editing database product - auto part
 @RequestMapping(value= {"admin/editproduct/{id}"}, method=RequestMethod.GET)
  public ModelAndView editProduct(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
-  Product product = productRepository.findById(id).get();
-  model.addObject("product", product);
+  savedProduct = productRepository.findById(id).get();
+  model.addObject("product", savedProduct);
   model.setViewName("admin/edit_product");
   return model;
  }
@@ -223,7 +234,7 @@ public class AdminController {
  public ModelAndView editProduct(@Valid Product product, ProductGroup productGroup) {
   ModelAndView model = new ModelAndView();
   
-  	Product savedProduct = productRepository.findById(product.getId()).get();
+  	savedProduct = productRepository.findById(product.getId()).get();
   		product.setProductGroup(savedProduct.getProductGroup());
   		product.setProductMaker(savedProduct.getProductMaker());
   		product.setProducts(savedProduct.getProducts());
@@ -240,6 +251,13 @@ public class AdminController {
   return model;
  }
  
+ // After back button is clicked return back beginning of edit product
+ @RequestMapping(value= {"admin/editproduct1"}, method=RequestMethod.GET)
+ public String backToProductEdit() {
+	 Long productId = savedProduct.getId();
+	 return "redirect:/admin/editproduct/" + productId;
+ }
+ 
 // Editing database product - auto part - adding or changing replacement products
  @RequestMapping(value= {"admin/editproduct2"}, method=RequestMethod.POST)
  public ModelAndView editProduct2(@Valid Product product) {
@@ -250,20 +268,27 @@ public class AdminController {
   	} else {
   		replaceProducts = product.getProducts();
   	}
-  	   Product savedProduct = productRepository.findById(product.getId()).get();
+  	   savedProduct = productRepository.findById(product.getId()).get();
   	   
   	   savedProduct.setProducts(replaceProducts);
   	   productRepository.save(savedProduct);
   	   model.addObject("msg", "Auto dio uspješno izmjenjen!");
   	   
   	   User user = getCurrentUser();
-		ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+		ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
 
   	   model.addObject("replaceProducts", replaceProducts);
   	   model.addObject("product", savedProduct);
   	   model.addObject("productQuantity", productQuantity);
   	   model.setViewName("home/product_profile");
   	   return model;
+ }
+ 
+ // After back button is clicked return back beginning of edit product
+ @RequestMapping(value= {"admin/editproduct2"}, method=RequestMethod.GET)
+ public String backToProductEditPage() {
+	 Long productId = savedProduct.getId();
+	 return "redirect:/admin/editproduct/" + productId;
  }
  
  // Starting page for adding or subtracting product quantity in the database
