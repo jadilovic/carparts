@@ -25,6 +25,7 @@ public class SampleInputs {
     private String password;
     private String token;
     private String confirmPassword;
+    private String name;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTimeField;
@@ -257,6 +258,14 @@ public class SampleInputs {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

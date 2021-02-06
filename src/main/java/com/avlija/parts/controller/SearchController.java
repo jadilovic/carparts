@@ -142,7 +142,7 @@ public class SearchController {
   return model;
  }
  
- // Displaying product profile after search by sifra
+ // SEARCH BY SIFRA Displaying product profile after search by sifra
  @RequestMapping(value= {"/home/productprofile"}, method=RequestMethod.POST)
  public ModelAndView productProfile(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
@@ -175,6 +175,23 @@ public class SearchController {
  @RequestMapping(value= {"home/productprofile"}, method=RequestMethod.GET)
  public String backToSearchProduct() {
 	 return "redirect:/home/search";
+ }
+ 
+ // Conducting search based on selected parameters of brand, model and group
+ @RequestMapping(value= {"/home/keywordsearch"}, method=RequestMethod.POST)
+ public ModelAndView keywordSearch(@Valid SampleInputs inputs, BindingResult bindingResult) {
+  ModelAndView model = new ModelAndView();
+  
+  String keyWord = inputs.getName();
+  	productList = productRepository.findByDescriptionLike(keyWord);
+
+	 productQuantityList = new ArrayList<ProductQuantity>();
+	 productQuantityList = getProductQuantityList(productList);
+  model.addObject("message", keyWord);
+  model.addObject("productList", productList);
+  model.addObject("productQuantityList", productQuantityList);
+  model.setViewName("home/list_products");
+  return model;
  }
  
  // Main page for starting different searches for auto parts products
