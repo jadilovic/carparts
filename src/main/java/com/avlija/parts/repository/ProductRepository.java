@@ -22,5 +22,5 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
  // SearchController line 230
  List<Product> findByDescriptionLikeAndProductGroup(String pattern, ProductGroup productGroup);
 
-List<Product> findByDescriptionLike(String keyWord);
+List<Product> findByNameContaining(String keyWord);
 }

@@ -40,7 +40,7 @@ function displayMenuButtons(menuItems){
 			values.push(item.title);
 			return values;
 		}, 
-		["Početno"],
+		["Pretraga po Grupama - Početno"],
 	);
 	
 	categories.push("Prethodno");
@@ -49,7 +49,7 @@ function displayMenuButtons(menuItems){
 	
 	if(ids.length === 0){
 		categoryBtns = categories.map(function(category){
-			if(category === "Početno" || category === "Prethodno"){
+			if(category === "Pretraga po Grupama - Početno" || category === "Prethodno"){
 				return `<div class="card-body">
 				<button type="button" class="btn btn-success btn-block filter-btn" data-id='${category}'>${category}</button>
 				</div>`
@@ -99,7 +99,7 @@ function displayMenuButtons(menuItems){
 				}
 			});
 
-			if(titleName === "Početno"){
+			if(titleName === "Pretraga po Grupama - Početno"){
 				displayMenuButtons(menu);
 				tempMenu = menu;
 			} else if(titleName === "Prethodno"){

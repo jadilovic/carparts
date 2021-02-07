@@ -64,14 +64,22 @@ public class SearchController {
  // Finding quantity for each product in some list
  private static List<ProductQuantity> productQuantityList;
  
-// Search page for starting searches by sifra and group
+// Search page for starting searches by sifra and name
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView search() {
   ModelAndView model = new ModelAndView();
   model.addObject("sampleInputs", new SampleInputs());
-  model.setViewName("home/search");
+  model.setViewName("home/search_keyword");
   return model;
  }
+ 
+//Search page for starting searches by group
+@RequestMapping(value= {"/home/searchgroups"}, method=RequestMethod.GET)
+public ModelAndView searchGroups() {
+ModelAndView model = new ModelAndView();
+model.setViewName("home/search");
+return model;
+}
  
  // Displaying list of products by group
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
@@ -149,8 +157,8 @@ public class SearchController {
   Product product = productRepository.findBySifra(sampleInputs.getSifra());
 
   if(product == null) {
-   model.setViewName("home/search");
-   model.addObject("msg", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
+   model.setViewName("home/search_keyword");
+   model.addObject("err", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
   } else {
 	  List <Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
@@ -177,21 +185,30 @@ public class SearchController {
 	 return "redirect:/home/search";
  }
  
- // Conducting search based on selected parameters of brand, model and group
+ // SEARCH PARTS BY KEYWORD
  @RequestMapping(value= {"/home/keywordsearch"}, method=RequestMethod.POST)
  public ModelAndView keywordSearch(@Valid SampleInputs inputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  
-  String keyWord = inputs.getName();
-  	productList = productRepository.findByDescriptionLike(keyWord);
-
-	 productQuantityList = new ArrayList<ProductQuantity>();
-	 productQuantityList = getProductQuantityList(productList);
-  model.addObject("message", keyWord);
-  model.addObject("productList", productList);
-  model.addObject("productQuantityList", productQuantityList);
-  model.setViewName("home/list_products");
+  	String keyWord = inputs.getName();
+  	productList = productRepository.findByNameContaining(keyWord);
+  	if(productList.isEmpty()) {
+  		model.setViewName("home/search_keyword");
+  		model.addObject("err", "Nisu pronađeni artikli koji sadrže unesenu ključnu riječ. Pokušajte ponovo.");
+  	} else {
+  		 productQuantityList = new ArrayList<ProductQuantity>();
+  		 productQuantityList = getProductQuantityList(productList);
+  		 model.addObject("message", "Lista artikala koji sadrže ključnu riječ: " + keyWord);
+  		 model.addObject("productList", productList);
+  		 model.addObject("productQuantityList", productQuantityList);
+  		 model.setViewName("home/list_products");
+  	}
   return model;
+ }
+ 
+ // After back button is clicked return back beginning of searching products by sifra and keyword
+ @RequestMapping(value= {"home/keywordsearch"}, method=RequestMethod.GET)
+ public String backToSearch() {
+	 return "redirect:/home/search";
  }
  
  // Main page for starting different searches for auto parts products
