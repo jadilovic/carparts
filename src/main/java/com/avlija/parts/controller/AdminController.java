@@ -424,7 +424,7 @@ public class AdminController {
   Brand brandExists = brandRepository.findByName(brand.getName());
   
   if(brandExists != null) {
-   bindingResult.rejectValue("name", "error.brand", "Ova marka automobila već postoji!");
+   bindingResult.rejectValue("name", "error.name", "Ova marka automobila već postoji!");
   }
   if(bindingResult.hasErrors()) {
    model.setViewName("admin/create_brand");
@@ -452,15 +452,12 @@ public class AdminController {
  
  // Creating car model POST
  @RequestMapping(value= {"admin/createcarmodel"}, method=RequestMethod.POST)
- public ModelAndView createCarModel(@Valid CarModel carModel, BindingResult bindingResult) {
+ public ModelAndView createCarModel(@Valid CarModel carModel) {
   ModelAndView model = new ModelAndView();
   CarModel carModelExists = carModelRepository.findByName(carModel.getName());
   
   if(carModelExists != null) {
-   bindingResult.rejectValue("name", "error.carModel", "Ova model automobila već postoji!");
-  }
-  if(bindingResult.hasErrors()) {
-	  System.out.println("There is error");
+	  model.addObject("err", "Ovaj model automobila već postoji!");
   } else {
 	  carModelRepository.save(carModel);
 	   model.addObject("msg", "Novi model automobila je uspješno kreiran!");

@@ -58,5 +58,12 @@
       <div th:include="fragments/footer :: footer"/></div>
  </div>
  
+   <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of creating car brand -->
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
+ 
 </body>
 </html>

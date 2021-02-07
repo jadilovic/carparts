@@ -14,13 +14,21 @@
 <!-- Creating car model in AdminController, lines 415 and 428-->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/createcarmodel}" th:object="${carModel}">
+      
       <div class="row">
-             <div class="col-md-3"></div>
-             <div class="col-md-6">
-              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
-     </div>
-             </div>
+         <div class="col-md-3"></div>
+         <div class="col-md-6">
+              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
          </div>
+      </div>
+      
+      <div class="row">
+         <div class="col-md-3"></div>
+         <div class="col-md-6">
+              <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
+         </div>
+      </div>
+      
          <div class="p-3 row">
              <div class="col-md-3"></div>
                  <h5>Kreiranje Novog Modela Automobila</h5>
@@ -45,6 +53,7 @@
                  </div>
              </div>
          </div>
+         <div class="p-2"></div>
        <table class="table table-striped">
   		<tbody>
     		<tr>
@@ -77,9 +86,16 @@
      </form>
  </div>
  
- <div class="footer">
+ <div class="p-5"></div>
+ 
       <div th:include="fragments/footer :: footer"/></div>
- </div>
+      
+  <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of creating car model -->
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
  
 </body>
 </html>
