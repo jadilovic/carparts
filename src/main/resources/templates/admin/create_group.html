@@ -81,6 +81,14 @@
  
  <!-- JavaScript file where saving and downloading of JSON file takes place for later displaying of product groups-->
   <script type="text/javascript" th:src="@{/js/groups.js}"></script>
+  
+   <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of search -->
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
+  
  
 </body>
 </html>

@@ -1183,7 +1183,7 @@ const menu = [
             },
             {
               	id: 2461,
-              	title: "Ventili",
+              	title: "Ventili za hlađenje motora",
             },
             {
               	id: 2471,
@@ -1538,7 +1538,7 @@ const menu = [
             },
             {
               	id: 3361,
-              	title: "Ventili",
+              	title: "Ventili za usis zraka",
             },
             {
               	id: 3371,
