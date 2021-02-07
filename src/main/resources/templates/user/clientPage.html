@@ -2,12 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Client Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+ 	<title>Client Page</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 
@@ -28,16 +25,16 @@
   		<a th:href="@{/home/homesearch}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Autodijelova</a>
 	</div>
 	<div class="col">
-  		<a th:href="@{/user/alltransactions}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Transakcije: Ulaz / Izlaz</a>
+  		<a th:href="@{/user/alltransactions}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Transakcije: Ulaz / Izlaz</a>
  	</div>
  </div>
  
   <div class="row p-2">
     <div class="col">
-  		<a th:href="@{/user/userposts}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Vaši Objavljeni Oglasi</a>
+  		<a th:href="@{/user/userposts}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Vaši Objavljeni Oglasi</a>
 	</div>
 	<div class="col">
-  		<a th:href="@{/user/searchposts}" class="btn-warning btn-lg btn-block" role="button" aria-pressed="true">Pretraga Svih Oglasa</a>
+  		<a th:href="@{/user/searchposts}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Pretraga Svih Oglasa</a>
  	</div>
  </div> 
  
@@ -46,16 +43,16 @@
   		<a th:href="@{/home/allposts}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Oglasi Svih Klijenata</a>
 	</div>
 	<div class="col">
-  		<a th:href="@{/clientservices}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pregled Usluga za Klijente</a>
+  		<a th:href="@{/clientservices}" class="btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Pregled Usluga za Klijente</a>
  	</div>
  </div> 
  
    <div class="row p-2">
     <div class="col">
-  		<a th:href="@{/user/userrequests}" class="btn-success btn-lg btn-block" role="button" aria-pressed="true">Dostavljeni Zahtjevi</a>
+  		<a th:href="@{/user/userrequests}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Dostavljeni Zahtjevi</a>
 	</div>
 	<div class="col">
-  		<a th:href="@{/user/request}" class="btn-danger btn-lg btn-block" role="button" aria-pressed="true">Zahtjev za Dopunu Baze</a>
+  		<a th:href="@{/user/request}" class="btn-primary btn-lg btn-block" role="button" aria-pressed="true">Zahtjev za Dopunu Baze</a>
  	</div>
  </div> 
   

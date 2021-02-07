@@ -191,7 +191,7 @@ return model;
   ModelAndView model = new ModelAndView();
   	String keyWord = inputs.getName();
   	productList = productRepository.findByNameContaining(keyWord);
-  	if(productList.isEmpty()) {
+  	if(productList.isEmpty() || keyWord.equals("")) {
   		model.setViewName("home/search_keyword");
   		model.addObject("err", "Nisu pronađeni artikli koji sadrže unesenu ključnu riječ. Pokušajte ponovo.");
   	} else {

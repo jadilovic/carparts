@@ -271,6 +271,12 @@ public ModelAndView clientPage() {
      return mav;
  }
  
+ // After back button is clicked return back beginning of searching users
+ @RequestMapping(value= {"admin/searchemail"}, method=RequestMethod.GET)
+ public String backToUsersSearch() {
+	 return "redirect:/admin/searchusers";
+ }
+ 
  // Searching for user by entered user ID by ADMIN
  @RequestMapping(value= {"admin/searchid"}, method=RequestMethod.POST)
  public ModelAndView searchUserById(@Valid SampleInputs sampleInputs) {
@@ -286,6 +292,12 @@ public ModelAndView clientPage() {
      			mav.addObject("msg", "Uneseni ID broj klijenta ne postoji. Pokušajte ponovo.");
      		}
      return mav;
+ }
+ 
+ // After back button is clicked return back beginning of searching users
+ @RequestMapping(value= {"admin/searchid"}, method=RequestMethod.GET)
+ public String backToSearchUsers() {
+	 return "redirect:/admin/searchusers";
  }
  
  // Display of user transactions for certain product, for ADMIN display of all transactions by all users

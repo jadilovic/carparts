@@ -2,19 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Pretraga Korisnika</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
-</head>
+ 	<title>Pretraga Korisnika</title>
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+ </head>
 <body>
 
 <div th:include="fragments/header :: header"/></div>
 <!-- Admin Search of users by email and by user ID, UserController in lines 248 and 257 -->
 <!-- Searching by ID, UserController, line 274  -->
  <div class="container">
+ 
+  	<div class="p-3"></div>
  
        <div class="row">
           <div class="col-md-12">
@@ -29,10 +28,12 @@
 		<form th:action="@{/admin/searchemail}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite E-mail korisnika:</h5></label>
         		<input type="email" th:field="*{email}" placeholder="e-mail" required autofocus/>
-    			<input class="btn btn-primary btn-block" type="submit" value="Traži"/>
+    			<input class="btn btn-lg btn-primary btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
 	</div>
+	
+	<div class="p-3"></div>
 	
 	<div class="card text-center">
   		<div class="card-body">
@@ -41,14 +42,23 @@
 		<form th:action="@{/admin/searchid}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite ID broj:</h5></label>
         		<input type="number" th:field="*{userId}" placeholder="ID broj" required autofocus/>
-    			<input class="btn btn-warning btn-block" type="submit" value="Traži"/>
+    			<input class="btn btn-lg btn-warning btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
 	</div>
 	
+	<div class="p-3"></div>
+	
 	</div>
 	
       <div th:include="fragments/footer :: footer"/></div>
+      
+       <!-- JavaScript to be activated if user clicks browser back button and takes it to the beginning of search -->
+ <script type="text/javascript">
+ 	if ( window.history.replaceState ) {
+	 	 window.history.replaceState( null, null, window.location.href );
+		}
+ </script>
       
 </body>
 </html>
