@@ -26,6 +26,7 @@ public class SampleInputs {
     private String token;
     private String confirmPassword;
     private String name;
+    private String productKeyword;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTimeField;
@@ -266,6 +267,14 @@ public class SampleInputs {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProductKeyword() {
+		return productKeyword;
+	}
+
+	public void setProductKeyword(String productKeyword) {
+		this.productKeyword = productKeyword;
 	}
 	
 	

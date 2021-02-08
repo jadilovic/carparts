@@ -2,19 +2,16 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Lisa proizvoda</title>
+ 	<title>Lisa proizvoda</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
-</head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+ </head>
 <body>
 
 <div th:replace="fragments/header :: header"/></div>
 
-<!-- Displaying list of products / parts for different kind of searches - SearchController lines 76, 93 -->
- <!-- Pagination possibly needed - Also, SearchController lines 230 and 259 -->
+<!-- Displaying list of products / parts for different kind of searches - SearchController lines 84 and 101 -->
+ <!-- Pagination possibly needed - Also, SearchController lines 188, 270 and 299 -->
  <div class="p-2" align="center">
    <h5>Lista proizvoda:</h5>
    <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>  

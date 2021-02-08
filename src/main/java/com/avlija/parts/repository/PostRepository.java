@@ -29,4 +29,10 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 // MarketController line 91
 Page<Post> findByProductSifra(String sifra, Pageable pageable);
 
+// MarketController line 87
+List<Post> findByProductNameContaining(String productKeyword);
+
+// MarketController line 98
+Page<Post> findByProductNameContaining(String productKeyword, Pageable pageable);
+
 }

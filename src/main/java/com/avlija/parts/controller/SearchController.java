@@ -1,13 +1,18 @@
 package com.avlija.parts.controller;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Brand;
 import com.avlija.parts.model.CarModel;
+import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
@@ -82,6 +88,7 @@ return model;
 }
  
  // Displaying list of products by group
+/*
  @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
  public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
 
@@ -97,6 +104,70 @@ return model;
 	 model.setViewName("home/list_products");
 	 return model;
  	}
+ */
+
+// SEARCH PRODUCTS BY GROUP
+@RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
+public String listProductsByGroup(@PathVariable(name = "productGroupId") Long productGroupId) {
+
+	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
+	 productList = productServiceImpl.findProductsByGroup(productGroup);
+	 // productQuantityList = getProductQuantityList(productList);
+	 return "redirect:/user/displayproducts";
+	}
+ 
+ // DISPLAY PRODUCTS
+ @RequestMapping(value= {"/user/displayproducts"}, method=RequestMethod.GET)
+ public ModelAndView displayKeywordPosts(HttpServletRequest request) {
+	 ModelAndView model = new ModelAndView();
+	 if(productList.isEmpty()) {
+		   model.setViewName("home/home_search");
+		   model.addObject("err", "Nisu pronađeni proizvodi. Pokušajte ponovo.");
+	 } else {
+	  	   
+	       int page = 0; //default page number is 0
+	       int size = 10; //default page size is 10
+	       
+	       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+	           page = Integer.parseInt(request.getParameter("page")) - 1;
+	       }
+
+	       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+	           size = Integer.parseInt(request.getParameter("size"));
+	       }
+
+	       	Page <Product> productList = null;
+	   		productList = findPaginated(PageRequest.of(page, size));
+	   
+	   		productQuantityList = getProductQuantityList((List<Product>) productList);
+	   
+		   	model.addObject("message", "Rezultat pretrage auto dijelova");
+		   	model.addObject("productList", productList);
+		   	model.addObject("productList", productQuantityList);
+			 model.setViewName("home/list_products");
+	 	}
+  	   return model;
+ 	}
+ 
+ // CREATING PAGEABLE LIST
+ public Page<Product> findPaginated(Pageable pageable) {
+     int pageSize = pageable.getPageSize();
+     int currentPage = pageable.getPageNumber();
+     int startItem = currentPage * pageSize;
+     List<Product> list;
+
+     if (productList.size() < startItem) {
+         list = Collections.emptyList();
+     } else {
+         int toIndex = Math.min(startItem + pageSize, productList.size());
+         list = productList.subList(startItem, toIndex);
+     }
+
+     Page<Product> productsPage
+       = new PageImpl<Product>(list, PageRequest.of(currentPage, pageSize), productList.size());
+
+     return productsPage;
+ }
 
  // Displaying replacement products for selected product - auto part
 @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)

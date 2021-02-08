@@ -53,6 +53,12 @@ public class MarketController {
 	 @Autowired
 	 private ProductGroupRepository productGroupRepository;
 	 
+	 // Product keyword for searching posts
+	 private static String productKeyword;
+	 
+	 // List of market posts by KeyWord
+	 private static List<Post> postsByKeyword;
+	 
 	 // List of market posts by Sifra
 	 private static List<Post> postsBySifra;
 	 
@@ -78,6 +84,52 @@ public class MarketController {
 		 model.addObject("msg", "Info o objavljenom oglasu");
 		 model.addObject("post", post);
 		 model.setViewName("user/post_info");
+	  	   return model;
+	 }
+	 
+	 // SEARCH POSTS BY KEYWORD
+	 @RequestMapping(value= {"/user/keywordpostsearch"}, method=RequestMethod.POST)
+	 public String searchPostsByKeyword(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
+		 productKeyword = sampleInputs.getProductKeyword();
+		 postsByKeyword = postRepository.findByProductNameContaining(productKeyword);
+		 return "redirect:/user/displaykeywordposts";
+	 }
+	 
+	 // DISPLAY POSTS FOUND BY KEYWORD
+	 @RequestMapping(value= {"/user/displaykeywordposts"}, method=RequestMethod.GET)
+	 public ModelAndView displayKeywordPosts(HttpServletRequest request) {
+		 ModelAndView model = new ModelAndView();
+		 if(postsByKeyword.isEmpty()) {
+			 SampleInputs sampleInputs = new SampleInputs();
+			 model.addObject("sampleInputs", sampleInputs);
+			   model.setViewName("user/search_posts");
+			   model.addObject("msg", "Nije pronađen oglas sa unesenom ključnom riječi. Pokušajte ponovo.");
+		 } else {
+		  	   
+		       int page = 0; //default page number is 0
+		       int size = 10; //default page size is 10
+		       
+		       if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+		           page = Integer.parseInt(request.getParameter("page")) - 1;
+		       }
+
+		       if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+		           size = Integer.parseInt(request.getParameter("size"));
+		       }
+
+		       Page <Post> postsList = null;
+		   		postsList = postRepository.findByProductNameContaining(productKeyword, PageRequest.of(page, size, Sort.by("created").descending()));
+		   	
+		   		String message = null;
+		   		if(postsList == null) {
+		   			message = "Nema objavljenih oglasa";
+		   		}
+		   		
+		   	message = "Rezultat pretrage po ključnoj riječi: '" + productKeyword + "'";
+		   	model.addObject("message", message);
+	  	   model.addObject("postsList", postsList);
+	  	   model.setViewName("user/all_keyword_posts");
+		 }
 	  	   return model;
 	 }
 	 

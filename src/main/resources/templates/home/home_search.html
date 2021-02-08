@@ -23,6 +23,13 @@
      <div>
          <img alt="no image" th:src="@{/images/yapicons.png}" width="80" height="70">
     </div>
+           
+       <div class="row">
+          <div class="col-md-12">
+              <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
+         </div>
+       </div>
+       
    <h5>Odaberite način pretrage</h5>
  </div>
     

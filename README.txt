@@ -18,6 +18,7 @@ list_products.html - paganation needed
 static folder logo photo to add
 
 
+Filter ulja needs to be checked!
 
 
 
