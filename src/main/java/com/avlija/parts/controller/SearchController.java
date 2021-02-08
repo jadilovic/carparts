@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.avlija.parts.form.SampleInputs;
 import com.avlija.parts.model.Brand;
 import com.avlija.parts.model.CarModel;
-import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
@@ -136,14 +134,14 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 	           size = Integer.parseInt(request.getParameter("size"));
 	       }
 
-	       	Page <Product> productList = null;
-	   		productList = findPaginated(PageRequest.of(page, size));
+	       	Page <Product> productListPaginated = null;
+	   		productListPaginated = findPaginated(PageRequest.of(page, size));
 	   
-	   		productQuantityList = getProductQuantityList((List<Product>) productList);
+	   		productQuantityList = getProductQuantityList(productList);
 	   
 		   	model.addObject("message", "Rezultat pretrage auto dijelova");
-		   	model.addObject("productList", productList);
-		   	model.addObject("productList", productQuantityList);
+		   	model.addObject("productList", productListPaginated);
+		   	model.addObject("productQuantityList", productQuantityList);
 			 model.setViewName("home/list_products");
 	 	}
   	   return model;
