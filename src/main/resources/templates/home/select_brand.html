@@ -2,12 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Pretraga po marki i modelu automobila</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+ 	<title>Pretraga po marki i modelu automobila</title>
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
@@ -20,7 +17,7 @@
       <div class="row">
              <div class="col-md-3"></div>
              <div class="col-md-6">
-              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+              <div class="alert alert-danger" role="alert" th:if="${message2}" th:utext="${message2}">
      </div>
              </div>
          </div>

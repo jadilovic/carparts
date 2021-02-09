@@ -68,60 +68,48 @@ public class SearchController {
  // Finding quantity for each product in some list
  private static List<ProductQuantity> productQuantityList;
  
+ // Message in serching replacement parts
+ private static String message2;
+ 
 // Search page for starting searches by sifra and name
  @RequestMapping(value= {"/home/search"}, method=RequestMethod.GET)
  public ModelAndView search() {
-  ModelAndView model = new ModelAndView();
-  model.addObject("sampleInputs", new SampleInputs());
-  model.setViewName("home/search_keyword");
-  return model;
- }
+	 ModelAndView model = new ModelAndView();
+	 model.addObject("sampleInputs", new SampleInputs());
+	 model.addObject("message2", message2);
+	 message2 = null;
+	 model.setViewName("home/search_keyword");
+	 return model;
+ 	}
  
 //Search page for starting searches by group
 @RequestMapping(value= {"/home/searchgroups"}, method=RequestMethod.GET)
 public ModelAndView searchGroups() {
-ModelAndView model = new ModelAndView();
-model.setViewName("home/search");
-return model;
-}
- 
- // Displaying list of products by group
-/*
- @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
- public ModelAndView listProducts(@PathVariable(name = "productGroupId") Long productGroupId) {
-
-	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
-	 List<Product> productList = productServiceImpl.findProductsByGroup(productGroup);
-	 List<ProductQuantity> productQuantitiyList = new ArrayList<ProductQuantity>();
-	 productQuantitiyList = getProductQuantityList(productList);
-	 
-	 ModelAndView model = new ModelAndView();
-	 model.addObject("productQuantityList", productQuantitiyList);
-	 model.addObject("message", productGroup.getName());
-	 model.addObject("productList", productList);
-	 model.setViewName("home/list_products");
-	 return model;
- 	}
- */
+	ModelAndView model = new ModelAndView();
+	model.addObject("message2", message2);
+	message2 = null;
+	model.setViewName("home/search");
+	return model;
+	}
 
 // SEARCH PRODUCTS BY GROUP
 @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
 public String listProductsByGroup(@PathVariable(name = "productGroupId") Long productGroupId) {
-
 	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
 	 productList = productServiceImpl.findProductsByGroup(productGroup);
-	 // productQuantityList = getProductQuantityList(productList);
-	 return "redirect:/user/displayproducts";
+	 if(productList.isEmpty()) {
+		 message2 = "Nisu pronađeni artikli u grupi " + productGroup.getName();
+		 return "redirect:/home/searchgroups";
+	 } else {
+		 message2 = "Pronađeni artikli u grupi: " + productGroup.getName();
+		 return "redirect:/user/displayproducts";
+	 }
 	}
  
  // DISPLAY PRODUCTS
  @RequestMapping(value= {"/user/displayproducts"}, method=RequestMethod.GET)
- public ModelAndView displayKeywordPosts(HttpServletRequest request) {
+ public ModelAndView displayProducts(HttpServletRequest request) {
 	 ModelAndView model = new ModelAndView();
-	 if(productList.isEmpty()) {
-		   model.setViewName("home/home_search");
-		   model.addObject("err", "Nisu pronađeni proizvodi. Pokušajte ponovo.");
-	 } else {
 	  	   
 	       int page = 0; //default page number is 0
 	       int size = 10; //default page size is 10
@@ -139,12 +127,13 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 	   
 	   		productQuantityList = getProductQuantityList(productList);
 	   
-		   	model.addObject("message", "Rezultat pretrage auto dijelova");
+		   	model.addObject("message", "Rezultat pretrage autodijelova");
+		   	model.addObject("message2", message2);
+		   	message2 = null;
 		   	model.addObject("productList", productListPaginated);
 		   	model.addObject("productQuantityList", productQuantityList);
-			 model.setViewName("home/list_products");
-	 	}
-  	   return model;
+			model.setViewName("home/list_products");
+		return model;
  	}
  
  // CREATING PAGEABLE LIST
@@ -169,24 +158,15 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 
  // Displaying replacement products for selected product - auto part
 @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
- public ModelAndView listReplaceProducts(@PathVariable(name = "id") Long id) {
+ public String listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
-	 List <Product> productList = product.getProducts();
-	 String message2 = null;
-	 if(productList.size() == 0) {
-		 message2 = "Nema zamjenskog dijela";
-	 } else {
+	 productList = product.getProducts();
+	 if(productList.size() > 0) {
 		 message2 = "Zamjenski dijelovi za šifru " + product.getSifra();
+	 } else {
+		 message2 = "Nisu pronađeni zamjenski dijelovi za šifru " + product.getSifra();
 	 }
-	 List <ProductQuantity> productQuantityList = new ArrayList<ProductQuantity>();
-	 productQuantityList = getProductQuantityList(productList);
-  ModelAndView model = new ModelAndView();
-  model.addObject("message", product.getProductGroup().getName());
-  model.addObject("message2", message2);
-  model.addObject("productQuantityList", productQuantityList);
-  model.addObject("productList", productList);
-  model.setViewName("home/list_products");
-  return model;
+  return "redirect:/user/displayproducts";
  }
  
 // Displaying selected product profile by ID
@@ -226,8 +206,10 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
   Product product = productRepository.findBySifra(sampleInputs.getSifra());
 
   if(product == null) {
+   message2 = "Nije pronađen artikl sa unesenom šifrom: " + sampleInputs.getSifra() + ". Pokušajte ponovo.";
+   model.addObject("message2", message2);
+   message2 = null;
    model.setViewName("home/search_keyword");
-   model.addObject("err", "Nije pronađen artikl sa unesenom šifrom. Pokušajte ponovo.");
   } else {
 	  List <Product> replaceProducts = product.getProducts();
 	  User user = getCurrentUser();
@@ -256,22 +238,16 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
  
  // SEARCH PARTS BY KEYWORD
  @RequestMapping(value= {"/home/keywordsearch"}, method=RequestMethod.POST)
- public ModelAndView keywordSearch(@Valid SampleInputs inputs, BindingResult bindingResult) {
-  ModelAndView model = new ModelAndView();
+ public String keywordSearch(@Valid SampleInputs inputs, BindingResult bindingResult) {
   	String keyWord = inputs.getName();
   	productList = productRepository.findByNameContaining(keyWord);
   	if(productList.isEmpty() || keyWord.equals("")) {
-  		model.setViewName("home/search_keyword");
-  		model.addObject("err", "Nisu pronađeni artikli koji sadrže unesenu ključnu riječ. Pokušajte ponovo.");
+  		message2 = "Nisu pronađeni artikli koji sadrže unesenu ključnu riječ: " + keyWord + ". Pokušajte ponovo.";
+  		return "redirect:/home/search";
   	} else {
-  		 productQuantityList = new ArrayList<ProductQuantity>();
-  		 productQuantityList = getProductQuantityList(productList);
-  		 model.addObject("message", "Lista artikala koji sadrže ključnu riječ: " + keyWord);
-  		 model.addObject("productList", productList);
-  		 model.addObject("productQuantityList", productQuantityList);
-  		 model.setViewName("home/list_products");
+  		message2 = "Pronađeni artikli koji sadrže ključnu riječ: " + keyWord;
+  		return "redirect:/user/displayproducts";
   	}
-  return model;
  }
  
  // After back button is clicked return back beginning of searching products by sifra and keyword
@@ -296,6 +272,8 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
   model.addObject("brands", brands);
   CarModel carModel = new CarModel();
   model.addObject("carModel", carModel);
+  model.addObject("message2", message2);
+  message2 = null;
   model.setViewName("home/select_brand");
   return model;
  }
@@ -338,8 +316,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
  
  // Conducting search based on selected parameters of brand, model and group
  @RequestMapping(value= {"/home/modelsearch4"}, method=RequestMethod.POST)
- public ModelAndView modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
-  ModelAndView model = new ModelAndView();
+ public String modelSearch4(@Valid SampleInputs inputs, BindingResult bindingResult) {
   
   // System.out.println("GROUP NAME " + inputs.getId());
   ProductGroup group = productGroupRepository.findById(inputs.getId()).get();
@@ -351,18 +328,21 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
   String carModel = inputs.getModelName();
   
   String pattern = "%" + carBrand + "%" + carModel + "%";
-  	productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
-  	// System.out.println("id group ID GRupe: " + group.getId());
+  	
+  // System.out.println("id group ID GRupe: " + group.getId());
   	if(checkOils(group.getId())) {
   		productList = productRepository.findByProductGroup(group);
+  	} else {
+  	  	productList = productRepository.findByDescriptionLikeAndProductGroup(pattern, group);
   	}
-	 productQuantityList = new ArrayList<ProductQuantity>();
-	 productQuantityList = getProductQuantityList(productList);
-  model.addObject("message", group.getName());
-  model.addObject("productList", productList);
-  model.addObject("productQuantityList", productQuantityList);
-  model.setViewName("home/list_products");
-  return model;
+  	
+	 if(productList.isEmpty()) {
+		 message2 = "Nisu pronađeni artikli u grupi za traženu marku i modela automobila";
+		 return "redirect:/home/modelsearch";
+	 } else {
+		 message2 = "Pronađeni artikli za traženu grupu, marku i model automobila";
+		 return "redirect:/user/displayproducts";
+	 }
  }
  
  // If browser back button is clicked display last list of product from the last search results

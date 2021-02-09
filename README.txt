@@ -13,12 +13,7 @@ Tanjur opruga prednji/stražnji
 
 
 
-list_products.html - paganation needed
 3 kinds of password validation
-static folder logo photo to add
-
-
-Filter ulja needs to be checked!
 
 
 

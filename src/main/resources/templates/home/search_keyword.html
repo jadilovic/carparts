@@ -18,7 +18,7 @@
  
        <div class="row">
           <div class="col-md-12">
-              <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
+              <div class="alert alert-danger" role="alert" th:if="${message2}" th:utext="${message2}"></div>
          </div>
        </div>
 	
@@ -28,7 +28,7 @@
     		
 		<form th:action="@{/home/productprofile}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite šifru:</h5></label>
-        		<input type="text" th:field="*{sifra}" placeholder="sifra" />
+        		<input type="text" th:field="*{sifra}" placeholder="sifra" required autofocus/>
     			<input class="btn btn-lg btn-warning btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
@@ -42,7 +42,7 @@
     		
 		<form th:action="@{/home/keywordsearch}" th:object="${sampleInputs}" method="post">
         		<label><h5>Unesite naziv:</h5></label>
-        		<input type="text" th:field="*{name}" placeholder="ključna riječ" />
+        		<input type="text" th:field="*{name}" placeholder="ključna riječ" required autofocus/>
     			<input class="btn btn-lg btn-info btn-block" type="submit" value="Traži"/>
 			</form>
   		</div>
