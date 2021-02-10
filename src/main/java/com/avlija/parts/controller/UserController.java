@@ -59,6 +59,8 @@ public class UserController {
  @Autowired
  private LoginsRepository loginsRepository;
  
+ private static int userId;
+ 
  // Starting page of the application
  @RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
  public ModelAndView login() {
@@ -88,18 +90,20 @@ public class UserController {
   User userExists = userService.findUserByEmail(user.getEmail());
   
   if(userExists != null) {
-   bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
-  } if(bindingResult.hasErrors()) {
-   model.setViewName("user/guest_signup");
-  } else {
+	  	bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
+	  	model.setViewName("user/guest_signup");
+  } else if(!user.getPassword().matches("[a-zA-Z0-9]*") || user.getPassword().length() < 8 || user.getPassword().length() > 14) {
+		model.addObject("error", "Oops! Lozinka mora da sadrži slova i brojeve, i ne smije biti kraća od 8 karaktera i duža od 14 karaktera.");
+		model.setViewName("user/guest_signup");	
+	} else {
 	  Date date = new Date();
 	  user.setCreated(date);
-   userService.saveUser(user);
+	  userService.saveUser(user);
    
-   model.addObject("msg", "Gost korisnički profil je uspješno kreiran. Možete se prijaviti kao gost! --- Ako želite otvoriti 'Klijent' profil pošaljite poruku sa tekstom 'Želim otvoriti YAP Database klijent račun' na e-mail adresu: yap.webapp@gmail.com");
-   model.addObject("user", new User());
-   model.setViewName("user/login");
-  }
+	  model.addObject("msg", "Gost korisnički profil je uspješno kreiran. \nMožete se prijaviti kao gost! \nAko želite otvoriti 'Klijent' profil pošaljite poruku sa tekstom:\n 'Želim otvoriti YAP Database klijent račun' na e-mail adresu:\n j.adilovic@gmail.com");
+	  model.addObject("user", new User());
+	  model.setViewName("user/login");
+	}
   return model;
  }
  
@@ -391,6 +395,7 @@ public ModelAndView clientPage() {
   ModelAndView model = new ModelAndView();
   
   User changedUser = userRepository.findByEmail(user.getEmail());
+  userId = changedUser.getId();
   changedUser.setFirstname(user.getFirstname());
   changedUser.setLastname(user.getLastname());
   changedUser.setRole(user.getRole());
@@ -412,6 +417,12 @@ public ModelAndView clientPage() {
 	  model.setViewName("user/profile_page");
   return model;
  }
+ 
+//After back button is clicked return back to user profile
+@RequestMapping(value= {"admin/editprofile"}, method=RequestMethod.GET)
+public String backToUserProfile() {
+	 return "redirect:/admin/editprofile/" + userId;
+}
  
  // Display of currently logged users for ADMIN only
  @RequestMapping(value= {"/admin/loggedUsers"}, method=RequestMethod.GET)

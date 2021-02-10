@@ -102,12 +102,12 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 		 return "redirect:/home/searchgroups";
 	 } else {
 		 message2 = "Pronađeni artikli u grupi: " + productGroup.getName();
-		 return "redirect:/user/displayproducts";
+		 return "redirect:/home/displayproducts";
 	 }
 	}
  
  // DISPLAY PRODUCTS
- @RequestMapping(value= {"/user/displayproducts"}, method=RequestMethod.GET)
+ @RequestMapping(value= {"/home/displayproducts"}, method=RequestMethod.GET)
  public ModelAndView displayProducts(HttpServletRequest request) {
 	 ModelAndView model = new ModelAndView();
 	  	   
@@ -166,7 +166,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 	 } else {
 		 message2 = "Nisu pronađeni zamjenski dijelovi za šifru " + product.getSifra();
 	 }
-  return "redirect:/user/displayproducts";
+  return "redirect:/home/displayproducts";
  }
  
 // Displaying selected product profile by ID
@@ -246,7 +246,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
   		return "redirect:/home/search";
   	} else {
   		message2 = "Pronađeni artikli koji sadrže ključnu riječ: " + keyWord;
-  		return "redirect:/user/displayproducts";
+  		return "redirect:/home/displayproducts";
   	}
  }
  
@@ -341,7 +341,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 		 return "redirect:/home/modelsearch";
 	 } else {
 		 message2 = "Pronađeni artikli za traženu grupu, marku i model automobila";
-		 return "redirect:/user/displayproducts";
+		 return "redirect:/home/displayproducts";
 	 }
  }
  
