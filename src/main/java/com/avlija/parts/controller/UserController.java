@@ -100,7 +100,7 @@ public class UserController {
 	  user.setCreated(date);
 	  userService.saveUser(user);
    
-	  model.addObject("msg", "Gost korisnički profil je uspješno kreiran. \nMožete se prijaviti kao gost! \nAko želite otvoriti 'Klijent' profil pošaljite poruku sa tekstom:\n 'Želim otvoriti YAP Database klijent račun' na e-mail adresu:\n j.adilovic@gmail.com");
+	  model.addObject("msg", "Gost korisnički profil je uspješno kreiran. \nMožete se prijaviti kao gost!");
 	  model.addObject("user", new User());
 	  model.setViewName("user/login");
 	}
