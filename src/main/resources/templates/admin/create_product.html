@@ -57,7 +57,47 @@
                  </div>
              </div>
           </div>
-       <table class="table table-striped">
+          
+        <!-- GROUP -->
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="productGroup">Odaberi kategoriju auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                    		<select th:field="*{productGroup}">
+              					<option th:each="group : ${productGroupList}"
+              							th:value="${group.id}"
+              							th:utext="${group.name}"/>
+							</select>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
+         <!-- MAKER -->
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="productMaker">Odaberi proizvođača auto dijela:</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-suitcase"></i></div>
+                    		<select th:field="*{productMaker}">
+              					<option th:each="maker : ${productMakerList}"
+              							th:value="${maker.id}"
+              							th:utext="${maker.name}"/>
+							</select>
+                     </div>
+                 </div>
+             </div>
+         </div>
+          
+          <!-- 
+                 <table class="table table-striped">
   		<tbody>
     		<tr>
       			<th scope="row"><label for="productGroup">Odaberi kategoriju auto dijela:</label></th>
@@ -81,6 +121,8 @@
     		</tr>
     	</tbody>
     	</table>
+           -->
+
     	<div class="row">
              <div class="col-md-3 field-label-responsive">
                  <label for="description">Opis auto dijela:</label>

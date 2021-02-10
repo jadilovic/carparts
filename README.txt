@@ -13,11 +13,6 @@ Tanjur opruga prednji/stražnji
 
 
 
-3 kinds of password validation
-
-
-
-
 
 categories: [{
         				id: 1251,
