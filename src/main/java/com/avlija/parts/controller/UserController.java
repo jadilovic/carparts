@@ -126,12 +126,13 @@ public class UserController {
   ModelAndView model = new ModelAndView();
   User userExists = userService.findUserByEmail(user.getEmail());
   
-  if(userExists != null) {
-   bindingResult.rejectValue("email", "error.user", "This email already exists!");
-  }
-  if(bindingResult.hasErrors()) {
-   model.setViewName("admin/signup");
-  } else {
+  	if(userExists != null) {
+  		bindingResult.rejectValue("email", "error.user", "Ovaj email već postoji!");
+  		model.setViewName("user/guest_signup");
+  	} else if(!user.getPassword().matches("[a-zA-Z0-9]*") || user.getPassword().length() < 8 || user.getPassword().length() > 14) {
+		model.addObject("error", "Oops! Lozinka mora da sadrži slova i brojeve, i ne smije biti kraća od 8 karaktera i duža od 14 karaktera.");
+		model.setViewName("user/guest_signup");	
+	} else {
 	  Date date = new Date();
 	  user.setCreated(date);
    userService.saveUser(user);
