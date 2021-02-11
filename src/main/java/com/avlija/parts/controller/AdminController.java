@@ -83,7 +83,7 @@ public class AdminController {
   return model;
  }
  
- // Creating product group and downloading and saving JSON file for display of groups in JavaScript
+ // CREATING PRODUCT GROUP AND DOWNLOADING AND SAVING JSON FILE FOR DISPLAY OF GROUPS IN JAVASCRIPT
  @RequestMapping(value= {"admin/creategroup"}, method=RequestMethod.POST)
  public ModelAndView createGroup(@Valid ProductGroup productGroup, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
