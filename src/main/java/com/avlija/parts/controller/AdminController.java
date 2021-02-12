@@ -308,7 +308,7 @@ public class AdminController {
 			ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
   			model.addObject("sampleInputs", sampleInputs);
   			model.addObject("productQuantity", productQuantity);
-  			model.addObject("msg", "Transakcija proizvoda na stanju!");
+  			model.addObject("msg", "Dodaj ili oduzmi količinu proizvoda na stanju.");
   			model.setViewName("admin/product_add_remove");
   		}
 	model.addObject("product", savedProduct);

@@ -10,7 +10,7 @@
 
 <div th:replace="fragments/header :: header"/></div>
 
-//<!-- Adding or subtracting available product quantity - in AdminController, lines 269, 293 and 341 -->
+<!-- Adding or subtracting available product quantity - in AdminController, lines 269, 293 and 341 -->
  <div class="container">
  
        <div class="row">
@@ -21,12 +21,13 @@
        </div>
  
   <table th:object="${product}" class="table table-striped">
+  <!--  
   <thead>
     <tr>
-      <th scope="col"></th>
       <th scope="col">Dodaj ili oduzmi proizvodu u bazi</th>
     </tr>
   </thead>
+  -->
   <tbody>
     <tr>
       <th scope="row">Šifra:</th>
