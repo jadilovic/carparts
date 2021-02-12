@@ -295,23 +295,23 @@ public class AdminController {
  @RequestMapping(value= {"/user/addremove/{id}"}, method=RequestMethod.GET)
  public ModelAndView productProfile(@PathVariable(name = "id") Long id) {
   ModelAndView model = new ModelAndView();
-  Product product = productRepository.findById(id).get();
+  savedProduct = productRepository.findById(id).get();
   User user = getCurrentUser();
   String msg = null;
   
-  if(product == null) {
+  if(savedProduct == null) {
 	  msg = "Nije pronađen proizvod sa zadanim ID brojem";
 	  model.addObject("msg", msg);
   		} else {
   			SampleInputs sampleInputs = new SampleInputs();
   			sampleInputs.setId(id);
-			ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+			ProductQuantity productQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
   			model.addObject("sampleInputs", sampleInputs);
   			model.addObject("productQuantity", productQuantity);
   			model.addObject("msg", "Transakcija proizvoda na stanju!");
   			model.setViewName("admin/product_add_remove");
   		}
-	model.addObject("product", product);
+	model.addObject("product", savedProduct);
   return model;
  }
  
@@ -319,15 +319,15 @@ public class AdminController {
  @RequestMapping(value= {"/user/add"}, method=RequestMethod.POST)
  public ModelAndView addProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  Product product = productRepository.findById(sampleInputs.getId()).get();
+  savedProduct = productRepository.findById(sampleInputs.getId()).get();
   	User user = getCurrentUser();
-	  ProductQuantity oldProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  ProductQuantity oldProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
 
   if(sampleInputs.getQuantity() == null) {
 		SampleInputs inputs = new SampleInputs();
-		inputs.setId(product.getId());
+		inputs.setId(savedProduct.getId());
 		model.addObject("sampleInputs", inputs);
-		model.addObject("product", product);
+		model.addObject("product", savedProduct);
 		  model.addObject("productQuantity", oldProductQuantity);
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
@@ -336,50 +336,57 @@ public class AdminController {
   	  try {
   	  		oldQuantity = oldProductQuantity.getQuantity();
   	  } catch(Exception e) {
-  	  	  		UserProduct userProduct = new UserProduct(user.getId(), product.getId());
+  	  	  		UserProduct userProduct = new UserProduct(user.getId(), savedProduct.getId());
   	  			ProductQuantity productQuantity = new ProductQuantity(userProduct, 0);
   	  			productQuantityRepository.save(productQuantity);
   	  			oldQuantity = 0;
   	  			}
 	  	int newQuantiy = oldQuantity + sampleInputs.getQuantity();
-	  	ProductQuantity newProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  	ProductQuantity newProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
 	  	newProductQuantity.setQuantity(newQuantiy);
 	  	productQuantityRepository.save(newProductQuantity);
 	  	
-	  	double total = sampleInputs.getQuantity() * product.getPrice();
+	  	double total = sampleInputs.getQuantity() * savedProduct.getPrice();
 	  	String transType = "ULAZ";
-	  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
+	  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, savedProduct, user);
 	  	transactionRepository.save(transaction);
 	  	
-		  List <Product> replaceProducts = product.getProducts();
-		  newProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+		  List <Product> replaceProducts = savedProduct.getProducts();
+		  newProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
 
 		  model.addObject("replaceProducts", replaceProducts);
 		  model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
-		  model.addObject("product", product);
+		  model.addObject("product", savedProduct);
 		  model.addObject("productQuantity", newProductQuantity);
 		  model.setViewName("home/product_profile");
   	}
   return model;
  }
  
+ // After back button is clicked return back product profile add and remove
+ @RequestMapping(value= {"user/add"}, method=RequestMethod.GET)
+ public String backToAddRemove() {
+	 Long productId = savedProduct.getId();
+	 return "redirect:/user/addremove/" + productId;
+ }
+ 
  // Subtracting product quantity
  @RequestMapping(value= {"/user/remove"}, method=RequestMethod.POST)
  public ModelAndView removeProduct(@Valid SampleInputs sampleInputs, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
-  Product product = productRepository.findById(sampleInputs.getId()).get();
+  savedProduct = productRepository.findById(sampleInputs.getId()).get();
 	User user = getCurrentUser();
-	  ProductQuantity oldProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), product.getId())).get();
+	  ProductQuantity oldProductQuantity = productQuantityRepository.findById(new UserProduct(user.getId(), savedProduct.getId())).get();
 
   if(sampleInputs.getQuantity() == null) {
 		SampleInputs inputs = new SampleInputs();
-		inputs.setId(product.getId());
+		inputs.setId(savedProduct.getId());
 		model.addObject("sampleInputs", inputs);
 		  model.addObject("productQuantity", oldProductQuantity);
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
   	}  else if(oldProductQuantity.getQuantity() <= 0 || oldProductQuantity.getQuantity() - sampleInputs.getQuantity() < 0){
-  			List <Product> replaceProducts = product.getProducts();
+  			List <Product> replaceProducts = savedProduct.getProducts();
   			model.addObject("replaceProducts", replaceProducts);
   				model.addObject("productQuantity", oldProductQuantity);
   			model.addObject("msg", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
@@ -390,20 +397,27 @@ public class AdminController {
   			oldProductQuantity.setQuantity(newQuantiy);
   		  	productQuantityRepository.save(oldProductQuantity);
   			
-  		  	double total = sampleInputs.getQuantity() * product.getPrice();
+  		  	double total = sampleInputs.getQuantity() * savedProduct.getPrice();
   		  	String transType = "IZLAZ";
-  		  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, product, user);
+  		  	Transaction transaction = new Transaction(new Date(), sampleInputs.getQuantity(), total, transType, savedProduct, user);
   		  	transactionRepository.save(transaction);
   	
-  			List <Product> replaceProducts = product.getProducts();
+  			List <Product> replaceProducts = savedProduct.getProducts();
   			
   		  model.addObject("productQuantity", oldProductQuantity);
   		  model.addObject("replaceProducts", replaceProducts);
   			model.addObject("msg", "Pregled profila nakon dodavanja ili oduzimanja određene količine artikla!");
   			model.setViewName("home/product_profile");
   		}
-	model.addObject("product", product);
+	model.addObject("product", savedProduct);
   	return model;
+ }
+ 
+ // After back button is clicked return back product profile add and remove
+ @RequestMapping(value= {"user/remove"}, method=RequestMethod.GET)
+ public String backToRemoveAdd() {
+	 Long productId = savedProduct.getId();
+	 return "redirect:/user/addremove/" + productId;
  }
  
  // Creating car brand
