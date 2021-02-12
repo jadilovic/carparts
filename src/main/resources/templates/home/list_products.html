@@ -12,11 +12,14 @@
 
 <!-- Displaying list of products / parts for different kind of searches - SearchController lines 84 and 101 -->
  <!-- Pagination possibly needed - Also, SearchController lines 188, 270 and 299 -->
- <div class="p-2" align="center">
-   <p><b th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></b></p>  
-    <p><b th:if="${message2}" th:text="${message2}" th:class="${'alert ' + alertClass}"></b></p>   
- </div>
-
+ <div class="p-2"></div>
+       <div class="row">
+         <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <div class="alert alert-success" role="alert" th:if="${message}" th:utext="${message}"></div>
+              <div class="alert alert-danger" role="alert" th:if="${message2}" th:utext="${message2}"></div>
+         </div>
+       </div>
 
   <div class="container table-responsive" align="center">
 

@@ -69,6 +69,7 @@ public class SearchController {
  private static List<ProductQuantity> productQuantityList;
  
  // Message in serching replacement parts
+ private static String message;
  private static String message2;
  
 // Search page for starting searches by sifra and name
@@ -101,7 +102,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 		 message2 = "Nisu pronađeni artikli u grupi " + productGroup.getName();
 		 return "redirect:/home/searchgroups";
 	 } else {
-		 message2 = "Pronađeni artikli u grupi: " + productGroup.getName();
+		 message = "Pronađeni artikli u grupi: " + productGroup.getName();
 		 return "redirect:/home/displayproducts";
 	 }
 	}
@@ -127,8 +128,9 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 	   
 	   		productQuantityList = getProductQuantityList(productList);
 	   
-		   	model.addObject("message", "Rezultat pretrage autodijelova");
+		   	model.addObject("message", message);
 		   	model.addObject("message2", message2);
+		   	message = null;
 		   	message2 = null;
 		   	model.addObject("productList", productListPaginated);
 		   	model.addObject("productQuantityList", productQuantityList);
@@ -160,9 +162,9 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 @RequestMapping(value= {"/home/listreplaceproducts/{id}"}, method=RequestMethod.GET)
  public String listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
-	 productList = product.getProducts();
-	 if(productList.size() > 0) {
-		 message2 = "Zamjenski dijelovi za šifru " + product.getSifra();
+	 if(product.getProducts().size() > 0) {
+		 productList = product.getProducts();
+		 message = "Zamjenski dijelovi za šifru " + product.getSifra();
 	 } else {
 		 message2 = "Nisu pronađeni zamjenski dijelovi za šifru " + product.getSifra();
 	 }
@@ -245,7 +247,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
   		message2 = "Nisu pronađeni artikli koji sadrže unesenu ključnu riječ: " + keyWord + ". Pokušajte ponovo.";
   		return "redirect:/home/search";
   	} else {
-  		message2 = "Pronađeni artikli koji sadrže ključnu riječ: " + keyWord;
+  		message = "Pronađeni artikli koji sadrže ključnu riječ: " + keyWord;
   		return "redirect:/home/displayproducts";
   	}
  }
@@ -340,7 +342,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 		 message2 = "Nisu pronađeni artikli u grupi za traženu marku i modela automobila";
 		 return "redirect:/home/modelsearch";
 	 } else {
-		 message2 = "Pronađeni artikli za traženu grupu, marku i model automobila";
+		 message = "Pronađeni artikli za traženu grupu, marku i model automobila";
 		 return "redirect:/home/displayproducts";
 	 }
  }
