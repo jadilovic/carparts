@@ -13,6 +13,8 @@
 <!-- Adding or subtracting available product quantity - in AdminController, lines 269, 293 and 341 -->
  <div class="container">
  
+ <div class="p-2"></div>
+ 
        <div class="row">
          <div class="col-md-3"></div>
           <div class="col-md-6">
@@ -45,7 +47,10 @@
 </table>
     
  <table class="table table-striped">
-  <thead>
+     <tr>
+    	<th scope="row"></th>
+    	<td></td>
+    </tr>
     <tr>
       <th scope="row">Količinu dodati:</th>
       <td>
@@ -57,6 +62,10 @@
 	  </td>
     </tr>
     <tr>
+    	<th scope="row"></th>
+    	<td></td>
+    </tr>
+    <tr>
       <th scope="row">Količinu oduzeti:</th>
       	<td>
          	<form th:action="@{/user/remove}" th:object="${sampleInputs}" method="post">
@@ -65,6 +74,10 @@
     			<input class="btn btn-lg btn-danger" type="submit" value="Oduzmi"/>
 			</form>
 	  	</td>
+    </tr>
+    <tr>
+    	<th scope="row"></th>
+    	<td></td>
     </tr>
   </tbody>
 </table>
