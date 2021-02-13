@@ -367,7 +367,7 @@ public class AdminController {
  @RequestMapping(value= {"user/add"}, method=RequestMethod.GET)
  public String backToAddRemove() {
 	 Long productId = savedProduct.getId();
-	 return "redirect:/user/addremove/" + productId;
+	 return "redirect:/home/productprofile/" + productId;
  }
  
  // Subtracting product quantity
@@ -417,7 +417,7 @@ public class AdminController {
  @RequestMapping(value= {"user/remove"}, method=RequestMethod.GET)
  public String backToRemoveAdd() {
 	 Long productId = savedProduct.getId();
-	 return "redirect:/user/addremove/" + productId;
+	 return "redirect:/home/productprofile/" + productId;
  }
  
  // Creating car brand
