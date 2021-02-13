@@ -328,7 +328,7 @@ public class AdminController {
 		inputs.setId(savedProduct.getId());
 		model.addObject("sampleInputs", inputs);
 		model.addObject("product", savedProduct);
-		  model.addObject("productQuantity", oldProductQuantity);
+		model.addObject("productQuantity", oldProductQuantity);
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
   	} else {
@@ -386,11 +386,14 @@ public class AdminController {
 		model.addObject("msg", "Molim vas unesite količinu artikla u odgovarajuće polje!");
 		model.setViewName("admin/product_add_remove");
   	}  else if(oldProductQuantity.getQuantity() <= 0 || oldProductQuantity.getQuantity() - sampleInputs.getQuantity() < 0){
+  			SampleInputs inputs = new SampleInputs();
+  			inputs.setId(savedProduct.getId());
+  			model.addObject("sampleInputs", inputs);
   			List <Product> replaceProducts = savedProduct.getProducts();
   			model.addObject("replaceProducts", replaceProducts);
-  				model.addObject("productQuantity", oldProductQuantity);
-  			model.addObject("msg", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
-  			model.setViewName("home/product_profile");
+  			model.addObject("productQuantity", oldProductQuantity);
+  			model.addObject("err", "Nema proizvoda na stanju ili količina na stanju nije dovoljna za transakciju!");
+  			model.setViewName("admin/product_add_remove");
   		} else {
   			int oldQuantity = oldProductQuantity.getQuantity();
   			int newQuantiy = oldQuantity - sampleInputs.getQuantity();
