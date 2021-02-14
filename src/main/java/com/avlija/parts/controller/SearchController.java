@@ -64,6 +64,7 @@ public class SearchController {
  
  // Finding list of auto parts
  private static List<Product> productList;
+ private static List<Product> replaceProductList;
  
  // Finding quantity for each product in some list
  private static List<ProductQuantity> productQuantityList;
@@ -144,16 +145,24 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
      int currentPage = pageable.getPageNumber();
      int startItem = currentPage * pageSize;
      List<Product> list;
+     
+     List<Product> currentProductList;
+     if(replaceProductList == null) {
+    	 currentProductList = productList;
+     } else {
+    	 currentProductList = replaceProductList;
+    	 replaceProductList = null;
+     }
 
-     if (productList.size() < startItem) {
+     if (currentProductList.size() < startItem) {
          list = Collections.emptyList();
      } else {
-         int toIndex = Math.min(startItem + pageSize, productList.size());
-         list = productList.subList(startItem, toIndex);
+         int toIndex = Math.min(startItem + pageSize, currentProductList.size());
+         list = currentProductList.subList(startItem, toIndex);
      }
 
      Page<Product> productsPage
-       = new PageImpl<Product>(list, PageRequest.of(currentPage, pageSize), productList.size());
+       = new PageImpl<Product>(list, PageRequest.of(currentPage, pageSize), currentProductList.size());
 
      return productsPage;
  }
@@ -163,9 +172,10 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
  public String listReplaceProducts(@PathVariable(name = "id") Long id) {
 	 Product product = productRepository.findById(id).get();
 	 if(product.getProducts().size() > 0) {
-		 productList = product.getProducts();
+		 replaceProductList = product.getProducts();
 		 message = "Zamjenski dijelovi za šifru " + product.getSifra();
 	 } else {
+		 replaceProductList = null;
 		 message2 = "Nisu pronađeni zamjenski dijelovi za šifru " + product.getSifra();
 	 }
   return "redirect:/home/displayproducts";
