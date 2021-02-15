@@ -37,6 +37,9 @@ public class Post implements Comparable<Post> {
  @Column(name = "user_name")
  private String userName;
  
+ @Column(name = "country")
+ private String country;
+ 
  @Column(name = "contact_option")
  private String contactOption; 
  
@@ -255,6 +258,20 @@ public String getUserName() {
  */
 public void setUserName(String userName) {
 	this.userName = userName;
+}
+
+/**
+ * @return the country
+ */
+public String getCountry() {
+	return country;
+}
+
+/**
+ * @param country the country to set
+ */
+public void setCountry(String country) {
+	this.country = country;
 }
 
 public int getMaxAvailable() {

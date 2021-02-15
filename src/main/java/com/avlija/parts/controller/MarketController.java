@@ -27,6 +27,7 @@ import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
+import com.avlija.parts.model.Request;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.PostRepository;
@@ -64,6 +65,9 @@ public class MarketController {
 	 
 	 // List market posts which belong to a certain product group
 	 private static List<Post> listOfPostsWithProductGroup;
+	 
+	 // Finding current user to adjust the search for the country of the user
+	 private static User currentUser;
 
 	 // Starting page for searching market posts
 	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
@@ -91,7 +95,8 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/keywordpostsearch"}, method=RequestMethod.POST)
 	 public String searchPostsByKeyword(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 productKeyword = sampleInputs.getProductKeyword();
-		 postsByKeyword = postRepository.findByProductNameContaining(productKeyword);
+		 currentUser = getCurrentUser();
+		 postsByKeyword = postRepository.findByProductNameContainingAndCountryAndActive(productKeyword, currentUser.getCountry(), 1);
 		 return "redirect:/user/displaykeywordposts";
 	 }
 	 
@@ -118,7 +123,7 @@ public class MarketController {
 		       }
 
 		       Page <Post> postsList = null;
-		   		postsList = postRepository.findByProductNameContaining(productKeyword, PageRequest.of(page, size, Sort.by("created").descending()));
+		   		postsList = postRepository.findByProductNameContainingAndCountryAndActive(productKeyword, currentUser.getCountry(), 1, PageRequest.of(page, size, Sort.by("created").descending()));
 		   	
 		   		String message = null;
 		   		if(postsList == null) {
@@ -292,6 +297,7 @@ public class MarketController {
 		  post.setGroupId(product.getProductGroup().getId());
 		  post.setUserId(user.getId());
 		  post.setUserName(user.getFirstname());
+		  post.setCountry(user.getCountry());
 		  post.setProductSifra(product.getSifra());
 		  post.setProductName(product.getName());
 		  post.setMaxAvailable(productQuantity.getQuantity());
@@ -371,6 +377,25 @@ public class MarketController {
 	   		model.addObject("message", message);
 	  	   model.addObject("postsList", postsList);
 	  	   model.setViewName("home/all_posts");
+	  	   return model;
+	 }
+	 
+	 // CHANGING THE STATUS OF THE POST
+	 @RequestMapping(value= {"/user/postcompleted/{id}"}, method=RequestMethod.GET)
+	 public ModelAndView changingActiveStatusOfPost(@PathVariable(name = "id") int id)  {
+		 ModelAndView model = new ModelAndView();
+		 Post post = postRepository.findById(id).get();
+		 if(post.getActive() == 0) {
+			 post.setActive(1);
+		  	 post.setCreated(new Date());
+			 model.addObject("msg", "Oglas je obnovljen");
+		 } else {
+			 post.setActive(0);
+			 model.addObject("err", "Oglas je završen");
+		 }
+		 postRepository.save(post);
+		 model.addObject("post", post);
+		 model.setViewName("user/post_info");
 	  	   return model;
 	 }
 	 

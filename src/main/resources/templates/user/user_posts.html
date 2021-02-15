@@ -34,7 +34,7 @@
                 <th scope="col">Kontaktiraj na</th>               
                 <th scope="col">Kontakt info</th>
                 <th scope="col">Product Info</th>               
-                <th scope="col">Zamjenski proizvodi</th>
+                <th scope="col">Aktivan</th>
             </tr>
         </thead>
         <tbody>
@@ -52,7 +52,7 @@
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
                 </td>       
                 <td th:object="${post}">
-                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{productId}}">Zamjenska Lista</a>
+         			<a th:href="@{'/user/postcompleted/' + *{id}}" class="btn " th:classappend="*{active} == 0 ? btn-danger : btn-success" th:text="*{active} == 0 ? 'NE - Obnovi oglas' : 'DA - Završi oglas'">Osvježi</a>
                 </td>
             </tr>
         </tbody>

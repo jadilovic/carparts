@@ -13,8 +13,8 @@
 <!-- Displaying post info by post ID in MarketController in lines 72 and 131-->
  <div class="container">
  
-      <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
-     </div>
+      <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+      <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
      
   <table th:object="${post}" class="table">
   <thead>
@@ -53,10 +53,12 @@
         <td><span th:text="*{postQuantity}"></span></td>
     </tr>
     <tr>
-      <th scope="row">Active:</th>
-      <td><span th:text="*{active}"></span></td>
+      	<th scope="row">Active:</th>
+        <td th:object="${post}">
+         	<a th:href="@{'/user/postcompleted/' + *{id}}" class="btn " th:classappend="*{active} == 0 ? btn-danger : btn-success" th:text="*{active} == 0 ? 'NE - Obnovi oglas' : 'DA - Završi oglas'">Osvježi</a>
+       	</td>
     </tr>
-        <tr>
+    <tr>
       <th scope="row">Cijena:</th>
       <td><span th:text="*{price}"></span></td>
     </tr>
@@ -69,7 +71,7 @@
           <a class="btn btn-warning" th:href="@{/user/userposts}">Sve objave korisnika</a>
        </td>       
        <td>
-          <a class="btn btn-danger" th:href="@{/user/searchposts}">Pretraga oglasa</a>
+          <a class="btn btn-primary" th:href="@{/user/searchposts}">Pretraga oglasa</a>
        </td>
     </tr>
   </tbody>
