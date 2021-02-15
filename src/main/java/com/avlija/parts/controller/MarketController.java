@@ -27,7 +27,6 @@ import com.avlija.parts.model.Post;
 import com.avlija.parts.model.Product;
 import com.avlija.parts.model.ProductGroup;
 import com.avlija.parts.model.ProductQuantity;
-import com.avlija.parts.model.Request;
 import com.avlija.parts.model.User;
 import com.avlija.parts.model.UserProduct;
 import com.avlija.parts.repository.PostRepository;
