@@ -865,10 +865,6 @@ const menu = [
         				id: 0,
         				title: "Bubanj kočnica",
         				categories:[{
-        						id: 1481,
-        						title: "Kočione obloge",
-        					},
-        					{
         						id: 1491,
         						title: "Bubanj kočnica",
         					},
