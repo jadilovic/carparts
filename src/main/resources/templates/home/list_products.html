@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
  xmlns:th="http://www.thymeleaf.org">
 <head>
- 	<title>Lisa proizvoda</title>
+ 	<title>Lista artikala</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
  </head>
@@ -26,8 +26,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Šifra</th>
-                <th scope="col">Naziv</th>                
+                <th scope="col">Šifra</th>            
                 <th scope="col">Stanje</th>
                 <th scope="col">Proizvođač</th>
                 <th scope="col">Lista</th>
@@ -35,10 +34,10 @@
         </thead>
         <tbody>
             <tr scope="row" th:each="product, productStat : ${productList}">
-                <td th:text="${product.sifra}">Sifra</td>
+                <!-- <td th:text="${product.sifra}">Sifra</td>   -->
                 <!-- Displaying product name in the button and link to product profile-->
                 <td th:object="${product}">
-                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success" th:text="*{name}">Naziv</a>
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success" th:text="*{sifra}">Sifra</a>
                 </td>    
                 <td>
 					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>

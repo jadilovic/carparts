@@ -352,7 +352,9 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
 		 message2 = "Nisu pronađeni artikli u grupi za traženu marku i modela automobila";
 		 return "redirect:/home/modelsearch";
 	 } else {
-		 message = "Pronađeni artikli za traženu grupu, marku i model automobila";
+		 message = "Pronađeni artikli za traženu grupu: '" + group.getName() + "' "
+		 		+ ", marku: '" + carBrand + "' "
+		 		+ ", i model: '" + carModel + "' automobila";
 		 return "redirect:/home/displayproducts";
 	 }
  }
