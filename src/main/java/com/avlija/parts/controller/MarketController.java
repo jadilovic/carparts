@@ -187,15 +187,16 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/postinfo2"}, method=RequestMethod.POST)
 	 public ModelAndView searchPostById(@Valid SampleInputs sampleInputs) {
 		 ModelAndView model = new ModelAndView();
-		 try {
-			 Post postByID = postRepository.findById(sampleInputs.getPostId()).get();	
-		  	   model.addObject("post", postByID);
-		  	   model.addObject("msg", "Rezultat pretrage po broju '" + sampleInputs.getPostId() + "' objavljenog oglasa");
-		  	   model.setViewName("user/post_info");
-		 } catch(Exception e) {
+		 Post postByID = postRepository.findByIdAndCountryAndActive(sampleInputs.getPostId(), currentUser.getCountry(), 1);	
+		  	if(postByID != null) {
+		  		model.addObject("post", postByID);
+		  		model.addObject("msg", "Rezultat pretrage po broju '" + sampleInputs.getPostId() + "' objavljenog oglasa");
+		  		model.setViewName("user/post_info");
+		  	} else {
 			   model.setViewName("user/search_posts");
-			   model.addObject("msg", "Nije pronađen oglas sa unesenim ID brojem. Pokušajte ponovo.");
-		 }
+			   model.addObject("msg", "Nije pronađen oglas sa unesenim ID brojem: '"
+			   		+ sampleInputs.getPostId() + "'. Pokušajte ponovo.");
+		  	}
 	  	   return model;
 	 }
 	 

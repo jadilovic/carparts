@@ -14,7 +14,11 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 /*
  * Market Posts Repository saving info about users posts in the market section
  */
-// MarketController line 139
+	
+	// MarketController line 186
+	Post findByIdAndCountryAndActive(int postId, String country, int active);
+
+	// MarketController line 139
 // List<Post> findByProductSifra(String sifra);
  List<Post> findByProductSifraAndCountryAndActive(String sifra, String country, int active);
 
@@ -43,7 +47,5 @@ List<Post> findByProductNameContainingAndCountryAndActive(String productKeyword,
 
 // MarketController line 102
 Page<Post> findByProductNameContainingAndCountryAndActive(String productKeyword, String country, int active, Pageable pageable);
-
-
 
 }
