@@ -73,6 +73,7 @@ public class MarketController {
 	 public ModelAndView postInfo()  {
 		 ModelAndView model = new ModelAndView();
 		 SampleInputs sampleInputs = new SampleInputs();
+		 currentUser = getCurrentUser();
 		 model.addObject("sampleInputs", sampleInputs);
 		 model.setViewName("user/search_posts");
 	  	   return model;
@@ -83,7 +84,6 @@ public class MarketController {
 	 public ModelAndView postInfo(@PathVariable(name = "id") Integer id)  {
 		 Post post = postRepository.findById(id).get();
 		 ModelAndView model = new ModelAndView();
-	   		
 		 model.addObject("msg", "Info o objavljenom oglasu");
 		 model.addObject("post", post);
 		 model.setViewName("user/post_info");
@@ -94,7 +94,6 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/keywordpostsearch"}, method=RequestMethod.POST)
 	 public String searchPostsByKeyword(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
 		 productKeyword = sampleInputs.getProductKeyword();
-		 currentUser = getCurrentUser();
 		 postsByKeyword = postRepository.findByProductNameContainingAndCountryAndActive(productKeyword, currentUser.getCountry(), 1);
 		 return "redirect:/user/displaykeywordposts";
 	 }
@@ -140,7 +139,7 @@ public class MarketController {
 	 // Searching for post by sifra
 	 @RequestMapping(value= {"/user/postsearch"}, method=RequestMethod.POST)
 	 public String searchPostsBySifra(@Valid SampleInputs sampleInputs, HttpServletRequest request) {
-		 postsBySifra = postRepository.findByProductSifra(sampleInputs.getSifra());
+		 postsBySifra = postRepository.findByProductSifraAndCountryAndActive(sampleInputs.getSifra(), currentUser.getCountry(), 1);
 		 return "redirect:/user/displayposts";
 	 }
 	 
@@ -169,7 +168,7 @@ public class MarketController {
 		       String productSifra = postsBySifra.get(0).getProductSifra();
 
 		       Page <Post> postsList = null;
-		   		postsList = postRepository.findByProductSifra(productSifra, PageRequest.of(page, size, Sort.by("created").descending()));
+		   		postsList = postRepository.findByProductSifraAndCountryAndActive(productSifra, currentUser.getCountry(), 1, PageRequest.of(page, size, Sort.by("created").descending()));
 		   	
 		   		String message = null;
 		   		if(postsList == null) {

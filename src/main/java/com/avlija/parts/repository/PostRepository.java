@@ -14,8 +14,9 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 /*
  * Market Posts Repository saving info about users posts in the market section
  */
-// MarketController line 84
- List<Post> findByProductSifra(String sifra);
+// MarketController line 139
+// List<Post> findByProductSifra(String sifra);
+ List<Post> findByProductSifraAndCountryAndActive(String sifra, String country, int active);
 
  // MarketController line 153
  List<Post> findByGroupId(Long id);
@@ -26,8 +27,10 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
  // MarketController 294
  Page<Post> findAll(Pageable pageable);
 
-// MarketController line 91
-Page<Post> findByProductSifra(String sifra, Pageable pageable);
+// MarketController line 146
+// Page<Post> findByProductSifra(String sifra, Pageable pageable);
+Page<Post> findByProductSifraAndCountryAndActive(String productSifra, String country, int active, Pageable pageable);
+
 
 // MarketController line 87
 //List<Post> findByProductNameContaining(String productKeyword);
@@ -40,5 +43,7 @@ List<Post> findByProductNameContainingAndCountryAndActive(String productKeyword,
 
 // MarketController line 102
 Page<Post> findByProductNameContainingAndCountryAndActive(String productKeyword, String country, int active, Pageable pageable);
+
+
 
 }

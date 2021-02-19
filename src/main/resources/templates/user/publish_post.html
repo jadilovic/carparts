@@ -10,7 +10,7 @@
 
 <div th:include="fragments/header :: header"/></div>
 
-<!-- Staring publishing of the post of a product based on product ID in MarketController line  214-->
+<!-- Staring publishing of the post of a product based on product ID in MarketController lines  277 and 310-->
  <div class="container">
      <form class="form-horizontal" role="form" method="POST" th:action="@{/user/market}" th:object="${post}">
       <div class="row">
@@ -92,29 +92,29 @@
              </div>
           </div>
            <div class="row">
-             <div class="col-md-3 field-label-responsive">
-                 <label for="price">Cijena:</label>
+             <div class="col-md-3">
+                 <label>Cijena:</label>
              </div>
              <div class="col-md-6">
                  <div class="form-group">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-dollar"></i></div>
-                         <input min="1" step="1" type="number" th:field="*{price}" class="form-control" id="price"
-                         required autofocus>
+                         <input min="1" step="1" type="number" th:field="*{price}" 
+                         placeholder="Navesti cijenu artikla" required autofocus>
                      </div>
                  </div>
              </div>
            </div>
            <div class="row">
-             <div class="col-md-3 field-label-responsive">
-                 <label for="quantity">Količina:</label>
+             <div class="col-md-3">
+                 <label>Količina:</label>
              </div>
              <div class="col-md-6">
                  <div class="form-group">
                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                          <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-info"></i></div>
-                         <input min="1" th:max="*{maxAvailable}" step="1" type="number" th:field="*{postQuantity}" class="form-control" id="postQuantity"
-                         required autofocus>
+                         <input min="1" th:max="*{maxAvailable}" step="1" type="number" 
+                         th:field="*{postQuantity}" placeholder="Navesti količinu" required autofocus>
                      </div>
                  </div>
              </div>
