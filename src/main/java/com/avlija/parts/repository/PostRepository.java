@@ -22,8 +22,10 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 // List<Post> findByProductSifra(String sifra);
  List<Post> findByProductSifraAndCountryAndActive(String sifra, String country, int active);
 
- // MarketController line 153
- List<Post> findByGroupId(Long id);
+ // MarketController lines 209 and 218
+ // List<Post> findByGroupId(Long id);
+ List<Post> findByGroupIdAndCountryAndActive(Long groupId, String country, int active);
+
 
  // MarketController line 262
  Page<Post> findByUserId(int userId, Pageable pageable);

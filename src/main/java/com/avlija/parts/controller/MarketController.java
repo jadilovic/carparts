@@ -210,7 +210,7 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/postgroupsearch/{groupId}"}, method=RequestMethod.GET)
 	 public String searchPostsByProductGroup(@PathVariable(name = "groupId") Long groupId) {
 
-		 listOfPostsWithProductGroup = postRepository.findByGroupId(groupId);
+		 listOfPostsWithProductGroup = postRepository.findByGroupIdAndCountryAndActive(groupId, currentUser.getCountry(), 1);
 		 Collections.sort(listOfPostsWithProductGroup, Collections.reverseOrder());
 		 return "redirect:/user/displaypostsgroup";
 	 }
