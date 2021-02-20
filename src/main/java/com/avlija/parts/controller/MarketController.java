@@ -67,6 +67,9 @@ public class MarketController {
 	 
 	 // Finding current user to adjust the search for the country of the user
 	 private static User currentUser;
+	 
+	 // Displaying all posts from all countries or only posts of user country
+	 private static boolean allPosts;
 
 	 // Starting page for searching market posts
 	 @RequestMapping(value= {"/user/searchposts"}, method=RequestMethod.GET)
@@ -349,8 +352,22 @@ public class MarketController {
 	  	   return model;
 	 }
 	 
+	 // DISPLAY ALL POSTS
+	 @RequestMapping(value= {"/home/allposts"}, method=RequestMethod.GET)
+	 public String displayAllPosts() {
+		 allPosts = true;
+		 return "redirect:/home/posts";
+	 }
+	 
+	 // DISPLAY ALL POSTS OF USER COUNTRY AND ACTIVE
+	 @RequestMapping(value= {"/home/countryposts"}, method=RequestMethod.GET)
+	 public String displayAllPostsByCountryAndActive() {
+		 allPosts = false;
+		 return "redirect:/home/posts";
+	 }
+	 
 	 // Displaying all posts on the market
-	 @GetMapping(value= {"/home/allposts"})
+	 @GetMapping(value= {"/home/posts"})
 	 public ModelAndView listAllPosts(HttpServletRequest request) {
 	  ModelAndView model = new ModelAndView();
 	  	   
@@ -366,7 +383,12 @@ public class MarketController {
 	       }
 
 	       Page <Post> postsList = null;
-	   		postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+	       if(allPosts) {
+		   		postsList = postRepository.findAll(PageRequest.of(page, size, Sort.by("created").descending()));
+	       } else {
+	    	   currentUser = getCurrentUser();
+		   		postsList = postRepository.findByCountryAndActive(currentUser.getCountry(), 1, PageRequest.of(page, size, Sort.by("created").descending()));
+	       }
 
 	   		String message = null;
 	   		if(postsList == null) {

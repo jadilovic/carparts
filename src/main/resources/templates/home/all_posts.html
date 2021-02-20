@@ -33,8 +33,10 @@
                 <th scope="col">Cijena po komadu</th>
                 <th scope="col">Kontaktiraj na</th>               
                 <th scope="col">Kontakt info</th>
-                <th scope="col">Product Info</th>               
+                <th scope="col">Product Info</th>          
+                <!-- 
                 <th scope="col">Zamjenski proizvodi</th>
+                 -->
             </tr>
         </thead>
         <tbody>
@@ -50,10 +52,12 @@
                 <td th:text="${post.contactInfo}">Kontakt</td>                               
                 <td th:object="${post}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
-                </td>       
+                </td>   
+                <!--    
                 <td th:object="${post}">
                 	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{productId}}">Zamjenska Lista</a>
                 </td>
+                 --> 
             </tr>
         </tbody>
     </table>
