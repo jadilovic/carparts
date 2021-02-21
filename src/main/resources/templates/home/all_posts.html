@@ -26,15 +26,15 @@
             <tr>
                 <th scope="col">ID #</th>
                 <th scope="col">Datum Oglasa</th>
-                <th scope="col">Šifra proizvoda</th>
+                <th scope="col">Šifra Link</th>
                 <th scope="col">Naziv proizvoda</th> 
                 <th scope="col">Ime prodavača</th>         
                 <th scope="col">Količina</th>            
-                <th scope="col">Cijena po komadu</th>
+                <th scope="col">Cijena komad</th>
                 <th scope="col">Kontaktiraj na</th>               
-                <th scope="col">Kontakt info</th>
-                <th scope="col">Product Info</th>          
+                <th scope="col">Kontakt info</th>        
                 <!-- 
+                <th scope="col">Product Info</th> 
                 <th scope="col">Zamjenski proizvodi</th>
                  -->
             </tr>
@@ -42,18 +42,21 @@
         <tbody>
             <tr scope="row" th:each="post : ${postsList}">
                 <td th:text="${post.id}">ID</td>
-                <td th:text="${#dates.format(post.created, 'dd-MM-yyyy HH:mm')}">Date</td>
-                <td th:text="${post.productSifra}">Šifra</td>   
+                <td th:text="${#dates.format(post.created, 'dd-MM-yyyy')}">Date</td>
+                <td th:object="${post}">
+                     <a class="btn btn-warning" th:text="${post.productSifra}" th:href="@{'/user/postinfo/' + *{id}}">Šifra And Link To Post Info</a>
+                </td>   
                 <td th:text="${post.productName}">Naziv</td>   
                 <td th:text="${post.userName}">Ime prodavača</td>   
                 <td th:text="${post.postQuantity}">Količina</td> 
                 <td th:text="${post.price}">Cijena</td>
                 <td th:text="${post.contactOption}">Kontaktirati</td>       
-                <td th:text="${post.contactInfo}">Kontakt</td>                               
+                <td th:text="${post.contactInfo}">Kontakt</td>  
+                   
+                <!--                             
                 <td th:object="${post}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
-                </td>   
-                <!--    
+                </td>    
                 <td th:object="${post}">
                 	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{productId}}">Zamjenska Lista</a>
                 </td>
@@ -69,7 +72,7 @@
     <ul class="pagination justify-content-center font-weight-medium">
         <li class="page-item" th:classappend="${postsList.number eq 0} ? 'disabled'">
             <a class="page-link svg-icon"
-               th:href="@{/home/allposts?page={id}(id=${postsList.number lt 2 ? 1 : postsList.number})}"
+               th:href="@{/home/posts?page={id}(id=${postsList.number lt 2 ? 1 : postsList.number})}"
                aria-label="Previous"
                title="Previous Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>
@@ -77,7 +80,7 @@
         </li>
         <li class="page-item" th:classappend="${i eq postsList.number + 1} ? 'active'"
             th:each="i : ${#numbers.sequence( postsList.number + 1, postsList.totalPages > 10 + postsList.number ? postsList.number + 10 : postsList.totalPages, 1)}">
-            <a class="page-link" th:href="@{/home/allposts?page={id}(id=${i})}" th:text="${i}"
+            <a class="page-link" th:href="@{/home/posts?page={id}(id=${i})}" th:text="${i}"
                th:title="${'Page '+ i}"
                rel="tooltip"></a>
         </li>
@@ -87,7 +90,7 @@
             </a>
         </li>
         <li class="page-item" th:classappend="${postsList.number + 1 eq postsList.totalPages} ? 'disabled'">
-            <a class="page-link svg-icon" th:href="@{/home/allposts?page={id}(id=${postsList.number + 2})}"
+            <a class="page-link svg-icon" th:href="@{/home/posts?page={id}(id=${postsList.number + 2})}"
                aria-label="Next"
                title="Next Page" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>

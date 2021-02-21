@@ -30,7 +30,9 @@
     </tr>
     <tr>
       <th scope="row">Šifra proizvoda:</th>
-      <td><span th:text="*{productSifra}"></span></td>
+      <td>
+          <a class="btn btn-info" th:text="*{productSifra}" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
+      </td>
     </tr>
     <tr>
       <th scope="row">Naziv proizvoda:</th>
@@ -61,6 +63,10 @@
     <tr>
       <th scope="row">Cijena:</th>
       <td><span th:text="*{price}"></span></td>
+    </tr>
+    <tr>
+        <th scope="row">Država:</th>
+        <td><span th:text="*{country}"></span></td>
     </tr>
     <tr>
         <th scope="row">Objavljeno:</th>
