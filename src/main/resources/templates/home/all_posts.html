@@ -44,7 +44,7 @@
                 <td th:text="${post.id}">ID</td>
                 <td th:text="${#dates.format(post.created, 'dd-MM-yyyy')}">Date</td>
                 <td th:object="${post}">
-                     <a class="btn btn-warning" th:text="${post.productSifra}" th:href="@{'/user/postinfo/' + *{id}}">Šifra And Link To Post Info</a>
+                     <a class="btn btn-warning fixed_button" th:text="${#strings.abbreviate(post.productSifra, 8)}" th:href="@{'/user/postinfo/' + *{id}}">Šifra And Link To Post Info</a>
                 </td>   
                 <td th:text="${post.productName}">Naziv</td>   
                 <td th:text="${post.userName}">Ime prodavača</td>   

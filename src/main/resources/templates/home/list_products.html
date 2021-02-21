@@ -5,6 +5,7 @@
  	<title>Lista artikala</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
  </head>
 <body>
 
@@ -37,7 +38,7 @@
                 <!-- <td th:text="${product.sifra}">Sifra</td>   -->
                 <!-- Displaying product name in the button and link to product profile-->
                 <td th:object="${product}">
-                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success" th:text="*{sifra}">Sifra</a>
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success wider_button" th:text="*{#strings.abbreviate(sifra, 16)}">Sifra</a>
                 </td>    
                 <td>
 					<span th:text="*{productQuantityList[__${productStat .index}__].quantity}">Stanje</span>
