@@ -405,19 +405,24 @@ public class MarketController {
 	 @RequestMapping(value= {"/user/postcompleted/{id}"}, method=RequestMethod.GET)
 	 public ModelAndView changingActiveStatusOfPost(@PathVariable(name = "id") int id)  {
 		 ModelAndView model = new ModelAndView();
+		 currentUser = getCurrentUser();
 		 Post post = postRepository.findById(id).get();
-		 if(post.getActive() == 0) {
-			 post.setActive(1);
-		  	 post.setCreated(new Date());
-			 model.addObject("msg", "Oglas je obnovljen");
+		 if(post.getUserId() == currentUser.getId()) {
+			 if(post.getActive() == 0) {
+				 post.setActive(1);
+			  	 post.setCreated(new Date());
+				 model.addObject("msg", "Oglas je obnovljen");
+			 } else {
+				 post.setActive(0);
+				 model.addObject("err", "Oglas je završen");
+			 }
+			 postRepository.save(post);
 		 } else {
-			 post.setActive(0);
-			 model.addObject("err", "Oglas je završen");
+			 model.addObject("err", "Nije dozvoljena izmjena statusa oglasa");
 		 }
-		 postRepository.save(post);
 		 model.addObject("post", post);
 		 model.setViewName("user/post_info");
-	  	   return model;
+	  	 return model;
 	 }
 	 
 	 // Finding out user for the purpose of displaying user posts

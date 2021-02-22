@@ -31,7 +31,7 @@
     <tr>
       <th scope="row">Šifra proizvoda:</th>
       <td>
-          <a class="btn btn-info" th:text="*{productSifra}" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
+          <a class="btn btn-info wider_button" th:text="*{productSifra}" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
       </td>
     </tr>
     <tr>
@@ -56,7 +56,7 @@
     </tr>
     <tr>
       	<th scope="row">Active:</th>
-        <td th:object="${post}">
+        <td>
          	<a th:href="@{'/user/postcompleted/' + *{id}}" class="btn " th:classappend="*{active} == 0 ? btn-danger : btn-success" th:text="*{active} == 0 ? 'NE - Obnovi oglas' : 'DA - Završi oglas'">Osvježi</a>
        	</td>
     </tr>
