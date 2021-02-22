@@ -24,15 +24,15 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">ID #</th>
                 <th scope="col">Datum Oglasa</th>
                 <th scope="col">Šifra Link</th>
-                <th scope="col">Naziv proizvoda</th> 
-                <th scope="col">Ime prodavača</th>         
+                <th scope="col">Naziv proizvoda</th>        
                 <th scope="col">Količina</th>            
                 <th scope="col">Cijena komad</th>
                 <th scope="col">Kontaktiraj na</th>               
-                <th scope="col">Kontakt info</th>        
+                <th scope="col">Kontakt info</th>
+                <th scope="col">Ime prodavača</th> 
+                <th scope="col">ID #</th>       
                 <!-- 
                 <th scope="col">Product Info</th> 
                 <th scope="col">Zamjenski proizvodi</th>
@@ -41,18 +41,17 @@
         </thead>
         <tbody>
             <tr scope="row" th:each="post : ${postsList}">
-                <td th:text="${post.id}">ID</td>
                 <td th:text="${#dates.format(post.created, 'dd-MM-yyyy')}">Date</td>
                 <td th:object="${post}">
                      <a class="btn btn-warning fixed_button" th:text="${#strings.abbreviate(post.productSifra, 8)}" th:href="@{'/user/postinfo/' + *{id}}">Šifra And Link To Post Info</a>
                 </td>   
-                <td th:text="${post.productName}">Naziv</td>   
-                <td th:text="${post.userName}">Ime prodavača</td>   
+                <td th:text="${post.productName}">Naziv</td> 
                 <td th:text="${post.postQuantity}">Količina</td> 
                 <td th:text="${post.price}">Cijena</td>
                 <td th:text="${post.contactOption}">Kontaktirati</td>       
                 <td th:text="${post.contactInfo}">Kontakt</td>  
-                   
+                <td th:text="${post.userName}">Ime prodavača</td>    
+                <td th:text="${post.id}">ID</td>
                 <!--                             
                 <td th:object="${post}">
                 	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{productId}}">Product Info</a>
