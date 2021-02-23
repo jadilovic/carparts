@@ -12,10 +12,10 @@
 
 <!-- Displaying post info by post ID in MarketController in lines 72 and 131-->
  <div class="container">
- 
+ 	<div class="p-2" align="center">
       <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
       <div class="alert alert-danger" role="alert" th:if="${err}" th:utext="${err}"></div>
-     
+    </div>
   <table th:object="${post}" class="table">
   <thead>
     <tr>
@@ -77,7 +77,7 @@
           <a class="btn btn-warning" th:href="@{/user/userposts}">Sve objave korisnika</a>
        </td>       
        <td>
-          <a class="btn btn-primary" th:href="@{/user/searchposts}">Pretraga oglasa</a>
+          <a class="btn btn-primary max_button" th:href="@{/user/searchposts}">Pretraga oglasa</a>
        </td>
     </tr>
   </tbody>
