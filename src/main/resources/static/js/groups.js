@@ -873,10 +873,6 @@ const menu = [
         						title: "Kočioni cilindar",
         					},
         					{
-        						id: 1511,
-        						title: "Kočione obloge",
-        					},
-        					{
         						id: 1521,
         						title: "Garnitura za montažu kočionih obloga",
         					},

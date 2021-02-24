@@ -472,7 +472,6 @@ public class AdminController {
  public ModelAndView createCarModel(@Valid CarModel carModel) {
   ModelAndView model = new ModelAndView();
   CarModel carModelExists = carModelRepository.findByName(carModel.getName());
-  
   if(carModelExists != null) {
 	  model.addObject("err", "Ovaj model automobila već postoji!");
   } else {
