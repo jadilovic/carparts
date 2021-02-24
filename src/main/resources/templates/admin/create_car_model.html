@@ -62,7 +62,7 @@
       	  			<select th:field="*{brand}">
               			<option th:each="carBrand : ${brands}"
               				th:value="${carBrand.id}"
-              				th:utext="${carBrand.name}"/>
+              				th:text="${carBrand.name}"/>
           			</select>
       			</td>
       			<td></td>

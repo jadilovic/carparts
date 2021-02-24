@@ -459,7 +459,9 @@ public class AdminController {
  public ModelAndView createCarModel() {
   ModelAndView model = new ModelAndView();
   CarModel carModel = new CarModel();
+  Brand brand = brandRepository.findById(1L).get();
   List<Brand> brands = (List<Brand>) brandRepository.findAll();
+  model.addObject("brand", brand);
   model.addObject("carModel", carModel);
   model.addObject("brands", brands);
   model.setViewName("admin/create_car_model");
@@ -476,11 +478,10 @@ public class AdminController {
 	  model.addObject("err", "Ovaj model automobila već postoji!");
   } else {
 	  carModelRepository.save(carModel);
-	   model.addObject("msg", "Novi model automobila je uspješno kreiran!");
+	  model.addObject("msg", "Novi model automobila je uspješno kreiran!");
   }
-  
+  model.addObject("carModel", carModel);
   List<Brand> brands = (List<Brand>) brandRepository.findAll();
-  model.addObject("carModel", new CarModel());
   model.addObject("brands", brands);
   model.setViewName("admin/create_car_model");
   return model;
