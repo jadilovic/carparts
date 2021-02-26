@@ -302,7 +302,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
  public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   List<CarModel> carModels = carModelRepository.findByBrand(carModel.getBrand());
-  carModels.sort(new CarModelNameSorter());
+  carModels.sort(new CarModelNameSorter().reversed());
   model.addObject("carModel", carModel);
   model.addObject("carModels", carModels);
   model.setViewName("home/select_model");
