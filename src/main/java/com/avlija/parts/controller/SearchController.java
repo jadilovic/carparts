@@ -34,6 +34,7 @@ import com.avlija.parts.repository.CarModelRepository;
 import com.avlija.parts.repository.ProductGroupRepository;
 import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
+import com.avlija.parts.service.CarModelNameSorter;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
@@ -301,6 +302,7 @@ public String listProductsByGroup(@PathVariable(name = "productGroupId") Long pr
  public ModelAndView modelSearch2(@Valid CarModel carModel, BindingResult bindingResult) {
   ModelAndView model = new ModelAndView();
   List<CarModel> carModels = carModelRepository.findByBrand(carModel.getBrand());
+  carModels.sort(new CarModelNameSorter());
   model.addObject("carModel", carModel);
   model.addObject("carModels", carModels);
   model.setViewName("home/select_model");
