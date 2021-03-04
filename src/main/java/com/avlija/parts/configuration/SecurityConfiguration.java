@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
              "/file/**",
              "/images/**",
              "/js/**",
-             "/favicon.ico",
+            // "/favicon.ico",
          };
  
  @Override
@@ -74,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
  public void configure(WebSecurity web) throws Exception {
      web
              .ignoring()
-             .antMatchers("/resources/**", "/static/**", "/css/**", "/file/**", "/js/**", "/images/**", "/favicon.ico");
+             .antMatchers("/resources/**", "/static/**", "/css/**", "/file/**", "/js/**", "/images/**");
  }
  
  @Bean
