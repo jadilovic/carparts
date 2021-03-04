@@ -34,6 +34,7 @@ import com.avlija.parts.repository.ProductQuantityRepository;
 import com.avlija.parts.repository.ProductRepository;
 import com.avlija.parts.repository.TransactionRepository;
 import com.avlija.parts.repository.UserRepository;
+import com.avlija.parts.service.ProductMakerNameSorter;
 import com.avlija.parts.service.ProductServiceImpl;
 import com.avlija.parts.service.UserService;
 
@@ -140,6 +141,7 @@ public class AdminController {
   Product product = new Product();
   List<ProductGroup> productGroupList = productGroupRepository.findAll();
   List<ProductMaker> productMakerList = productMakerRepository.findAll();
+  productMakerList.sort(new ProductMakerNameSorter().reversed());
   model.addObject("product", product);
   model.addObject("productMakerList", productMakerList);
   model.addObject("productGroupList", productGroupList);
