@@ -162,6 +162,7 @@ public class AdminController {
   if(bindingResult.hasErrors()) {
 	  List<ProductGroup> productGroupList = productGroupRepository.findAll();
 	  List<ProductMaker> productMakerList = productMakerRepository.findAll();
+	  productMakerList.sort(new ProductMakerNameSorter().reversed());
 	  model.addObject("product", product);
 	  model.addObject("productMakerList", productMakerList);
 	  model.addObject("productGroupList", productGroupList);
@@ -208,6 +209,8 @@ public class AdminController {
    
    List<ProductGroup> productGroupList = productGroupRepository.findAll();
    List<ProductMaker> productMakerList = productMakerRepository.findAll();
+   productMakerList.sort(new ProductMakerNameSorter().reversed());
+
    model.addObject("product", new Product());
    model.addObject("productMakerList", productMakerList);
    model.addObject("productGroupList", productGroupList);

@@ -44,7 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
              "/file/**",
              "/images/**",
              "/js/**",
-            // "/favicon.ico",
          };
  
  @Override
