@@ -98,6 +98,7 @@ public ModelAndView searchGroups() {
 // SEARCH PRODUCTS BY GROUP
 @RequestMapping(value= {"/home/listproducts/{productGroupId}"}, method=RequestMethod.GET)
 public String listProductsByGroup(@PathVariable(name = "productGroupId") Long productGroupId) {
+	System.out.println("TEST TEST Group ID: " + productGroupId);
 	 ProductGroup productGroup = productGroupRepository.findById(productGroupId).get();
 	 productList = productServiceImpl.findProductsByGroup(productGroup);
 	 if(productList.isEmpty()) {

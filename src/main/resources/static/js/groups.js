@@ -1513,10 +1513,6 @@ const menu = [
               	title: "Usisne grane",
             },
             {
-              	id: 3321,
-              	title: "Filteri kabine",
-            },
-            {
               	id: 3331,
               	title: "Turbo punjenje",
             },
