@@ -1,3 +1,10 @@
+
+Samo pretražiti i izbacit proizvode na stanju
+Zamjenski lista transakcija izbaciti i dodati link do proizvoda
+Izmjeniti ime po grupi artikala
+Dodati Autodijelovi na stanju pretraga po šifri i nazivu
+
+
 Set opruga
 Opruga amortizera, stražnja osovina
 Opruga amortizera, prednja osovina

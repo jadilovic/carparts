@@ -10,8 +10,8 @@
 
 <div th:include="fragments/header :: header"/></div>
 
-<!-- Search page for starting searches by sifra and group - SearchController line 67 -->
-<!-- Return page if no product is found with entered sifra - SearchController line 145 -->
+<!-- Search page for starting searches by sifra and group - SearchController line 77 -->
+<!-- Return page if no product is found with entered sifra - SearchController line 253 -->
  <div class="container">
  
        <div class="row p-2">
@@ -19,6 +19,11 @@
               <div class="alert alert-danger" role="alert" th:if="${message2}" th:utext="${message2}"></div>
          </div>
        </div>
+       
+         <div class="p-3 row">
+             <div class="col-md-3"></div>
+                 <h5>Autodijelovi na stanju</h5>
+         </div>
 	
 	<div class="card text-center">
   		<div class="card-body">

@@ -22,36 +22,30 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">ID #</th>
                 <th scope="col">Datum Transakcije</th>
                 <th scope="col">Šifra proizvoda</th>
-                <th scope="col">Naziv proizvoda</th>                
+                <th scope="col">Naziv proizvoda</th> 
+                <th scope="col">Vrsta transakcije</th>                  
                 <th scope="col">Proizvođač</th>
-                <th scope="col">Količina</th> 
-                <th scope="col">Vrsta transakcije</th>                
+                <th scope="col">Količina</th>              
                 <th scope="col">Transakciju izvršio</th>               
                 <th scope="col">Ukupna vrijednost</th>
-                <th scope="col">Dodatni Info</th>               
-                <th scope="col">Zamjenski proizvodi</th>
+                <th scope="col">ID #</th>
             </tr>
         </thead>
         <tbody>
             <tr scope="row" th:each="trans : ${transactionsList}">
-                <td th:text="${trans.id}">ID</td>
                 <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
-                <td th:text="${trans.getProduct().getSifra()}">Šifra</td>   
+                <td th:object="${trans.getProduct()}">
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success wider_button" th:text="*{#strings.abbreviate(sifra, 9)}">Sifra</a>
+                </td>   
                 <td th:text="${trans.getProduct().getName()}">Naziv</td>   
+                <th th:style="|${trans.transType == 'IZLAZ' ? 'color: red;' : 'color: green;'}}|" th:text="${trans.transType}">Vrsta transakcije</th>   
                 <td th:text="${trans.getProduct().getProductMaker().getName()}">Proizvođač</td>   
                 <td th:text="${trans.transQuant}">Količina</td> 
-     <th th:style="|${trans.transType == 'IZLAZ' ? 'color: red;' : 'color: green;'}}|" th:text="${trans.transType}">Vrsta transakcije</th>   
                 <td th:text="${trans.getUser().getFirstname()}">Korisnik</td>
-                <td th:text="${trans.totalValue}">Vrijednost</td>                
-                <td th:object="${trans.getProduct()}">
-                	<a class="btn btn-warning" th:href="@{'/home/productprofile/' + *{id}}">Product Info</a>
-                </td>       
-                <td th:object="${trans.getProduct()}">
-                	<a class="btn btn-danger" th:href="@{'/home/listreplaceproducts/' + *{id}}">Zamjenska Lista</a>
-                </td>
+                <td th:text="${trans.totalValue}">Vrijednost</td>       
+                <td th:text="${trans.id}">ID</td>              
             </tr>
         </tbody>
     </table>
