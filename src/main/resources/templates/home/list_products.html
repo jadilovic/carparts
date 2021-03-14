@@ -23,6 +23,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+            	<th scope="col">Naziv</th>  
                 <th scope="col">Šifra</th>            
                 <th scope="col">Stanje</th>
                 <th scope="col">Proizvođač</th>
@@ -31,8 +32,11 @@
         </thead>
         <tbody>
             <tr scope="row" th:each="product, productStat : ${productList}">
-                <!-- <td th:text="${product.sifra}">Sifra</td>   -->
-                <!-- Displaying product name in the button and link to product profile-->
+                <!--  <td th:text="${product.name}">Naziv</td>-->
+                <td th:object="${product}">
+                	<span th:text="*{#strings.abbreviate(name, 15)}"></span>
+                </td> 
+                <!-- Displaying product sifra in the button and link to product profile-->
                 <td th:object="${product}">
                 	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success wider_button" th:text="*{#strings.abbreviate(sifra, 16)}">Sifra</a>
                 </td>    
