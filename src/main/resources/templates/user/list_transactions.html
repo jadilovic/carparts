@@ -37,7 +37,7 @@
             <tr scope="row" th:each="trans : ${transactionsList}">
                 <td th:text="${#dates.format(trans.created, 'dd-MM-yyyy HH:mm')}">Date</td>
                 <td th:object="${trans.getProduct()}">
-                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-success wider_button" th:text="*{#strings.abbreviate(sifra, 9)}">Sifra</a>
+                	<a th:href="@{'/home/productprofile/' + *{id}}" class="btn btn-warning wider_button" th:text="*{#strings.abbreviate(sifra, 16)}">Sifra</a>
                 </td>   
                 <td th:text="${trans.getProduct().getName()}">Naziv</td>   
                 <th th:style="|${trans.transType == 'IZLAZ' ? 'color: red;' : 'color: green;'}}|" th:text="${trans.transType}">Vrsta transakcije</th>   
